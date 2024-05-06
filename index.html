@@ -48,7 +48,7 @@
                 communicate intuitively.
                 One of the key challenges to be solved towards this goal is learning from multimodal, uncurated human demonstrations
                 without rewards.
-                Therefore, I am working on novel methods that exploit multimodality and learn versatile behaviour.
+                Therefore, I am working on novel methods that exploit multimodality and learn versatile behavior.
                 Representative papers are <span class="highlight">highlighted</span>.
               </p>
             </td>
@@ -56,6 +56,66 @@
         </tbody></table>
         <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;">
           <tbody>
+            <tr>
+              <td style="padding:20px;width:100%;vertical-align:middle">
+                <div style="display: flex;">
+                  <div style="flex: 0 0 25%; max-width: 25%;">
+                    <img src='images/new_entry.gif' style="width: 100%; max-width: 100%;">
+                  </div>
+                  <div style="flex: 0 0 75%; max-width: 75%; padding-left: 20px;">
+                    <a href="https://openreview.net/pdf?id=G3mEGSw3eN">
+                      <papertitle>Efficient Diffusion Transformer Policies with Mixture of Expert Denoisers for Multitask Learning</papertitle>
+                    </a>
+                    <br>
+                    <strong>Moritz Reuss</strong>,
+                    <a href="https://jyopari.github.io/aboutMe.html">Jyothish Pari</a>,
+                    <a href="https://people.csail.mit.edu/pulkitag/">Pulkit Agrawal</a>,
+                    <a href="http://rudolf.intuitive-robots.net/">Rudolf Lioutikov</a> <br>,
+                    <br>
+                    Preprint, ICRA Workshop Manipulation Skills 2024
+                    <br>
+                    <a href="https://openreview.net/pdf?id=G3mEGSw3eN">Paper Link</a>
+                    <p></p>
+                    <p>
+                      We propose Mixture-of-Denoising Experts (MoDE) as a novel policy for guided behavior generation, that outperforms dense transformer-based Diffusion Policies in performance, number of parameters and efficiency. 
+                      Our proposed method introduces a novel routing strategy, that conditions the expert selection on the current noise level of the diffusion process. We test MoDE on four established imitation learning benchmarks, including CALVIN and LIBERO. 
+                      In our experiments, MoDE consistently outperforms dense transformer architectures and state-of-the-art baselines. 
+                      In addition, MoDE achieves higher average performance with half of the FLOPS and less parameters compared to the dense transformer diffusion policy.
+                    </p>
+                  </div>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td style="padding:20px;width:100%;vertical-align:middle">
+                <div style="display: flex;">
+                  <div style="flex: 0 0 25%; max-width: 25%;">
+                    <img src='images/new_entry.gif' style="width: 100%; max-width: 100%;">
+                  </div>
+                  <div style="flex: 0 0 75%; max-width: 75%; padding-left: 20px;">
+                    <a href="https://openreview.net/pdf?id=Q70XYvUk52">
+                      <papertitle>Scaling Robot Policy Learning via Zero-Shot Labeling with Foundation Models</papertitle>
+                    </a>
+                    <br>
+                    Nils Blank,
+                    <strong>Moritz Reuss</strong>,
+                    Fabian Wenzel,
+                    <a href="https://www.oiermees.com/">Oier Mees</a> <br>
+                    <a href="http://rudolf.intuitive-robots.net/">Rudolf Lioutikov</a> <br>,
+                    <br>
+                    Preprint, Oral @ 2nd Workshop on Mobile Manipulation and Embodied Intelligence at ICRA 2024
+                    <br>
+                    <a href="https://openreview.net/pdf?id=Q70XYvUk52">Paper Link</a>
+                    <p></p>
+                    <p>
+                      We introduce a novel approach to automatically label uncurated, long-horizon robot teleoperation data at scale in a zero-shot manner without any human intervention. 
+                      We utilize a combination of pre-trained vision-language foundation models to detect objects in a scene, propose possible tasks, segment tasks from large datasets of unlabelled interaction data and then train language-conditioned policies on the relabeled datasets. 
+                      Our initial experiments show that our method enables training language-conditioned policies on unlabeled and unstructured datasets that match ones trained with oracle human annotations.
+                    </p>
+                  </div>
+                </div>
+              </td>
+            </tr>
             <tr>
               <td style="padding:20px;width:100%;vertical-align:middle">
                 <div style="display: flex;">
@@ -106,6 +166,8 @@
                     </a>
                     <br>
                     <strong>Moritz Reuss</strong>,
+                    Ömer Erdinç Yağmurlu,
+                    Fabian Wenzel,
                     <a href="http://rudolf.intuitive-robots.net/">Rudolf Lioutikov</a> <br>
                     <br>
                     <em><span style="color:red;">Oral</span> @ Workshop on Language and Robot Learning (LangRob)
@@ -114,10 +176,10 @@
                     <a href="https://openreview.net/pdf?id=nvtxqMGpn1">OpenReview</a>
                     <p></p>
                     <p>
-                      We present a novel diffusion policy for learning from uncurated, reward-free offline data with sparse language labels.
-                      Our method, called Multimodal Diffusion Transformer (MDT), is able to learn complex, long-horizon behaviors and sets a new state-of-the-art on the challenging CALVIN benchmark.
-                      MDT uses a novel transformer architecture for diffusion policies, that leverages pre-trained vision and language foundation models and alligns
-                      multimodal goal-specifications in the latent space of the transformer enocder to enable effective learning from play with multimodal goal specifications.
+                      We present a novel diffusion policy for learning from uncurated, reward-free offline data with sparse language labels. 
+                      Our method, called Multimodal Diffusion Transformer (MDT), is able to learn complex, long-horizon behaviors and sets a new state-of-the-art on the challenging CALVIN benchmark. 
+                      MDT uses a novel transformer architecture for diffusion policies, that leverages pre-trained vision and language foundation models and aligns multimodal goal-specifications in the latent space of the transformer encoder. 
+                      MDT uses two novel self-supervised auxiliary objectives to better follow goals specified in language and images.
                     </p>
                   </div>
                 </div>
