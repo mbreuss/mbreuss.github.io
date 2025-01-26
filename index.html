@@ -60,10 +60,10 @@
               <td style="padding:20px;width:100%;vertical-align:middle">
                 <div style="display: flex;">
                   <div style="flex: 0 0 25%; max-width: 25%;">
-                    <img src='images/MoDE_Figure1.png' style="width: 100%; max-width: 100%;">
+                    <img src='images/MoDE_X.png' style="width: 100%; max-width: 100%;">
                   </div>
                   <div style="flex: 0 0 75%; max-width: 75%; padding-left: 20px;">
-                    <a href="https://openreview.net/pdf?id=G3mEGSw3eN">
+                    <a href="https://openreview.net/pdf?id=nDmwloEl3N">
                       <papertitle>Efficient Diffusion Transformer Policies with Mixture of Expert Denoisers for Multitask Learning</papertitle>
                     </a>
                     <br>
@@ -72,15 +72,20 @@
                     <a href="https://people.csail.mit.edu/pulkitag/">Pulkit Agrawal</a>,
                     <a href="http://rudolf.intuitive-robots.net/">Rudolf Lioutikov</a> <br>
                     <br>
-                    Under review, ICRA Workshop Manipulation Skills 2024
+                    ICLR 2025
                     <br>
-                    <a href="https://openreview.net/pdf?id=G3mEGSw3eN">Paper Link</a>
-                    <p></p>
+                      <a href="https://mbreuss.github.io/MoDE_Diffusion_Policy/">Project Page</a> 
+                      /
+                      <a href="https://github.com/intuitive-robots/MoDE_Diffusion_Policy">Code </a>
+                      /
+                  <a href="https://arxiv.org/pdf/2412.12953">Arxiv</a>
+                  <p></p>
                     <p>
-                      We propose Mixture-of-Denoising Experts (MoDE) as a novel policy for guided behavior generation, that outperforms dense transformer-based Diffusion Policies in performance, number of parameters and efficiency. 
+                      We propose Mixture-of-Denoising Experts (MoDE) as a novel generalist policy for guided behavior generation, that outperforms dense transformer-based Diffusion Policies in performance, number of parameters and efficiency. 
                       Our proposed method introduces a novel routing strategy, that conditions the expert selection on the current noise level of the diffusion process. We test MoDE on four established imitation learning benchmarks, including CALVIN and LIBERO. 
-                      In our experiments, MoDE consistently outperforms dense transformer architectures and state-of-the-art baselines. 
-                      In addition, MoDE achieves higher average performance with half of the FLOPS and less parameters compared to the dense transformer diffusion policy.
+                      In our experiments, MoDE consistently outperforms dense transformer architectures and state-of-the-art baselines on CALVIN and LIBERO benchmark. 
+                      We pretrain MoDE on a subset of OXE for just 3 days on 6 GPUS to surpass OpenVLA and Octo in terms of performance on SIMPLER.
+                      In addition, MoDE achieves higher average performance with 90% less FLOPS, 20% faster inference and 40% less parameters compared to the dense transformer diffusion policy.
                     </p>
                   </div>
                 </div>
