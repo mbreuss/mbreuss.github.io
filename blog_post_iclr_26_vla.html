@@ -58,16 +58,16 @@
         <p>
           In order to better understand the results of the papers mentioned below, it is important to have some context on the current state of popular VLA benchmarks.
           Given the current benchmark there is no clear statement possible to say which model is the best, as most papers only compare against each other on the usual simulation benchmarks.
-          90% of papers mentioned in this post all test in either <a href="https://arxiv.org/abs/2306.03310" target="_blank">LIBERO</a>, <a href="https://openreview.net/pdf?id=LZh48DTg71" target="_blank">SIMPLER</a> or <a href="https://arxiv.org/abs/2112.03227" target="_blank">CALVIN</a>.
+          90% of papers mentioned in this post all test in either <a href="https://arxiv.org/abs/2306.03310" target="_blank">LIBERO</a>, <a href="https://openreview.net/pdf?id=LZh48DTg71" target="_blank">SIMPLER</a> or <a href="https://arxiv.org/abs/2112.03227" target="_blank">CALVIN</a>.<br><br>
           LIBERO is basically solved and showing 99% vs 98% is not very helpful and you don't need VLAs and large-scale pretraining to get competetive results.
           E.g. all mentioned concurrent discrete diffusion policies below test on LIBERO and all achieve between 95-98% average over the 4 versions (Goal, Spatial, Long, Object).
-          Based on these results it is impossible to say which model is better, as they are all very close to the ceiling anywayys and you dont need internet scale pretraining to solve these. 
-          Rule of thumb for getting a impression a VLA is decent or near sota levels on these: LIBERO: >95% is expected for Spatial, Goal and Object, 90-95% is required for Long and 90, <90% is only decent for non-wrist came or few-shot stuff.
+          Based on these results it is impossible to say which model is better, as they are all very close to the ceiling anywayys and you dont need internet scale pretraining to solve these.<br><br>
+          Rule of thumb for getting a impression a VLA is decent or near sota levels on these: LIBERO: >95% is expected for Spatial, Goal and Object, 90-95% is required for Long and 90, lower than 90% is only decent for non-wrist came or few-shot stuff.
           A properly tuned Diffusion Policy can get you there without VLAs altough the most cited DP baselines is showing worse results. 
           CALVIN is also almost solved if taken the current sota models like <a href="https://arxiv.org/pdf/2509.04996">FLOWER</a>  into account (which most papers avoid because they are worse).
           For CALVIN higher than 4 score for ABC is standard now and above 4.5 is very sota regime. For the D version 3.75 is standard and above 4 is very good. 
-          For the ABCD version results above 4.6 are relevant. 
-          SIMPLER is kind of in a weird spot and I don't know if progress there translates to real world. THe bridge version ranges from 40% up to 90% success rate, making it hard to judge. 
+          For the ABCD version results above 4.6 are relevant.<br><br>
+          SIMPLER is kind of in a weird spot and I don't know if progress there translates to real world. The bridge version ranges from 40% up to 90% success rate, making it hard to judge. 
           For the Google Robot version current sota models achieve around 70% success rate. 
           Somehow, RLBench (<a href="https://arxiv.org/abs/1909.12271" target="_blank">RLBench</a>) (the most popular 3d policy benchmark) has gained more popularity in VLA benchmarking, but all VLAs are still far away from SOTA compared to 3D methods like <a href="https://arxiv.org/abs/2402.10885" target="_blank">3DDA</a> and most VLA policies try to avoid comparing against all relevant 3d baselines for some reason. 
           Any real world results are very welcome, as sim-only is hard to trust especially with VLA papers that use models with 7B+ parameters and are very prone to overfitting successfully on these benchmarks.
@@ -180,6 +180,24 @@
           Otherwise, a lot of papers focus on making inference more efficient by using better quantization, distillation or similar ideas. 
         </p>
 
+        <p><strong>Notable papers:</strong></p>
+        <ul>
+          <li>
+            <a href="https://openreview.net/attachment?id=DdrsHWobR1&name=pdf">
+              DISENTANGLED ROBOT LEARNING VIA SEPARATE FORWARD AND INVERSE DYNAMICS PRETRAINING
+            </a><br>
+            <em>TL;DR:</em> Introduces a novel approach to robot learning by pretraining separate forward and inverse dynamics models pretraining.
+            In the second stage they are combined again for a coupled finetuning of the policy. Results on CALVIN are good on SIMPLER decent.
+          </li>
+
+          <li>
+            <a href="https://openreview.net/attachment?id=TpL2nXanru&name=pdf">
+              AUTOQVLA: NOT ALL CHANNELS ARE EQUAL IN VISION-LANGUAGE-ACTION MODEL’S QUANTIZATION
+            </a><br>
+            <em>TL;DR:</em> Analysis quantization of OpenVLA and proposes improved quantization method for maintaining performance with only 30% of the original VRAM requirements.
+          </li>
+        </ul>
+
         <h2 id="vla-video">5. VLA + Video Prediction</h2>
         <p>Started by strong results from <a href="https://arxiv.org/pdf/2312.13139" target="_blank">GR-1 paper</a>  from ICLR 2024 that showed the potential of video-based policies, there is a growing interest in this subfield.
           These types of policies can be divided into two general categories: starting by a VLM, that optionally has been trained on image generation and continue training it with future frame and action prediciton. 
@@ -222,17 +240,21 @@
         <p><strong>Notable papers:</strong></p>
         <ul>
           <li>
-            <a href="https://openreview.net/attachment?id=DdrsHWobR1&name=pdf">
-              ???
+            <a href="https://openreview.net/attachment?id=OutljIofvS&name=pdf">
+              ROBOTARENA ∞: UNLIMITED ROBOT BENCHMARKING VIA REAL-TO-SIM TRANSLATION
             </a><br>
-            <em>TL;DR:</em> ??
+            <em>TL;DR: </em> Introduces a new benchmarking framework inspired by the RoboArena work for real2sim setup. 
+            It provides automatic environment construction and evaluation using physics engine, real-2-sim translation and human feedback. 
+            They use real2sim translation pipeline with a bunch of foundation models and differentiable rendering and VLM-based task progression scores.
+            Seems very interesting on first glance and I am excited to try it out myself. 
           </li>
 
           <li>
-            <a href="https://openreview.net/attachment?id=wPEIStHxYH&name=pdf">
-              ??
+            <a href="https://openreview.net/attachment?id=tQJYKwc3n4&name=pdf">
+              ROBOCASA365: A LARGE-SCALE SIMULATION FRAMEWORK FOR TRAINING AND BENCHMARKING GENERALIST ROBOTS
             </a><br>
-            <em>TL;DR:</em> ????
+            <em>TL;DR:</em> Extends the inital RoboCase sim and benchmark setup with a very diverse setup of 365 tasks across 2k+ kitchen scens and more than 2k hours of telop data. 
+            The task setups look great and the data scale is also promising I just wish they tested more baseline policies than just 3. 
           </li>
         </ul>
 
@@ -287,6 +309,14 @@
             </a><br>
             <em>TL;DR:</em> Compares a lot of VLMs as backbone choice for VLAs and finds that downstream performance has no correlation with VLM performance on standard benchmarks.
           </li>
+
+          <li>
+            <a href="https://openreview.net/attachment?id=tc2UsBeODW&name=pdf">
+              VLM4VLA: REVISITING VISION-LANGUAGE-MODELS IN VISION-LANGUAGE-ACTION MODELS
+            </a><br>
+            <em>TL;DR:</em> Compares a lot of VLMs as backbone choice for VLAs and finds that downstream performance has no correlation with VLM performance on standard benchmarks.
+            This confirms my own experience in experimenting with various VLM backbones. However, the paper is still limited to benchmark setups only and does not test real robot results.
+          </li>
         </ul>
 
         <h2 id="summary-outlook">9. Summary and Outlook</h2>
@@ -294,6 +324,10 @@
         <p>
           Overall, I am very positive about the current state of VLA research and the rapid progress being made in this field.
           The trends mentioned above show that there is a lot of interest and innovation in various aspects of VLA models, from architecture design to training strategies and evaluation methods.
+          The only negative thing, I was a bit disappointed by the lack of data-focussed papers in the context of VLas (maybe they could also not be found with the keyword search).
+          Given the importance of data quality and diversity for training VLAs, I was expecting more papers.
+          Another important area of research I haven't discussed much is RL finetuning of VLAs.
+          I think data quality and understanding how to quantify quality is one of the most crucial issues in current VLA research.
         </p>
         
         <hr>
