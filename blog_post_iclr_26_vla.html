@@ -31,14 +31,21 @@
           giving a unique real-time snapshot of ongoing research around the world without the half year delay.  
           Given my personal research interests, I looked into <strong>Vision-Language-Action (VLA) Models</strong> for robot learning, by 
           scanning the submissions for key developments in that subfield to discuss interesting papers and trends.
+          Below is a summary of general research trends with some highlighted papers for each category that I found interesting from this years submission.
+          Please note that this is only a personal selection of papers and I might have missed a lot of interesting work.
+          If you find any noteworthy papers that I missed, please let me know.
+
+          Some general interesting observations based on key-word search: Last year there were 6 accepted papers and 3 rejected ones with "Vision-Language-Action" appearing in the key-word search on openreview.
+          2024 it was only 1 rejected submission. This year openreview shows 164 submissions with the same keyword. 
+          Given the exponential growth, I am excited to review the 2,100 VLA ICLR submissions.
         </p>
 
         <h2>Summary of Key Trends</h2>
-        <p>By scanning the ICLR 2026 submissions, I identified the following key trends in VLA research with a lot of overlap in between these categories:</p>
+        <p>By scanning and skimm reading most of the ICLR 2026 submissions with the VLA keyword, I identified the following key trends in VLA research with a lot of overlap in between these categories:</p>
         <ul>
           <li><a href="#discrete-diffusion">Discrete Diffusion VLAs</a></li>
           <li><a href="#embodied-cot">Embodied Chain-of-Thought</a></li>
-          <li><a href="#tokenizers">New Tokenizers</a></li>
+          <li><a href="#tokenizers">New Discrete Tokenizers</a></li>
           <li><a href="#efficient-vla">Efficient VLAs</a></li>
           <li><a href="#vla-video">VLA + Video Prediction</a></li>
           <li><a href="#vla-video">Learning from Human Videos</a></li>
@@ -47,17 +54,22 @@
           <li><a href="#other">Other Interesting Papers</a></li>
         </ul>
 
-        <h2>Guide to Benchmark Results in VLAs</h2>
+        <h2>Practitioners Guide to Understanding Benchmark Results in VLA Research</h2>
         <p>
+          In order to better understand the results of the papers mentioned below, it is important to have some context on the current state of popular VLA benchmarks.
+          Given the current benchmark there is no clear statement possible to say which model is the best, as most papers only compare against each other on the usual simulation benchmarks.
           90% of papers mentioned in this post all test in either LIBERO, SIMPLER or CALVIN. 
           LIBERO is basically solved and showing 99% vs 98% is not very helpful and you don't need VLAs and large-scale pretraining to get competetive results.
-          Rule of thumb for LIBERO: >95% is expected for Spatial, Goal and Object, 90-95% is required for Long and 90, <90% is only decent for non-wrist came or few-shot stuff.
+          E.g. all mentioned concurrent discrete diffusion policies below test on LIBERO and all achieve between 95-98% average over the 4 versions (Goal, Spatial, Long, Object).
+          Based on these results it is impossible to say which model is better, as they are all very close to the ceiling anywayys and you dont need internet scale pretraining to solve these. 
+          Rule of thumb for getting a impression a VLA is decent or near sota levels on these: LIBERO: >95% is expected for Spatial, Goal and Object, 90-95% is required for Long and 90, <90% is only decent for non-wrist came or few-shot stuff.
           A properly tuned Diffusion Policy can get you there without VLAs altough the most cited DP baselines is showing worse results. 
-          CALVIN is also almost solved if taken the current sota model FLOWER (https://arxiv.org/pdf/2509.04996) into account (which most papers avoid because they are worse).
+          CALVIN is also almost solved if taken the current sota models like <a href="https://arxiv.org/pdf/2509.04996">FLOWER</a>  into account (which most papers avoid because they are worse).
           For CALVIN higher than 4 score for ABC is standard now and above 4.5 is very sota regime. For the D version 3.75 is standard and above 4 is very good. 
           For the ABCD version results above 4.6 are relevant. 
-          SIMPLER is kind of in a weird spot and I don't know if progress there translates to real world. 
-          Somehow RLBench has gained more popularity in VLA benchmarking, but all VLAs are still far away from SOTA compared to 3D methods like 3DDA (https://arxiv.org/pdf/2402.10885) and most VLA policies try to avoid comparing against all relevant 3d baselines for some reason. 
+          SIMPLER is kind of in a weird spot and I don't know if progress there translates to real world. THe bridge version ranges from 40% up to 90% success rate, making it hard to judge. 
+          For the Google Robot version current sota models achieve around 70% success rate. 
+          Somehow, RLBench (the most popular 3d polciy benchmark) has gained more popularity in VLA benchmarking, but all VLAs are still far away from SOTA compared to 3D methods like 3DDA (https://arxiv.org/pdf/2402.10885) and most VLA policies try to avoid comparing against all relevant 3d baselines for some reason. 
           Any real world results are very welcome, as sim-only is hard to trust especially with VLA papers that use models with 7B+ parameters and are very prone to overfitting successfully on these benchmarks.
         </p>
 
@@ -132,7 +144,11 @@
         <h2 id="tokenizers">3. New Tokenizers</h2>
         <p>
           Action Tokenizers for Vision-Language-Action Models is an open problem which was started by FAST, showing the potential of discrete tokenizers for easy combination of VLMs with action learning without the more complicated flow/diffusion expert.
-        </p>
+          Discrete tokenizers can diretly be applied to pretrained VLMs without modifiacations. 
+          Before FAST, VQ-VAEs and discrete binning have been used, but they have several limitations like low compression ration and struggle to encode long-action chunks given the limited information content of tokens.
+          This year there are several interesting new tokenizers that try to tackle these limitations with different approaches.
+          New tokenizers combine ideas from Residual Vector Quantization (RVQ) is used in several works to get a higher compression ratio, B-Splines ideas from <a href="https://arxiv.org/pdf/2506.06072" target="_blank">BEAST tokenizer</a> and DCT prediction losses for better tokenizers.
+          Very excited to give them a shot in my own research soon. 
 
         <p><strong>Notable papers:</strong></p>
         <ul>
@@ -147,7 +163,7 @@
             <a href="https://openreview.net/attachment?id=CuzTXLB7Jz&name=pdf">
               OMNISAT: COMPACT ACTION TOKEN, FASTER AUTOREGRESSION FOR VISION-LANGUAGE-ACTION MODELS
             </a><br>
-            <em>TL;DR:</em> Another tokenizer for VLAs that uses our BEAST paper (https://arxiv.org/pdf/2506.06072) idea of B-Splines for compact representation of continuous action chunks.
+            <em>TL;DR:</em> Another tokenizer for VLAs that uses our <a href="https://arxiv.org/pdf/2506.06072" target="_blank">BEAST</a> paper idea of B-Splines for compact representation of continuous action chunks.
             It uses a two stage encoding process: First, aligning the different action chunk lengths of different embodiments into a normalized, fixed-length representation.
             Next, it uses a B-Spline based encoder to get a compact representation of the normalized action chunk. Finally, a VQ-VAE is used to get discrete tokens.
             Results on LIBERO and SIMPLER are good and across all benchmarks improves upon both FAST and BEAST.
@@ -158,7 +174,14 @@
         <p>[Your text here]</p>
 
         <h2 id="vla-video">5. VLA + Video Prediction</h2>
-        <p>[Your text here]</p>
+        <p>Started by strong results from <a href="https://arxiv.org/pdf/2312.13139" target="_blank">GR-1 paper from ICLR 2024</a> that showed the potential of video-based policies, there is a growing interest in this subfield.
+          These types of policies can be divided into two general categories: starting by a VLM, that optionally has been trained on image generation and continue training it with future frame and action prediciton. 
+          Otherwise several papers instead start from a Video Foundation Model and modify it to also generate actions. 
+          Since most state-of-the-art video foundation models are diffusion/flow-based these policies typically struggle with slow inference speed. 
+          Overall, the results demonstrate that video generation and the required physics understanding and language grounding are a very useful prior for robot learning.
+          Compared to VLAs initialized from VLMs this subfield is way less popular and I hope to see more research in this direction.
+          What holds back more research in this direction is the high requirements for finetuning sota video models like WAN even compared to finetuning VLM for VLAs.
+        </p>
 
         <p><strong>Notable papers:</strong></p>
         <ul>
@@ -217,7 +240,10 @@
         </ul>
 
         <h2 id="other">8. Other Interesting Papers</h2>
-        <p>[Your text here]</p>
+        <p>
+          There are several other interesting papers that don't fit neatly into the categories above, but are worth mentioning.
+          These papers explore various aspects of VLA models, from choice of VLM backbone to analysing how Diffusion Policies generally learn to overfit. 
+        </p>
 
         <p><strong>Notable papers:</strong></p>
         <ul>
