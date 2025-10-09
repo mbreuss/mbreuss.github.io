@@ -37,7 +37,7 @@
 
           Some general interesting observations based on key-word search: Last year there were 6 accepted papers and 3 rejected ones with "Vision-Language-Action" appearing in the key-word search on openreview.
           2024 it was only 1 rejected submission. This year openreview shows 164 submissions with the same keyword. 
-          Given the exponential growth, I am excited to review the 2,100 VLA ICLR submissions.
+          Given the exponential growth, I am excited to review the 2,100 VLA ICLR submissions next year.
         </p>
 
         <h2>Summary of Key Trends</h2>
@@ -63,8 +63,9 @@
           Based on these results it is impossible to say which model is better, as they are all very close to the ceiling anywayys and you dont need internet scale pretraining to solve these.<br><br>
           Rule of thumb for getting a impression a VLA is decent or near sota levels on these: LIBERO: >95% is expected for Spatial, Goal and Object, 90-95% is required for Long and 90, lower than 90% is only decent for non-wrist came or few-shot stuff.
           A properly tuned Diffusion Policy can get you there without VLAs altough the most cited DP baselines is showing worse results. 
-          CALVIN is also almost solved if taken the current sota models like <a href="https://arxiv.org/pdf/2509.04996">FLOWER</a>  into account (which most papers avoid because they are worse).
-          For CALVIN higher than 4 score for ABC is standard now and above 4.5 is very sota regime. For the D version 3.75 is standard and above 4 is very good. 
+          CALVIN is also almost saturated by current sota models like <a href="https://arxiv.org/pdf/2509.04996">FLOWER</a>.
+          For CALVIN higher than 4 score for ABC is standard now and above 4.5 is sota regime. 
+          For the D version 3.75 is standard and above 4 is very good. 
           For the ABCD version results above 4.6 are relevant.<br><br>
           SIMPLER is kind of in a weird spot and I don't know if progress there translates to real world. The bridge version ranges from 40% up to 90% success rate, making it hard to judge. 
           For the Google Robot version current sota models achieve around 70% success rate. 
@@ -182,11 +183,10 @@
         <p><strong>Notable papers:</strong></p>
         <ul>
           <li>
-            <a href="https://openreview.net/attachment?id=DdrsHWobR1&name=pdf">
-              DISENTANGLED ROBOT LEARNING VIA SEPARATE FORWARD AND INVERSE DYNAMICS PRETRAINING
+            <a href="https://openreview.net/attachment?id=bsXkBTZjgY&name=pdf">
+              HYPERVLA: EFFICIENT INFERENCE IN VISION- LANGUAGE-ACTION MODELS VIA HYPERNETWORKS
             </a><br>
-            <em>TL;DR:</em> Introduces a novel approach to robot learning by pretraining separate forward and inverse dynamics models pretraining.
-            In the second stage they are combined again for a coupled finetuning of the policy. Results on CALVIN are good on SIMPLER decent.
+            <em>TL;DR:</em> HyperVLA uses hypernetworks to generate small task-specific policies conditioned on language instructions and initial images, dramatically reducing inference cost while maintaining performance by only activating the compact generated policy during execution instead of a big VLA model.
           </li>
 
           <li>
@@ -252,12 +252,19 @@
             <a href="https://openreview.net/attachment?id=tQJYKwc3n4&name=pdf">
               ROBOCASA365: A LARGE-SCALE SIMULATION FRAMEWORK FOR TRAINING AND BENCHMARKING GENERALIST ROBOTS
             </a><br>
-            <em>TL;DR:</em> Extends the inital RoboCase sim and benchmark setup with a very diverse setup of 365 tasks across 2k+ kitchen scens and more than 2k hours of telop data. 
+            <em>TL;DR:</em> Extends the initial RoboCase sim and benchmark setup with a very diverse setup of 365 tasks across 2k+ kitchen scens and more than 2k hours of telop data. 
             The task setups look great and the data scale is also promising I just wish they tested more baseline policies than just 3. 
+          </li>
+
+          <li>
+            <a href="https://openreview.net/attachment?id=hidBHy1CAw&name=pdf">
+              WORLDGYM: WORLD MODEL AS AN ENVIRONMENT FOR POLICY EVALUATION
+            </a><br>
+            <em>TL;DR:</em> WorldGym proposes using an action-conditioned video generation model (world model) as an environment for evaluating robot policies, where policies are rolled out in the generated world and evaluated by a vision-language model that provides rewards. 
           </li>
         </ul>
 
-        <h2 id="evaluation">7. Cross-Action-Space-Learning</h2>
+        <h2 id="cross-action-space">7. Cross-Action-Space-Learning</h2>
         <p>
           Most VLAs still avoid pretraining on diverse action spaces, given the difficulties of getting any positive transfer results.
           Thus, it is a very exciting research area for current VLAs to improve. 
@@ -283,30 +290,35 @@
             <a href="https://openreview.net/attachment?id=wPEIStHxYH&name=pdf">
               XR-1: TOWARDS VERSATILE VISION-LANGUAGE-ACTION MODELS VIA LEARNING UNIFIED VISION-MOTION REPRESENTATIONS
             </a><br>
-            <em>TL;DR:</em>
+            <em>TL;DR:</em>XR-1 introduces Unified Vision-Motion Codes (UVMC), a discrete latent representation that jointly encodes both visual dynamics and robotic motion using a dual-branch VQ-VAE with a shared codebook. This enables better co-pretraining from human and robot demonstrations.
+            Tested on real world experiments against Groot-N.1.5 and Pi0 with good results.
           </li>
           <li>
             <a href="https://openreview.net/attachment?id=TX3oGD99CJ&name=pdf">
               HIMOE-VLA: HIERARCHICAL MIXTURE-OF-EXPERTS FOR GENERALIST VISION–LANGUAGE–ACTION POLICIES
             </a><br>
             <em>TL;DR:</em> Substitutes Pi-Style Action Expert with Hierarchical Mixture-of-Experts Transformer to better adapt to new embodiments.
-            It interleaves standard blocks with two types of MoE Blocks: Action-Space MoEs and Heterogeneity Balancing MoEs.
+            It interleaves standard blocks with two types of MoE Blocks: Action-Space MoEs and Heterogeneity Balancing MoEs to better handle different action spaces.
+            Improves upon Pi0 across a range of experiments. 
           </li>
         </ul>
 
         <h2 id="other">8. Other Interesting Papers</h2>
         <p>
           There are several other interesting papers that don't fit neatly into the categories above, but are worth mentioning.
-          These papers explore various aspects of VLA models, from choice of VLM backbone to analysing how Diffusion Policies generally learn to overfit. 
+          These papers explore various aspects of VLA models, from choice of VLM backbone to including a memory module in the VLA architecture. 
+          I especially like the memory idea, as most VLAs just encode the current image and ignore prior timesteps, which is a big limitation for many tasks.
+          However natively adding long history does not work well, because they overfit too strong on the history. During rollouts, its unlikely to encounter the same sequence of states than human demonstrators which result in low performance.
+          Thus, memory modules that aggregate prior timesteps in a more general way are a very exciting research area.
         </p>
 
         <p><strong>Notable papers:</strong></p>
         <ul>
           <li>
-            <a href="https://openreview.net/attachment?id=tc2UsBeODW&name=pdf">
-              VLM4VLA: REVISITING VISION-LANGUAGE-MODELS IN VISION-LANGUAGE-ACTION MODELS
+            <a href="https://openreview.net/attachment?id=KcJ9U0x6kO&name=pdf">
+              HAMLET: SWITCH YOUR VISION-LANGUAGE-ACTION MODEL INTO A HISTORY-AWARE POLICY
             </a><br>
-            <em>TL;DR:</em> Compares a lot of VLMs as backbone choice for VLAs and finds that downstream performance has no correlation with VLM performance on standard benchmarks.
+            <em>TL;DR:</em> Introduces a plug-and-play style memory module with moment tokens to capture temporal stuff from prior timesteps. A proposed memory module aggregates tokens over time to enable history-conditioned prediction.
           </li>
 
           <li>
