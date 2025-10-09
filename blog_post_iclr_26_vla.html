@@ -28,27 +28,27 @@
         <p>
           Every year in autumn, the deadline for ICLR submissions looms over the machine learning community.
           Unlike NeurIPS or ICML, ICLR publicly releases all submissions a few weeks after the deadline, 
-          giving a unique real-time snapshot of ongoing research around the world without the half-year delay.  
-          Given my personal research interests, I looked into <strong>Vision-Language-Action (VLA) Models</strong> for robot learning by 
+          giving a unique real-time snapshot of ongoing research around the world without the half year delay.  
+          Given my personal research interests, I looked into <strong>Vision-Language-Action (VLA) Models</strong> for robot learning, by 
           scanning the submissions for key developments in that subfield to discuss interesting papers and trends.
-          Below is a summary of general research trends with some highlighted papers for each category that I found interesting from this year's submission.
-          Please note that this is only a personal selection of papers and I might have missed many interesting works.
+          Below is a summary of general research trends with some highlighted papers for each category that I found interesting from this years submission.
+          Please note that this is only a personal selection of papers and I might have missed a lot of interesting work.
           If you find any noteworthy papers that I missed, please let me know.
 
-          Some general observations based on keyword search: last year there were 6 accepted papers and 3 rejected ones with "Vision-Language-Action" appearing in the keyword search on OpenReview.
-          In 2024 it was only 1 rejected submission. This year, OpenReview shows 164 submissions with the same keyword. 
-          Given the exponential growth, I’m excited to review the 2,100 VLA ICLR submissions next year.
+          Some general interesting observations based on key-word search: Last year there were 6 accepted papers and 3 rejected ones with "Vision-Language-Action" appearing in the key-word search on openreview.
+          2024 it was only 1 rejected submission. This year openreview shows 164 submissions with the same keyword. 
+          Given the exponential growth, I am excited to review the 2,100 VLA ICLR submissions.
         </p>
 
         <h2>Summary of Key Trends</h2>
-        <p>By scanning and skim-reading most of the ICLR 2026 submissions with the VLA keyword, I identified the following key trends in VLA research with a lot of overlap between categories:</p>
+        <p>By scanning and skimm reading most of the ICLR 2026 submissions with the VLA keyword, I identified the following key trends in VLA research with a lot of overlap in between these categories:</p>
         <ul>
           <li><a href="#discrete-diffusion">Discrete Diffusion VLAs</a></li>
           <li><a href="#embodied-cot">Embodied Chain-of-Thought</a></li>
           <li><a href="#tokenizers">New Discrete Tokenizers</a></li>
           <li><a href="#efficient-vla">Efficient VLAs</a></li>
           <li><a href="#vla-video">VLA + Video Prediction</a></li>
-          <li><a href="#human-videos">Learning from Human Videos</a></li>
+          <li><a href="#vla-video">Learning from Human Videos</a></li>
           <li><a href="#evaluation">Evaluation and Benchmarking of VLAs</a></li>
           <li><a href="#cross-action-space">Cross-Action-Space Learning</a></li>
           <li><a href="#other">Other Interesting Papers</a></li>
@@ -56,141 +56,252 @@
 
         <h2>Practitioners Guide to Understanding Benchmark Results in VLA Research</h2>
         <p>
-          To better understand the results of the papers mentioned below, it’s important to have context on current VLA benchmarks.
-          There is no clear statement possible to say which model is the best, as most papers only compare on standard simulation benchmarks.
-          90% of papers mentioned here test on either 
-          <a href="https://arxiv.org/abs/2306.03310" target="_blank">LIBERO</a>, 
-          <a href="https://openreview.net/pdf?id=LZh48DTg71" target="_blank">SIMPLER</a>, or 
-          <a href="https://arxiv.org/abs/2112.03227" target="_blank">CALVIN</a>.
-          LIBERO is basically solved and showing 99% vs 98% is not very helpful — you don’t need VLAs or large-scale pretraining to be competitive.
-          All discrete diffusion policies below test on LIBERO and achieve between 95–98% average over the 4 versions (Goal, Spatial, Long, Object). 
-          Based on these results, it’s impossible to say which model is better since they are close to the ceiling anyway.
-          A properly tuned Diffusion Policy can get there without VLAs, even though most cited DP baselines perform worse. 
-          CALVIN is also almost solved with models like <a href="https://arxiv.org/abs/2509.04996" target="_blank">FLOWER</a>.
-          For CALVIN, a score >4 on ABC is standard; >4.5 is SOTA. For ABCD, >4.6 is strong. 
-          SIMPLER is less consistent (40–90%), and for the Google Robot benchmark, SOTA models achieve ~70%. 
-          RLBench (<a href="https://arxiv.org/abs/1909.12271" target="_blank">RLBench</a>) has also gained popularity, though VLAs still trail behind specialized 3D methods like 
-          <a href="https://arxiv.org/abs/2402.10885" target="_blank">3DDA</a>.
-          Real-world results remain rare but highly valuable.
+          In order to better understand the results of the papers mentioned below, it is important to have some context on the current state of popular VLA benchmarks.
+          Given the current benchmark there is no clear statement possible to say which model is the best, as most papers only compare against each other on the usual simulation benchmarks.
+          90% of papers mentioned in this post all test in either <a href="https://arxiv.org/abs/2306.03310" target="_blank">LIBERO</a>, <a href="https://openreview.net/pdf?id=LZh48DTg71" target="_blank">SIMPLER</a> or <a href="https://arxiv.org/abs/2112.03227" target="_blank">CALVIN</a>.
+          LIBERO is basically solved and showing 99% vs 98% is not very helpful and you don't need VLAs and large-scale pretraining to get competetive results.
+          E.g. all mentioned concurrent discrete diffusion policies below test on LIBERO and all achieve between 95-98% average over the 4 versions (Goal, Spatial, Long, Object).
+          Based on these results it is impossible to say which model is better, as they are all very close to the ceiling anywayys and you dont need internet scale pretraining to solve these. 
+          Rule of thumb for getting a impression a VLA is decent or near sota levels on these: LIBERO: >95% is expected for Spatial, Goal and Object, 90-95% is required for Long and 90, <90% is only decent for non-wrist came or few-shot stuff.
+          A properly tuned Diffusion Policy can get you there without VLAs altough the most cited DP baselines is showing worse results. 
+          CALVIN is also almost solved if taken the current sota models like <a href="https://arxiv.org/pdf/2509.04996">FLOWER</a>  into account (which most papers avoid because they are worse).
+          For CALVIN higher than 4 score for ABC is standard now and above 4.5 is very sota regime. For the D version 3.75 is standard and above 4 is very good. 
+          For the ABCD version results above 4.6 are relevant. 
+          SIMPLER is kind of in a weird spot and I don't know if progress there translates to real world. THe bridge version ranges from 40% up to 90% success rate, making it hard to judge. 
+          For the Google Robot version current sota models achieve around 70% success rate. 
+          Somehow, RLBench (<a href="https://arxiv.org/abs/1909.12271" target="_blank">RLBench</a>) (the most popular 3d policy benchmark) has gained more popularity in VLA benchmarking, but all VLAs are still far away from SOTA compared to 3D methods like <a href="https://arxiv.org/abs/2402.10885" target="_blank">3DDA</a> and most VLA policies try to avoid comparing against all relevant 3d baselines for some reason. 
+          Any real world results are very welcome, as sim-only is hard to trust especially with VLA papers that use models with 7B+ parameters and are very prone to overfitting successfully on these benchmarks.
         </p>
 
         <hr>
 
         <h2 id="discrete-diffusion">1. Discrete Diffusion VLAs</h2>
         <p>
-          Given the success of discrete diffusion models in other domains like text 
-          (<a href="https://arxiv.org/abs/2209.09402" target="_blank">D3PM</a>) 
-          and vision-language models 
-          (<a href="https://arxiv.org/abs/2505.16933" target="_blank">LLaDA-V</a>), 
-          it’s no surprise that this trend is also entering VLA research. 
-          Discrete diffusion allows sequence generation in parallel, ideal for discrete action tokens.
-          Combined with Embodied Chain-of-Thought (ECoT), this enables generating sub-goals and reasoning jointly with actions, addressing slow autoregressive limitations.
+          Given the success of discrete diffusion models in other domains like text (e.g. <a href="https://proceedings.neurips.cc/paper_files/paper/2024/file/eb0b13cc515724ab8015bc978fdde0ad-Paper-Conference.pdf">(MDLM</a>) and VLMs (e.g. <a href="https://arxiv.org/pdf/2505.16933">LLaDA-V</a>), it is no surprise that this trend is also making its way into VLA research. 
+          Why discrete diffusion? Compared to autoregressive models, diffusion models can generate sequences in parallel, which is a big advantage for discrete action token generation. Instead of having to run your policy 100 times, you can generate long action sequences in a few forward passes. 
+          In addition, you can combine it with ideas from Embodied Chain-of-Thought (see next section) to generate sub-goals and reasoning together with actions in parallel. 
+          This tackles some of the biggest limitations of ECoT from prior work, which was extremely slow due to the autoregressive nature of the VLM models.
         </p>
 
         <p><strong>Notable papers:</strong></p>
         <ul>
-          <li><a href="https://openreview.net/attachment?id=YWeNCMxdhM&name=pdf" target="_blank">DISCRETE DIFFUSION VLA</a>: Discrete diffusion decoding for parallelized action generation; adaptive decoding for inference; strong results on LIBERO + SIMPLER.</li>
-          <li><a href="https://openreview.net/attachment?id=2rxgospB5s&name=pdf" target="_blank">dVLA: DIFFUSION VISION-LANGUAGE-ACTION MODEL WITH MULTIMODAL CHAIN-OF-THOUGHT</a>: Combines ECoT with Discrete Diffusion for fast co-generation of text and actions.</li>
-          <li><a href="https://openreview.net/attachment?id=mNya9d1DA2&name=pdf" target="_blank">DIVA</a>: Focuses on token substitution during inference for better discrete diffusion performance.</li>
-          <li><a href="https://openreview.net/attachment?id=UvQOcw2oCD&name=pdf" target="_blank">UNIFIED DIFFUSION VLA</a>: Joint discrete denoising of future frames and actions with causal masking; strong CALVIN + LIBERO results.</li>
+          <li>
+            <a href="https://openreview.net/attachment?id=YWeNCMxdhM&name=pdf">
+              DISCRETE DIFFUSION VLA: BRINGING DISCRETE DIFFUSION TO ACTION DECODING IN VISION-LANGUAGE-ACTION POLICIES
+            </a><br>
+            <em>TL;DR:</em> Take OpenVLA and apply Discrete Diffusion Action Prediction for fast action chunk-based generation of discrete action tokens. Also proposes adaptive decoding for inference.
+            Strong results on LIBERO + SIMPLER.
+          </li>
+          <li>
+            <a href="https://openreview.net/attachment?id=2rxgospB5s&name=pdf">
+              dVLA: DIFFUSION VISION-LANGUAGE-ACTION MODEL WITH MULTIMODAL CHAIN-OF-THOUGHT
+            </a><br>
+            <em>TL;DR:</em> Another Discrete Diffusion VLA using Co-Generation for Future Frames and text + actions given the advantage of fast parallel sampling of Discrete Diffusion over AR models. 
+            Basically ECoT + Discrete Diffusion done well. 
+            Also good results in LIBERO + real world experiments.
+          </li>
+          <li>
+            <a href="https://openreview.net/attachment?id=mNya9d1DA2&name=pdf">
+              DIVA: DISCRETE DIFFUSION VISION-LANGUAGE-ACTION MODELS FOR PARALLELIZED ACTION GENERATION
+            </a><br>
+            <em>TL;DR:</em> Focuses on how to substitute tokens during inference for better performance.
+          </li>
+          <li>
+            <a href="https://openreview.net/attachment?id=UvQOcw2oCD&name=pdf">
+              UNIFIED DIFFUSION VLA: VISION-LANGUAGE-ACTION MODEL VIA JOINT DISCRETE DENOISING DIFFUSION PROCESS
+            </a><br>
+            <em>TL;DR:</em> Generates future frames and discrete actions together with block-wise causal masking. Results on CALVIN, LIBERO and SIMPLER are good.
+          </li>
         </ul>
 
         <h2 id="embodied-cot">2. Embodied Chain-of-Thought (ECoT)</h2>
         <p>
-          Since <a href="https://arxiv.org/abs/2407.08693" target="_blank">the first ECoT paper</a> (CoRL 2024), there’s growing interest in combining spatial reasoning with action prediction.
-          Analyses like <a href="https://arxiv.org/abs/2505.08243" target="_blank">ECoT Training Analysis</a> show these objectives bridge the gap between VLM pretraining and embodied control.
-          However, autoregressive tokenization limits efficiency, inspiring discrete diffusion extensions and hybrid training strategies.
+          Since <a href="https://arxiv.org/abs/2407.08693" target="_blank">the first ECoT paper</a> (CoRL 2024), there has been a growing interest in combining spatially grounded reasoning with action prediction for improving VLAs.
+          By combining subtask and bounding box prediction, the VLM gets better representations for embodied stuff and show improved performance on benchmarks.
+          Prior results in analysing <a href="https://arxiv.org/abs/2505.08243" target="_blank">ECoT Training </a> show, that these objectives seem to help to bridge the representation gap between VLM pretraining and anything robotic related. 
+          However, the main limitation of prior ECoT work was the autoregressive nature of the VLAs and its increased token count which result slow in training and inference.
+          Next to ideas around discrete diffusion, there is a work on generating high quality datasets for pretraining and making it faster with autoregressive models too by introducing new training strategies.
         </p>
+
         <p><strong>Notable papers:</strong></p>
         <ul>
-          <li><a href="https://openreview.net/attachment?id=sFO9d6XSlf&name=pdf" target="_blank">ACTIONS AS LANGUAGE</a>: Fine-tunes VLMs into VLAs without catastrophic forgetting by relabeling actions as text subtasks; bridges domain gap via LoRA finetuning.</li>
-          <li><a href="https://openreview.net/attachment?id=IBJtOltTbx&name=pdf" target="_blank">HYBRID TRAINING FOR VLAs</a>: Decomposes ECoT into think-act-follow subtasks for faster inference while preserving reasoning gains.</li>
+          <li>
+            <a href="https://openreview.net/attachment?id=sFO9d6XSlf&name=pdf">
+              ACTIONS AS LANGUAGE: FINE-TUNING VLMS INTO VLAS WITHOUT CATASTROPHIC FORGETTING
+            </a><br>
+            <em>TL;DR:</em> Instead of directly fine-tuning VLMs with discrete action tokens to become VLAs, which results in catastrophic forgetting, they relabel robot datasets with subtasks, actions as text and intermediate motion-planning like "move left".
+            This training method is able to bridge the domain gap of VLMs without reducing performance on other VQA benchmarks from pretraining. 
+            Finally cheap LORA finetuning is enough to get strong results for action prediction while maintaining VLM reasoning capabilities.
+          </li>
+          <li>
+            <a href="https://openreview.net/attachment?id=IBJtOltTbx&name=pdf">
+              HYBRID TRAINING FOR VISION-LANGUAGE-ACTION MODELS
+            </a><br>
+            <em>TL;DR:</em> Decomposes ECoT pretraining in several subtasks of think act and follow, that enable to maintain the performance benefits with fast inference. 
+            Similar findings, that Co-Training with ECoT stuff results in better representations for action prediction.
+          </li>
         </ul>
 
         <h2 id="tokenizers">3. New Tokenizers</h2>
         <p>
-          Discrete Action Tokenizers for VLAs emerged with 
-          <a href="https://arxiv.org/abs/2501.09747" target="_blank">FAST</a>, 
-          showing discrete tokenization can bridge VLMs and action learning without flow/diffusion models.
-          This year, multiple tokenizers build on FAST using 
-          Residual Vector Quantization (RVQ) 
-          (<a href="https://arxiv.org/abs/2107.03312" target="_blank">SoundStream</a>) 
-          and B-Splines from 
-          <a href="https://arxiv.org/abs/2506.06072" target="_blank">BEAST</a>.
-        </p>
+          Discrete Action Tokenizers for Vision-Language-Action Models is an open problem which was started by <a href="https://arxiv.org/abs/2501.09747" target="_blank">FAST</a>, showing the potential of discrete tokenizers for easy combination of VLMs with action learning without the more complicated flow/diffusion expert.
+          Discrete tokenizers can directly be applied to pretrained VLMs without any architecture modifications. 
+          Moreover, the domain gap between VLM pretraining and discrete action tokens is smaller compared to trying to force the VLM to predict velocity fields.
+          Before <a href="https://arxiv.org/abs/2501.09747" target="_blank">FAST</a>, VQ-VAEs (https://arxiv.org/pdf/2403.03181) and discrete binning (used in RT-1 (https://arxiv.org/pdf/2212.06817)) have been used, but they have several limitations like low compression ration and struggle to encode long-action chunks given the limited information content of tokens.
+          This year there are several interesting new tokenizers that try to tackle these limitations with different approaches.
+          New tokenizers combine ideas from Residual Vector Quantization (RVQ) (<a href="https://arxiv.org/abs/2107.03312" target="_blank">SoundStream</a>) to get a higher compression ratio, B-Splines ideas from <a href="https://arxiv.org/pdf/2506.06072" target="_blank">BEAST tokenizer</a> and DCT prediction losses inspired by <a href="https://arxiv.org/abs/2501.09747" target="_blank">FAST</a>.
+          Very excited to give them a shot in my own research soon. 
 
         <p><strong>Notable papers:</strong></p>
         <ul>
-          <li><a href="https://openreview.net/attachment?id=k6nTUFoqeT&name=pdf" target="_blank">FASTer</a>: Combines RVQ with frequency and time-domain losses using DCT; patchifies action tokens temporally and across grouped dimensions; higher compression ratio than FAST.</li>
-          <li><a href="https://openreview.net/attachment?id=CuzTXLB7Jz&name=pdf" target="_blank">OMNISAT</a>: Uses B-Spline based encoding (inspired by <a href="https://arxiv.org/abs/2506.06072" target="_blank">BEAST</a>) with a two-stage normalization + VQ-VAE process; outperforms FAST and BEAST across LIBERO and SIMPLER.</li>
+          <li>
+            <a href="https://openreview.net/attachment?id=k6nTUFoqeT&name=pdf">
+              FASTER: TOWARD POWERFUL AND EFFICIENT AUTOREGRESSIVE VISION–LANGUAGE–ACTION MODELS WITH LEARNABLE ACTION TOKENIZER AND BLOCK-WISE DECODING
+            </a><br>
+            <em>TL;DR:</em> Introduces a novel discrete action tokenizer called FASTer, that combines Residual Vector Quantification (RVQ) with a frequency L1 loss using DCT and time domain L1 loss for improved performance. 
+            Also patchifies action tokens along the temporal axis and grouped action dimension axis (e.g. base motion, arm joints). It has a higher compression ratio than <a href="https://arxiv.org/abs/2501.09747" target="_blank">FAST</a> and results on SIMPLER and LIBERO are strong.
+          </li>
+          <li>
+            <a href="https://openreview.net/attachment?id=CuzTXLB7Jz&name=pdf">
+              OMNISAT: COMPACT ACTION TOKEN, FASTER AUTOREGRESSION FOR VISION-LANGUAGE-ACTION MODELS
+            </a><br>
+            <em>TL;DR:</em> Another tokenizer for VLAs that uses our <a href="https://arxiv.org/pdf/2506.06072" target="_blank">BEAST</a> paper idea of B-Splines for compact representation of continuous action chunks.
+            It uses a two stage encoding process: First, aligning the different action chunk lengths of different embodiments into a normalized, fixed-length representation.
+            Next, it uses a B-Spline based encoder to get a compact representation of the normalized action chunk. Finally, a VQ-VAE is used to get discrete tokens.
+            Results on LIBERO and SIMPLER are good and across all benchmarks improves upon both <a href="https://arxiv.org/abs/2501.09747" target="_blank">FAST</a> and <a href="https://arxiv.org/pdf/2506.06072" target="_blank">BEAST</a>.
+          </li>
         </ul>
 
         <h2 id="efficient-vla">4. Efficient VLAs</h2>
-        <p>
-          Efficiency remains key for researchers with limited compute. Methods focus on smaller models, efficient tokenizers, and faster inference via quantization or distillation.
-          Making VLAs more accessible will democratize embodied AI research.
+        <p>As someone working on this topic myself, I understand the pain of trying to train and run larger VLAs on limited compute setsups. 
+          Thus, efficient VLAs are always relevant. Especially, since this gives labs with limited compute access the chance to work on VLAs too.
+          There are several interesting papers this year that try to tackle this problem with different approaches.
+          Generally, one can divide them into two categories: try to make training and models more efficient by making smaller VLAs or better tokenizers etc. 
+          Otherwise, a lot of papers focus on making inference more efficient by using better quantization, distillation or similar ideas. 
         </p>
 
         <h2 id="vla-video">5. VLA + Video Prediction</h2>
-        <p>
-          Following <a href="https://arxiv.org/abs/2312.13139" target="_blank">GR-1</a>, video-based policies are rising. These models often fine-tune pretrained video or image diffusion models to predict future frames and actions jointly.
-          Video generation captures physics and grounding priors beneficial for control, though expensive to train.
+        <p>Started by strong results from <a href="https://arxiv.org/pdf/2312.13139" target="_blank">GR-1 paper</a>  from ICLR 2024 that showed the potential of video-based policies, there is a growing interest in this subfield.
+          These types of policies can be divided into two general categories: starting by a VLM, that optionally has been trained on image generation and continue training it with future frame and action prediciton. 
+          Otherwise several papers instead start from a Video Foundation Model and modify it to also generate actions. 
+          Since most state-of-the-art video foundation models are diffusion/flow-based these policies typically struggle with slow inference speed. 
+          Overall, the results demonstrate that video generation and the required physics understanding and language grounding are a very useful prior for robot learning.
+          Compared to VLAs initialized from VLMs this subfield is way less popular and I hope to see more research in this direction.
+          What holds back more research in this direction is the high requirements for finetuning sota video models like WAN even compared to finetuning VLM for VLAs.
         </p>
 
         <p><strong>Notable papers:</strong></p>
         <ul>
-          <li><a href="https://openreview.net/attachment?id=DdrsHWobR1&name=pdf" target="_blank">DISENTANGLED ROBOT LEARNING</a>: Pretrains separate forward/inverse dynamics models and combines them during finetuning; strong CALVIN results.</li>
-          <li><a href="https://openreview.net/attachment?id=wPEIStHxYH&name=pdf" target="_blank">COSMOS POLICY</a>: Fine-tunes NVIDIA’s Cosmos Video Foundation Model for action prediction; injects action/value modalities; competitive LIBERO results with real-world validation.</li>
+          <li>
+            <a href="https://openreview.net/attachment?id=DdrsHWobR1&name=pdf">
+              DISENTANGLED ROBOT LEARNING VIA SEPARATE FORWARD AND INVERSE DYNAMICS PRETRAINING
+            </a><br>
+            <em>TL;DR:</em> Introduces a novel approach to robot learning by pretraining separate forward and inverse dynamics models pretraining.
+            In the second stage they are combined again for a coupled finetuning of the policy. Results on CALVIN are good on SIMPLER decent.
+          </li>
+
+          <li>
+            <a href="https://openreview.net/attachment?id=wPEIStHxYH&name=pdf">
+              COSMOS POLICY: FINE-TUNING VIDEO MODELS FOR VISUOMOTOR CONTROL AND PLANNING
+            </a><br>
+            <em>TL;DR:</em> Finetunes the Cosmos Video Foundation Model from NVIDIA for action prediction. 
+            Core idea is to inject additional modalities like future action chunks or value function estimations into latent token sequence. 
+            Results on LIBERO are good and they also have real world comparisons against Pi0.5.
+          </li>
         </ul>
 
-        <h2 id="evaluation">6. Evaluation and Benchmarking</h2>
+        <h2 id="evaluation">6. Evaluation and Benchmarking of VLAs</h2>
         <p>
-          Benchmark saturation makes meaningful comparison difficult.
-          New simulation environments, Real2Sim setups, and generative evaluation frameworks are emerging.
-        </p>
-
-        <h2 id="cross-action-space">7. Cross-Action-Space Learning</h2>
-        <p>
-          Pretraining across diverse action spaces remains challenging but crucial for generalist VLAs. 
-          Datasets like <a href="https://arxiv.org/abs/2505.11709" target="_blank">EgoDex</a> enable progress.
-          DeepMind’s <a href="https://arxiv.org/abs/2510.03342" target="_blank">Gemini Robotics 1.5</a> hints that large-scale data and model size can solve cross-embodiment transfer.
+          As mentioned above, the current state of VLA benchmarks is quite saturated and it is hard to judge which model is actually better given the limited number of benchmarks and the fact that most papers only compare against a few other baselines.
+          Thus, there is a growing interest in better evaluation and benchmarking of VLAs.
+          Several papers try to tackle this problem by either introducing new simulation benchmarks. 
+          Other ideas include real2sim world models to test policies in generative environments. 
+          While I don't think these ideas are on a good enough level yet to be used as real alternatives, its a very exciting research area that I hope to see more progress in the future.
         </p>
 
         <p><strong>Notable papers:</strong></p>
         <ul>
-          <li><a href="https://openreview.net/attachment?id=kt51kZH4aG&name=pdf" target="_blank">X-VLA</a>: Uses soft-prompt tokens for scalable cross-embodiment learning; strong results on LIBERO, CALVIN, SIMPLER, and VLABench.</li>
-          <li><a href="https://openreview.net/attachment?id=TX3oGD99CJ&name=pdf" target="_blank">HIMOE-VLA</a>: Introduces Hierarchical Mixture-of-Experts Transformers with action-space and heterogeneity-balancing MoEs.</li>
+          <li>
+            <a href="https://openreview.net/attachment?id=DdrsHWobR1&name=pdf">
+              ???
+            </a><br>
+            <em>TL;DR:</em> ??
+          </li>
+
+          <li>
+            <a href="https://openreview.net/attachment?id=wPEIStHxYH&name=pdf">
+              ??
+            </a><br>
+            <em>TL;DR:</em> ????
+          </li>
+        </ul>
+
+        <h2 id="evaluation">7. Cross-Action-Space-Learning</h2>
+        <p>
+          Most VLAs still avoid pretraining on diverse action spaces, given the difficulties of getting any positive transfer results.
+          Thus, it is a very exciting research area for current VLAs to improve. 
+          In addition, there is a growing interesting in using human egocentric videos with action labels for pretraining VLAs. 
+          Datasets like EgoDex (https://arxiv.org/pdf/2505.11709) released earlier this year now enable more research in this direction. 
+          Several interesting papers are submitted this year that try to tackle this problem with different approaches.
+          They either focus on architecture details of VLAs to better handle heterogeneous action spaces or use additional abstractions like motion in image-space to get better transfer.
+          It's noteworthy that the recent Gemini Roboitcs 1.5 (https://arxiv.org/pdf/2510.03342) release from DeepMind indicates that a unreleased technique called motion transfer works for them to get positive zero-shot task transfer inbetween action spaces.
+          So maybe this is just a data and model scale question. Nevertheless, more research is needed to better understand and tackle these issues.
+        </p>
+
+        <p><strong>Notable papers:</strong></p>
+        <ul>
+          <li>
+            <a href="https://openreview.net/attachment?id=kt51kZH4aG&name=pdf">
+              X-VLA: SOFT-PROMPTED TRANSFORMER AS SCALABLE CROSS-EMBODIMENT VISION-LANGUAGE-ACTION MODEL
+            </a><br>
+            <em>TL;DR:</em> Tackles cross-action-space learning using soft-prompting tokens for different datasets. 
+            These soft-prompt tokens are learnable readout-tokens for the VLA. 
+            Results on LIBERO, CALVIN and SIMPLER RoboTwin and VLABench are all very good. Also very insightful scaling analysis.
+          </li>
+          <li>
+            <a href="https://openreview.net/attachment?id=wPEIStHxYH&name=pdf">
+              XR-1: TOWARDS VERSATILE VISION-LANGUAGE-ACTION MODELS VIA LEARNING UNIFIED VISION-MOTION REPRESENTATIONS
+            </a><br>
+            <em>TL;DR:</em>
+          </li>
+          <li>
+            <a href="https://openreview.net/attachment?id=TX3oGD99CJ&name=pdf">
+              HIMOE-VLA: HIERARCHICAL MIXTURE-OF-EXPERTS FOR GENERALIST VISION–LANGUAGE–ACTION POLICIES
+            </a><br>
+            <em>TL;DR:</em> Substitutes Pi-Style Action Expert with Hierarchical Mixture-of-Experts Transformer to better adapt to new embodiments.
+            It interleaves standard blocks with two types of MoE Blocks: Action-Space MoEs and Heterogeneity Balancing MoEs.
+          </li>
         </ul>
 
         <h2 id="other">8. Other Interesting Papers</h2>
-        <p><a href="https://openreview.net/attachment?id=tc2UsBeODW&name=pdf" target="_blank">VLM4VLA</a>: Revisits VLM backbone choice for VLAs; finds no correlation between upstream VLM benchmarks and downstream control performance.</p>
-
-        <h2 id="summary-outlook">9. Summary and Outlook</h2>
         <p>
-          Overall, VLA research is accelerating rapidly.  
-          From discrete diffusion and action tokenization to efficient architectures and video-based reasoning, the field is maturing fast.
-          Expect 2026 to bring large-scale generalist policies capable of reasoning, perception, and control across multiple embodiments.
+          There are several other interesting papers that don't fit neatly into the categories above, but are worth mentioning.
+          These papers explore various aspects of VLA models, from choice of VLM backbone to analysing how Diffusion Policies generally learn to overfit. 
         </p>
 
+        <p><strong>Notable papers:</strong></p>
+        <ul>
+          <li>
+            <a href="https://openreview.net/attachment?id=tc2UsBeODW&name=pdf">
+              VLM4VLA: REVISITING VISION-LANGUAGE-MODELS IN VISION-LANGUAGE-ACTION MODELS
+            </a><br>
+            <em>TL;DR:</em> Compares a lot of VLMs as backbone choice for VLAs and finds that downstream performance has no correlation with VLM performance on standard benchmarks.
+          </li>
+        </ul>
+
+        <h2 id="summary-outlook">9. Summary and Outlook</h2>
+
+        <p>
+          Overall, I am very positive about the current state of VLA research and the rapid progress being made in this field.
+          The trends mentioned above show that there is a lot of interest and innovation in various aspects of VLA models, from architecture design to training strategies and evaluation methods.
+        </p>
+        
         <hr>
         <h2 id="references">References</h2>
         <ol>
-          <li><a href="https://arxiv.org/abs/2509.04996" target="_blank">FLOWER: Unified Vision-Language-Action Model via Intermediate-Modality Fusion</a>, ICLR 2026.</li>
-          <li><a href="https://arxiv.org/abs/2506.06072" target="_blank">BEAST: B-Spline Tokenization for Continuous Robot Actions</a>, ICLR 2026.</li>
-          <li><a href="https://arxiv.org/abs/2501.09747" target="_blank">FAST: Frequency-Aware Action Space Tokenizer</a>, ICLR 2025.</li>
-          <li><a href="https://arxiv.org/abs/2306.03310" target="_blank">LIBERO: Benchmarking Generalization for Robot Learning</a>, CoRL 2023.</li>
-          <li><a href="https://arxiv.org/abs/2112.03227" target="_blank">CALVIN: Visual Language Conditioning for Manipulation</a>, CoRL 2021.</li>
-          <li><a href="https://arxiv.org/abs/2403.03181" target="_blank">VQ-VAE for Robot Actions</a>, ICRA 2024.</li>
-          <li><a href="https://arxiv.org/abs/2312.13139" target="_blank">GR-1: General Robot Policy via Video Prediction</a>, ICLR 2024.</li>
-          <li><a href="https://arxiv.org/abs/2407.08693" target="_blank">Embodied Chain-of-Thought (ECoT)</a>, CoRL 2024.</li>
-          <li><a href="https://arxiv.org/abs/2505.08243" target="_blank">Analyzing ECoT Training</a>, ICLR 2026.</li>
-          <li><a href="https://arxiv.org/abs/2505.11709" target="_blank">EgoDex: Egocentric Human Action Dataset</a>, ICLR 2026.</li>
-          <li><a href="https://arxiv.org/abs/2510.03342" target="_blank">Gemini Robotics 1.5</a>, DeepMind Technical Report 2025.</li>
-          <li><a href="https://arxiv.org/abs/2402.10885" target="_blank">3DDA: 3D Diffusion for Manipulation</a>, CVPR 2024.</li>
-          <li><a href="https://arxiv.org/abs/2107.03312" target="_blank">SoundStream: End-to-End Neural Audio Codec with RVQ</a>, NeurIPS 2021.</li>
-          <li><a href="https://openreview.net/pdf?id=LZh48DTg71" target="_blank">SIMPLER Benchmark</a>, ICLR 2024.</li>
         </ol>
 
+        
         <hr>
         <p style="text-align:center;">
           <a href="index.html">← Back to main page</a>
