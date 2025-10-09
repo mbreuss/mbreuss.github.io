@@ -33,7 +33,7 @@
           scanning the submissions for key developments in that subfield to discuss interesting papers and trends.
           Below is a summary of general research trends with some highlighted papers for each category that I found interesting from this years submission.
           Please note that this is only a personal selection of papers and I might have missed a lot of interesting work.
-          If you find any noteworthy papers that I missed, please let me know.
+          If you find any noteworthy papers that I missed, please let me know.<br><br>
 
           Some general interesting observations based on key-word search: Last year there were 6 accepted papers and 3 rejected ones with "Vision-Language-Action" appearing in the key-word search on openreview.
           2024 it was only 1 rejected submission. This year openreview shows 164 submissions with the same keyword. 
@@ -44,11 +44,10 @@
         <p>By scanning and skimm reading most of the ICLR 2026 submissions with the VLA keyword, I identified the following key trends in VLA research with a lot of overlap in between these categories:</p>
         <ul>
           <li><a href="#discrete-diffusion">Discrete Diffusion VLAs</a></li>
-          <li><a href="#embodied-cot">Embodied Chain-of-Thought</a></li>
+          <li><a href="#embodied-cot">Reasoning VLAs and Embodied Chain-of-Thought</a></li>
           <li><a href="#tokenizers">New Discrete Tokenizers</a></li>
           <li><a href="#efficient-vla">Efficient VLAs</a></li>
           <li><a href="#vla-video">VLA + Video Prediction</a></li>
-          <li><a href="#vla-video">Learning from Human Videos</a></li>
           <li><a href="#evaluation">Evaluation and Benchmarking of VLAs</a></li>
           <li><a href="#cross-action-space">Cross-Action-Space Learning</a></li>
           <li><a href="#other">Other Interesting Papers</a></li>
@@ -104,7 +103,7 @@
             <a href="https://openreview.net/attachment?id=mNya9d1DA2&name=pdf">
               DIVA: DISCRETE DIFFUSION VISION-LANGUAGE-ACTION MODELS FOR PARALLELIZED ACTION GENERATION
             </a><br>
-            <em>TL;DR:</em> Focuses on how to substitute tokens during inference for better performance.
+            <em>TL;DR:</em> Another discrete Diffusion VLA that also focuses on how to substitute tokens during inference for better performance.
           </li>
           <li>
             <a href="https://openreview.net/attachment?id=UvQOcw2oCD&name=pdf">
@@ -114,13 +113,13 @@
           </li>
         </ul>
 
-        <h2 id="embodied-cot">2. Embodied Chain-of-Thought (ECoT)</h2>
+        <h2 id="embodied-cot">2. Reasoning VLAs and Embodied Chain-of-Thought (ECoT)</h2>
         <p>
           Since <a href="https://arxiv.org/abs/2407.08693" target="_blank">the first ECoT paper</a> (CoRL 2024), there has been a growing interest in combining spatially grounded reasoning with action prediction for improving VLAs.
           By combining subtask and bounding box prediction, the VLM gets better representations for embodied stuff and show improved performance on benchmarks.
           Prior results in analysing <a href="https://arxiv.org/abs/2505.08243" target="_blank">ECoT Training </a> show, that these objectives seem to help to bridge the representation gap between VLM pretraining and anything robotic related. 
           However, the main limitation of prior ECoT work was the autoregressive nature of the VLAs and its increased token count which result slow in training and inference.
-          Next to ideas around discrete diffusion, there is a work on generating high quality datasets for pretraining and making it faster with autoregressive models too by introducing new training strategies.
+          Overall, it remains an open question how to best implement grounded reasoning for VLAs.
         </p>
 
         <p><strong>Notable papers:</strong></p>
@@ -147,7 +146,7 @@
           Discrete Action Tokenizers for Vision-Language-Action Models is an open problem which was started by <a href="https://arxiv.org/abs/2501.09747" target="_blank">FAST</a>, showing the potential of discrete tokenizers for easy combination of VLMs with action learning without the more complicated flow/diffusion expert.
           Discrete tokenizers can directly be applied to pretrained VLMs without any architecture modifications. 
           Moreover, the domain gap between VLM pretraining and discrete action tokens is smaller compared to trying to force the VLM to predict velocity fields.
-          Before <a href="https://arxiv.org/abs/2501.09747" target="_blank">FAST</a>, VQ-VAEs (https://arxiv.org/pdf/2403.03181) and discrete binning (used in RT-1 (https://arxiv.org/pdf/2212.06817)) have been used, but they have several limitations like low compression ration and struggle to encode long-action chunks given the limited information content of tokens.
+          Before <a href="https://arxiv.org/abs/2501.09747" target="_blank">FAST</a>, <a href="https://arxiv.org/pdf/2403.03181" target="_blank">VQ-VAEs</a> and discrete binning (used in <a href="https://arxiv.org/pdf/2212.06817" target="_blank">RT-1</a>) have been used, but they have several limitations like low compression ration and struggle to encode long-action chunks given the limited information content of tokens.
           This year there are several interesting new tokenizers that try to tackle these limitations with different approaches.
           New tokenizers combine ideas from Residual Vector Quantization (RVQ) (<a href="https://arxiv.org/abs/2107.03312" target="_blank">SoundStream</a>) to get a higher compression ratio, B-Splines ideas from <a href="https://arxiv.org/pdf/2506.06072" target="_blank">BEAST tokenizer</a> and DCT prediction losses inspired by <a href="https://arxiv.org/abs/2501.09747" target="_blank">FAST</a>.
           Very excited to give them a shot in my own research soon. 
