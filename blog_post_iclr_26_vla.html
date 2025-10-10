@@ -39,10 +39,14 @@
           Every year in autumn, the deadline for ICLR submissions looms over the machine learning community.
           Unlike NeurIPS or ICML, ICLR publicly releases all anonymous submissions a few weeks after the deadline, 
           giving a unique real-time snapshot of ongoing research around the world without the half year delay of all other top ml conferences.  
-          Given my personal research interests, I wanted to look into <strong>Vision-Language-Action (VLA) Models</strong> papers.
+          Given my personal research interests, I wanted to look into <strong>Vision-Language-Action (VLA) Models</strong> research.<br><br>
+
           Given the papers I found interesting, I wanted to share my findings about current trends and problems in our field and highlight some interesting papers.
+          To help people better understand the current state of VLA research, I also included a short guide on how to interpret benchmark results in VLA papers.
+          Finally, there is a brief discussion about the hidden gap between frontier labs and research labs in the VLA field, that is not visible from reading papers.<br><br>
+
           Below is a summary of general research trends with some highlighted papers for each category that I found interesting from this years submission.
-          Please note that this is only a personal selection of papers and I might have missed a lot of other interesting work.
+          Please note that this is only a personal selection and personal opinion of papers and research and I might have missed a lot of other interesting work.
           If you find any noteworthy papers that I missed, please let me know.<br><br>
 
           Some general interesting observations about the growth of VLA research based on key-word search for VLA papers: 
@@ -69,7 +73,8 @@
 
         <h2>Practitioners Guide to Understanding Benchmark Results in VLA Research</h2>
         <p>
-          In order to better understand the results of the papers mentioned below, it is important to have some context on the current state of popular VLA benchmarks.
+          So you are reading a new VLA paper and want to understand how good the results are?
+          In order to better understand the VLA results, it is important to have some context on the current state of popular VLA benchmarks and what good performance looks like.
           Given the current benchmark there is no clear statement possible to say which model is the best, as most papers only compare against each other on the usual simulation benchmarks.
           90% of papers mentioned in this post all test in either <a href="https://arxiv.org/abs/2306.03310" target="_blank">LIBERO</a>, <a href="https://openreview.net/pdf?id=LZh48DTg71" target="_blank">SIMPLER</a> or <a href="https://arxiv.org/abs/2112.03227" target="_blank">CALVIN</a>.<br><br>
           LIBERO is basically solved and showing 99% vs 98% is not very helpful and you don't need VLAs and large-scale pretraining to get competetive results.
@@ -81,10 +86,11 @@
           For CALVIN higher than 4 score for ABC is standard now and above 4.5 is sota regime. 
           For the D version 3.75 is standard and above 4 is very good. 
           For the ABCD version results above 4.6 are relevant.<br><br>
-          SIMPLER is kind of in a weird spot and I don't know if progress there translates to real world. The bridge version ranges from 40% up to 90% success rate, making it hard to judge. 
-          For the Google Robot version current sota models achieve around 70% success rate. 
-          Somehow, RLBench (<a href="https://arxiv.org/abs/1909.12271" target="_blank">RLBench</a>) (the most popular 3d policy benchmark) has gained more popularity in VLA benchmarking, but all VLAs are still far away from SOTA compared to 3D methods like <a href="https://arxiv.org/abs/2402.10885" target="_blank">3DDA</a> and most VLA policies try to avoid comparing against all relevant 3d baselines for some reason. 
-          Any real world results are very welcome, as sim-only is hard to trust especially with VLA papers that use models with 7B+ parameters and are very prone to overfitting successfully on these benchmarks.
+          SIMPLER is kind of in a weird spot and I don't know if progress there translates to real world. The bridge version ranges from 40% up to 99% success rate, making it hard to judge. 
+          For the Google Robot version current sota models achieve around 70%-80% success rate. 
+          Somehow, <a href="https://arxiv.org/abs/1909.12271" target="_blank">RLBench</a> (the most popular 3d policy benchmark) has gained more popularity in VLA benchmarking, but all VLAs are still far away from 3D SOTA methods like <a href="https://arxiv.org/abs/2402.10885" target="_blank">3DDA</a>. 
+          Most VLA policies try to avoid comparing against all relevant 3D baselines for some reason. 
+          Any real world results are very important and more is better, as sim-only is hard to trust especially with VLA papers that use models with 7B+ parameters and are very prone to overfitting successfully on these benchmarks.<br><br>
         </p>
 
         <hr>
@@ -274,13 +280,13 @@
             </a><br>
             <em>TL;DR:</em> Finetunes the Cosmos Video Foundation Model from NVIDIA for action prediction. 
             Core idea is to inject additional modalities like future action chunks or value function estimations into latent token sequence. 
-            Results on LIBERO are good and they also have real world comparisons against Pi0.5.
+            Results on LIBERO are good and they also have real world comparisons against <a href="https://www.physicalintelligence.company/download/pi0.pdf" target="_blank">Pi0</a>.5.
           </li>
         </ul>
 
         <h2 id="evaluation">6. Evaluation and Benchmarking of VLAs</h2>
         <figure class="figure-container">
-          <img src="images/roboarena_real2sim.png" alt="ROBOTARENAOverview">
+          <img src="images/roboarena_real2sim.png" alt="ROBOTARENA Overview">
           <figcaption>Figure 3: Overview of real2sim ROBOTARENA benchmark. 
             Image from <a href="https://openreview.net/attachment?id=OutljIofvS&name=pdf">ROBOTARENA ∞</a>.</figcaption>
         </figure>
@@ -297,7 +303,7 @@
             <a href="https://openreview.net/attachment?id=OutljIofvS&name=pdf">
               ROBOTARENA ∞: UNLIMITED ROBOT BENCHMARKING VIA REAL-TO-SIM TRANSLATION
             </a><br>
-            <em>TL;DR: </em> Introduces a new benchmarking framework inspired by the RoboArena work for real2sim setup. 
+            <em>TL;DR: </em> Introduces a new benchmarking framework inspired by the <a href="https://robo-arena.github.io/" target="_blank">RoboArena</a> work for real2sim setup. 
             It provides automatic environment construction and evaluation using physics engine, real-2-sim translation and human feedback. 
             They use real2sim translation pipeline with a bunch of foundation models and differentiable rendering and VLM-based task progression scores.
             Seems very interesting on first glance and I am excited to try it out myself. 
@@ -307,7 +313,7 @@
             <a href="https://openreview.net/attachment?id=tQJYKwc3n4&name=pdf">
               ROBOCASA365: A LARGE-SCALE SIMULATION FRAMEWORK FOR TRAINING AND BENCHMARKING GENERALIST ROBOTS
             </a><br>
-            <em>TL;DR:</em> Extends the initial RoboCase sim and benchmark setup with a very diverse setup of 365 tasks across 2k+ kitchen scens and more than 2k hours of telop data. 
+            <em>TL;DR:</em> Extends the initial RoboCase sim and benchmark setup with a very diverse setup of 365 tasks across 2k+ kitchen scenes and more than 2k hours of teleop data. 
             The task setups look great and the data scale is also promising I just wish they tested more baseline policies than just 3. 
           </li>
 
@@ -346,7 +352,7 @@
               XR-1: TOWARDS VERSATILE VISION-LANGUAGE-ACTION MODELS VIA LEARNING UNIFIED VISION-MOTION REPRESENTATIONS
             </a><br>
             <em>TL;DR:</em>XR-1 introduces Unified Vision-Motion Codes (UVMC), a discrete latent representation that jointly encodes both visual dynamics and robotic motion using a dual-branch VQ-VAE with a shared codebook. This enables better co-pretraining from human and robot demonstrations.
-            Tested on real world experiments against Groot-N.1.5 and Pi0 with good results.
+            Tested on real world experiments against Groot-N.1.5 and <a href="https://www.physicalintelligence.company/download/pi0.pdf" target="_blank">Pi0</a> with good results.
           </li>
           <li>
             <a href="https://openreview.net/attachment?id=TX3oGD99CJ&name=pdf">
@@ -354,7 +360,7 @@
             </a><br>
             <em>TL;DR:</em> Substitutes Pi-Style Action Expert with Hierarchical Mixture-of-Experts Transformer to better adapt to new embodiments.
             It interleaves standard blocks with two types of MoE Blocks: Action-Space MoEs and Heterogeneity Balancing MoEs to better handle different action spaces.
-            Improves upon Pi0 across a range of experiments. 
+            Improves upon <a href="https://www.physicalintelligence.company/download/pi0.pdf" target="_blank">Pi0</a> across a range of experiments. 
           </li>
         </ul>
 
@@ -384,18 +390,71 @@
             This confirms my own experience in experimenting with various VLM backbones. However, the paper is still limited to benchmark setups only and does not test real robot results.
           </li>
         </ul>
+          
+        <h2 id="frontier-gap">9. The Hidden Gap Between Frontier and Research VLAs</h2>
+        <p>
+          On paper (pun intended:)), the gap seems small: on simulation setups (LIBERO, CALVIN) open-source VLAs surpass popular frontier baselines like Pi0.5. 
+          In practice, there is still a bigger gap that only shows up precisely where current papers rarely evaluate: <em>zero-shot, open-world behavior after pretraining</em>. 
+          Two weeks ago at CoRL, the Gemini-Robotics VLA demo attempted a wide range of novel tasks with arbitrary objects and paraphrased language. 
+          My own FLOWER is state-of-the-art on CALVIN, but not close to that level of zero-shot robustness. Simulation Benchmarks hide this delta and don't optimize for this goal.<br><br>
+          
+          This gap is not unique to VLAs, but I believe it is more pronounced here than in other areas of AI research. 
+          For example, in vision-language models, open-weight models like the newest LLaVA are often competitive with closed-weight models like GPT5 on zero-shot tasks.
+          In contrast, in VLAs, open-weight models still lag significantly behind closed-weight models like Gemini-Robotics and Pi0.5 on zero-shot tasks.
+          This is not to say that open-weight VLAs are useless—they are very useful for research and have strong performance on benchmarks.
+          But I wanted to highlight this gap, as I believe it is a significant issue for our community that needs to be addressed.<br><br>
+        </p>
+      <p><strong>Why the gap exists (based on what’s visible from papers, discussion with peers and personal experience):</strong></p>
+      <ul>
+        <li><em>Benchmark progress saturation masks real progress.</em> When scores cluster near the ceiling, “+0.5%” is not evidence of real improvements.</li>
+        <li><em>Evaluation scope is narrow.</em> Most papers report sim-only or small, locally finetuned setups. 
+          Free-form zero-shot language following and unseen objects/rooms are very rare. However, it's important to highlight that proper large-scale evals are only doable by companies.</li>
+        <li><em>Operational constraints.</em> Research groups lack the manpower/time to run large, diverse real-world trials necessary for rapid iteration. Frontier labs operate at a different scale of manpower, funding, and robot fleet size.
+        Thus, many PhDs with me included iterate on simulation benchmarks to test and try out their ideas.</li>
+        <li><em>Missing Peer Review Incentives.</em> Reviewers at most major conferences expect head-to-head comparison against open-weight but closed-source trained VLAs on standard sims and strong local finetuning numbers. 
+          These benchmarks are good for paper acceptance, but weakly correlated with open-world performance.</li>
+      </ul>
+      <p><strong>Counterarguments against this thesis:</strong></p>
+      <ul>
+        <li><em>Research Findings are not equal to performance gains.</em>Many great papers I discussed here have general interesting findings useful for the community.</li>
+        <li><em>Evaluation scope is narrow.</em> </li>
+      </ul>
+      # add image here
+      <figure class="figure-container">
+        <img src="images/roboarena_leaderboard.png" alt="Zero-Shot Gap Illustration">
+        <figcaption>Figure 4: Overview of the current <a href="https://robo-arena.github.io/" target="_blank">RoboArena</a> Leaderboard. There is only one non-Pi model that is near to being competitive in zero-shot tasks.</figcaption>
+      </figure>
+      <p><strong>What would help to bridge this gap without blowing the compute and human manpower budget:</strong></p>
+      <ul>
+        <li><em>Usage of public zero-shot fair benchmarks.</em> Track progress on setups like <a href="https://robo-arena.github.io/" target="_blank">RoboArena</a> that test post-pretraining generalization by independent operators. 
+          Today, non-Pi models are scarcely represented and far behind.</li>
+        <li><em>Better Pretraining Recipes.”</em> I've seen only very few papers like <a href="https://openreview.net/attachment?id=kt51kZH4aG&name=pdf">X-VLA</a> that properly ablate all their pretraning design decisions to understand the impact of these for performance. 
+        We need more papers like this that share full pretraining recipes and failed ideas that did not work during pretraining.</li>
+        </ul>
+      <p>
+        I wanna clearly highlgiht, that I don't think simulation or local finetuning are useless for research. 
+        Only that they are a poor proxy for the thing for the main argument of VLA: <em>robust zero-shot behavior in messy, new environments</em>. 
+      </p>
 
-        <h2 id="summary-outlook">9. Summary and Outlook</h2>
+        
+        <h2 id="summary-outlook">10. Summary and Outlook</h2>
 
         <p>
-          Overall, I am very positive about the current state of VLA research and the rapid progress being made in this field.
-          The trends mentioned above show that there is a lot of interest and contributions in various aspects of VLA models, from architecture design to training strategies and evaluation methods.
-          The only negative thing, I was disappointed by the lack of data-focussed papers (maybe they could also not be found with the keyword search).
-          Given the importance of data quality and diversity for training VLAs, I was hoping to see more work in this direction. 
-          However, its also important to admit that data-centric research is hard to do. Its an open secret that OXE is mostly low-quality data and there only exist very few large-scale high-quality datasets.
-          Understanding how to quantify quality of data in imitation learning is one of the most crucial issues in current VLA research.
+          Overall, I am very positive about the current state of VLA research and the progress being made in this field.
+          The trends above show strong interest and contributions across VLA models—from architecture design to training strategies and evaluation methods.<br><br>
+
+          However, there are also a few disappointing aspects of the current state of research, apart from the zero-shot gap.<br><br>
+
+          My biggest complaint for the ICLR submissions is the lack of data-focused papers.
+          Given the importance of data quality and diversity for training VLAs, I had hoped to see more work in this direction.
+          I believe this remains one of the least understood areas of VLA research, and we need better methods to collect and curate high-quality datasets.
+          That said, data-centric research is hard.
+          It’s an open secret that OXE is mostly low-quality data, and there are only a few large-scale, high-quality datasets.
+          Understanding how to quantify data quality in imitation learning is one of the most crucial open problems in VLA research.<br><br>
+
+          Nevertheless, I am optimistic that the field will continue to grow and evolve rapidly. 
         </p>
-        
+
         <hr>
         <h2 id="references">References</h2>
         <ol>
