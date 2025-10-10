@@ -76,7 +76,7 @@
         <h2>Practitioners Guide to Understanding Benchmark Results in VLA Research</h2>
         <figure class="figure-container">
           <img src="images/vla_sim_setups.png" alt="VLA Simulation Setups Overview">
-          <figcaption>Figure 1: Overview of the most popular VLA simulation benchmarks: <a href="https://arxiv.org/abs/2306.03310" target="_blank">LIBERO</a>, <a href="https://openreview.net/pdf?id=LZh48DTg71" target="_blank">SIMPLER</a> or <a href="https://arxiv.org/abs/2112.03227" target="_blank">CALVIN</a> 
+          <figcaption>Figure 2: Overview of the most popular VLA simulation benchmarks: <a href="https://arxiv.org/abs/2306.03310" target="_blank">LIBERO</a>, <a href="https://openreview.net/pdf?id=LZh48DTg71" target="_blank">SIMPLER</a> or <a href="https://arxiv.org/abs/2112.03227" target="_blank">CALVIN</a> 
           </figcaption>
         </figure>
 
@@ -180,7 +180,7 @@
         <h2 id="tokenizers">3. New Tokenizers</h2>
         <figure class="figure-container">
           <img src="images/faster_tokenizer.png" alt="FASTer Tokenizer Overview">
-          <figcaption>Figure 2: FASTer Tokenizer Overview. The tokenizer combines RVQ quantization with frequency and time domain losses. Image from <a href="https://openreview.net/attachment?id=k6nTUFoqeT&name=pdf">FASTer</a>.</figcaption>
+          <figcaption>Figure 3: FASTer Tokenizer Overview. The tokenizer combines RVQ quantization with frequency and time domain losses. Image from <a href="https://openreview.net/attachment?id=k6nTUFoqeT&name=pdf">FASTer</a>.</figcaption>
         </figure>
         <p>
           Discrete Action Tokenizers for Vision-Language-Action Models is an open problem which was started by <a href="https://arxiv.org/abs/2501.09747" target="_blank">FAST</a>, showing the potential of discrete tokenizers for easy combination of VLMs with action learning without the more complicated flow/diffusion expert.
@@ -263,6 +263,11 @@
         </ul>
 
         <h2 id="vla-video">6. VLA + Video Prediction</h2>
+        <figure class="figure-container">
+          <img src="images/video_policy_header.png" alt="Video Pretraining for VLAs">
+          <figcaption>Figure 4: Example Pretraining Paradigm from <a href="https://openreview.net/attachment?id=DdrsHWobR1&name=pdf">DISENTANGLED ROBOT LEARNING Paper</a><br>
+          </figcaption>
+        </figure>
         <p>Started by strong results from <a href="https://arxiv.org/pdf/2312.13139" target="_blank">GR-1 paper</a> from ICLR 2024 that showed the potential of video-based policies, there is a growing interest in this subfield.
           These types of policies can be divided into two general categories: starting by a VLM, that optionally has been trained on image generation and continue training it with future frame and action prediciton. 
           Otherwise several papers instead start from a Video Foundation Model and modify it to also generate actions. 
@@ -295,7 +300,7 @@
         <h2 id="evaluation">7. Evaluation and Benchmarking of VLAs</h2>
         <figure class="figure-container">
           <img src="images/roboarena_real2sim.png" alt="ROBOTARENA Overview">
-          <figcaption>Figure 3: Overview of real2sim ROBOTARENA benchmark. 
+          <figcaption>Figure 5: Overview of real2sim ROBOTARENA benchmark. 
             Image from <a href="https://openreview.net/attachment?id=OutljIofvS&name=pdf">ROBOTARENA ∞</a>.</figcaption>
         </figure>
         <p>
@@ -334,6 +339,12 @@
         </ul>
 
         <h2 id="cross-action-space">8. Cross-Action-Space-Learning</h2>
+        <figure class="figure-container">
+          <img src="images/xvla_cross_embedding.png" alt="X-VLA Overview">
+          <figcaption>Figure 6: Different Paradigms for VLAs to handle different action spaces.
+            Image from <a href="https://openreview.net/attachment?id=kt51kZH4aG&name=pdf">X-VLA</a>.</figcaption>
+        </figure>
+
         <p>
           Most VLAs still avoid pretraining on diverse action spaces, given the difficulties of getting any positive transfer results.
           Thus, it is a very exciting research area for current VLAs to improve. 
@@ -434,7 +445,7 @@
       </ul>
       <figure class="figure-container">
         <img src="images/roboarena_leaderboard.png" alt="Zero-Shot Gap Illustration">
-        <figcaption>Figure 4: Overview of the current <a href="https://robo-arena.github.io/" target="_blank">RoboArena</a> Leaderboard. There is only one non-Pi model that is near to being competitive in zero-shot tasks.</figcaption>
+        <figcaption>Figure 7: Overview of the current <a href="https://robo-arena.github.io/" target="_blank">RoboArena</a> Leaderboard. There is only one non-Pi model that is near to being competitive in zero-shot tasks.</figcaption>
       </figure>
       <p><strong>What would help to bridge this gap without blowing the compute and human manpower budget:</strong></p>
       <ul>
