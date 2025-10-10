@@ -1,6 +1,53 @@
 <!DOCTYPE HTML>
 <html lang="en">
 <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+  <!-- SEO Meta Tags -->
+  <title>State of Vision-Language-Action (VLA) Research at ICLR 2026 – Moritz Reuss</title>
+  <meta name="description" content="Comprehensive analysis of 164 Vision-Language-Action (VLA) model submissions at ICLR 2026. Discover trends in discrete diffusion VLAs, reasoning models, benchmarks (LIBERO, CALVIN, SIMPLER), and the gap between frontier and academic research.">
+  <meta name="keywords" content="VLA models, Vision-Language-Action, ICLR 2026, robot learning, embodied AI, discrete diffusion VLA, VLA benchmarks, LIBERO, CALVIN, SIMPLER, robotics research">
+  <meta name="author" content="Moritz Reuss">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://mbreuss.github.io/blog_post_iclr_26_vla.html">
+  
+  <!-- Open Graph / Social Media Meta Tags -->
+  <meta property="og:title" content="State of VLA Research at ICLR 2026">
+  <meta property="og:description" content="Analysis of 164 Vision-Language-Action model submissions at ICLR 2026. Learn about discrete diffusion VLAs, reasoning models, and current benchmark trends.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://mbreuss.github.io/blog_post_iclr_26_vla.html">
+  <meta property="og:image" content="https://mbreuss.github.io/images/blog_header.png">
+  <meta property="article:published_time" content="2025-10-10">
+  <meta property="article:author" content="Moritz Reuss">
+  
+  <!-- Twitter Card Meta Tags -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="State of VLA Research at ICLR 2026">
+  <meta name="twitter:description" content="Comprehensive analysis of Vision-Language-Action models at ICLR 2026 - discrete diffusion, reasoning VLAs, and benchmark insights.">
+  <meta name="twitter:image" content="https://mbreuss.github.io/images/blog_header.png">
+  
+  <!-- Schema.org Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "headline": "State of Vision-Language-Action (VLA) Research at ICLR 2026",
+    "author": {
+      "@type": "Person",
+      "name": "Moritz Reuss"
+    },
+    "datePublished": "2025-10-10",
+    "dateModified": "2025-10-10",
+    "description": "Comprehensive analysis of Vision-Language-Action models at ICLR 2026, covering discrete diffusion, reasoning VLAs, benchmarks, and research trends.",
+    "keywords": "VLA models, Vision-Language-Action, robot learning, ICLR 2026, embodied AI, discrete diffusion",
+    "image": "https://mbreuss.github.io/images/blog_header.png",
+    "url": "https://mbreuss.github.io/blog_post_iclr_26_vla.html"
+  }
+  </script>
+  
+  <link rel="stylesheet" type="text/css" href="stylesheet.css">
+  
   <style>
     .figure-container {
       max-width: 800px;
@@ -11,10 +58,6 @@
       height: auto;
     }
   </style>
-  <meta charset="UTF-8">
-  <title>State of VLA Research at ICLR 2026 – Moritz Reuss</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" type="text/css" href="stylesheet.css">
 
   <!-- Google Analytics -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-ETMW7BYE0C"></script>
@@ -35,27 +78,27 @@
         <p style="text-align:center; color:gray;">October 2025 • by Moritz Reuss</p>
         <hr>
         <figure class="figure-container">
-          <img src="images/blog_header.png" alt="Blog Header Image">
+          <img src="images/blog_header.png" alt="Vision-Language-Action (VLA) models research overview and trends at ICLR 2026">
         </figure>
         <p>
-          Every year in autumn, the deadline for ICLR submissions looms over the machine learning community.
+          Every year in autumn, the ICLR submission deadline looms over the machine learning community.
           Unlike NeurIPS or ICML, ICLR publicly releases all anonymous submissions a few weeks after the deadline, 
-          giving a unique real-time snapshot of ongoing research around the world without the half year delay of all other top ml conferences.  
-          Given my personal research interests, I wanted to look into <strong>Vision-Language-Action (VLA) Models</strong> research.<br><br>
+          providing a unique real-time snapshot of ongoing research around the world without the typical six-month delay of other top ML conferences.  
+          Given my personal research interests, I wanted to analyze <strong>Vision-Language-Action (VLA) Models</strong> research and share insights from this year's submissions.<br><br>
 
-          Given the papers I found interesting, I wanted to share my findings about current trends and problems in our field and highlight some interesting papers.
-          To help people better understand the current state of VLA research, I also included a short guide on how to interpret benchmark results in VLA papers.
-          Finally, there is a brief discussion about the hidden gap between frontier labs and research labs in the VLA field, that is not visible from reading papers.<br><br>
+          In this blog post, I share my findings about current trends and challenges in VLA research, highlighting the some interesting papers submitted to ICLR 2026.
+          To help researchers and practitioners better understand the current state of VLA research, I've also included a practical guide on how to interpret benchmark results in VLA papers.
+          Finally, there is a discussion about the hidden gap between frontier labs and academic research labs in the VLA field—a gap that isn't visible from reading papers alone.<br><br>
 
-          Below is a summary of general research trends with some highlighted papers for each category that I found interesting from this years submission.
-          Please note that this is only a personal selection and personal opinion of papers and research and I might have missed a lot of other interesting work.
-          If you find any noteworthy papers that I missed, please let me know.<br><br>
+          Below is a summary of general research trends with highlighted papers for each category that I found interesting from this year's submissions.
+          Please note that this represents only my personal selection and opinion of papers and research, and I may have missed other excellent work.
+          If you know of noteworthy papers that I missed, please let me know.<br><br>
 
-          Some general interesting observations about the growth of VLA research based on key-word search for VLA papers: 
-          In 2024 it was only 1 rejected submission "Vision-Language-Action" appearing in the key-word search on openreview.
-          In 2025 there were 6 accepted papers and 3 rejected ones with same key-word.
-          For 2026 openreview shows 164 submissions with the same keyword. 
-          Given the exponential growth, I am excited to review the 2,100 VLA ICLR submissions next year.
+          <strong>The Explosive Growth of VLA Research:</strong> Some remarkable observations about VLA research growth based on keyword searches on OpenReview: 
+          In 2024, there was only 1 rejected submission with "Vision-Language-Action" appearing in the keyword search.
+          In 2025, there were 6 accepted papers and 3 rejected submissions with the same keyword.
+          For 2026, OpenReview shows 164 submissions with the same keyword—a large increase in just one year! 
+          Given this exponential growth trajectory, I'm both excited and slightly terrified to review the projected 2,100+ VLA submissions at ICLR 2027.
 
         </p>
 
@@ -85,11 +128,11 @@
           In order to better understand the VLA results, it is important to have some context on the current state of popular VLA benchmarks and what good performance looks like.
           Given the current benchmark there is no clear statement possible to say which model is the best, as most papers only compare against each other on the usual simulation benchmarks.
           90% of papers mentioned in this post all test in either <a href="https://arxiv.org/abs/2306.03310" target="_blank">LIBERO</a>, <a href="https://openreview.net/pdf?id=LZh48DTg71" target="_blank">SIMPLER</a> or <a href="https://arxiv.org/abs/2112.03227" target="_blank">CALVIN</a>.<br><br>
-          LIBERO is basically solved and showing 99% vs 98% is not very helpful and you don't need VLAs and large-scale pretraining to get competetive results.
+          LIBERO is basically solved and showing 99% vs 98% is not very helpful and you don't need VLAs and large-scale pretraining to get competitive results.
           E.g. all mentioned concurrent discrete diffusion policies below test on LIBERO and all achieve between 95-98% average over the 4 versions (Goal, Spatial, Long, Object).
-          Based on these results it is impossible to say which model is better, as they are all very close to the ceiling anywayys and you dont need internet scale pretraining to solve these.<br><br>
+          Based on these results it is impossible to say which model is better, as they are all very close to the ceiling anyways and you don't need internet scale pretraining to solve these.<br><br>
           Rule of thumb for getting a impression a VLA is decent or near sota levels on these: LIBERO: >95% is expected for Spatial, Goal and Object, 90-95% is required for Long and 90, lower than 90% is only decent for non-wrist came or few-shot stuff.
-          A properly tuned Diffusion Policy can get you there without VLAs altough the most cited DP baselines is showing worse results. 
+          A properly tuned Diffusion Policy can get you there without VLAs although the most cited DP baselines is showing worse results. 
           CALVIN is also almost saturated by current sota models like <a href="https://arxiv.org/pdf/2509.04996">FLOWER</a>.
           For CALVIN higher than 4 score for ABC is standard now and above 4.5 is sota regime. 
           For the D version 3.75 is standard and above 4 is very good. 
@@ -114,7 +157,7 @@
           In addition, you can combine it with ideas from Embodied Chain-of-Thought (see next section) to generate sub-goals and reasoning together with actions in parallel. 
           This tackles some of the biggest limitations of ECoT from prior work, which was extremely slow due to the autoregressive nature of the VLM models.
           Current attempts for discrete Diffusion either finetune an autoregressive VLM with discrete diffusion because the variety of discrete diffusion VLMs is very limited.
-          Other work use LLaDA-V as a pretrained backbone with good sucess. 
+          Other work use LLaDA-V as a pretrained backbone with good success. 
         </p>
 
         <p><strong>Notable papers:</strong></p>
@@ -212,7 +255,7 @@
         </ul>
 
         <h2 id="efficient-vla">4. Efficient VLAs</h2>
-        <p>As someone working on this topic myself, I understand the pain of trying to train and run larger VLAs on limited compute setsups. 
+        <p>As someone working on this topic myself, I understand the pain of trying to train and run larger VLAs on limited compute setups. 
           Thus, efficient VLAs are always relevant. Especially, since this gives labs with limited compute access the chance to work on VLAs too.
           There are several interesting papers this year that try to tackle this problem with different approaches.
           Generally, one can divide them into two categories: try to make training and models more efficient by making smaller VLAs or better tokenizers etc. 
@@ -249,7 +292,7 @@
             <a href="https://openreview.net/attachment?id=eUGoqrZ6Ea&name=pdf">
               SELF-IMPROVING VISION-LANGUAGE-ACTION MODELS WITH DATA GENERATION VIA RESIDUAL RL
             </a><br>
-            <em>TL;DR:</em> Residual RL method that collets more data with frozen VLA and small residual policy. The residual interventions are used to get more high quality data with recovery behavior.
+            <em>TL;DR:</em> Residual RL method that collects more data with frozen VLA and small residual policy. The residual interventions are used to get more high quality data with recovery behavior.
             Finally the VLA is finetuned using SFT. Results on LIBERO achieve 99%.
             </li>
 
@@ -269,7 +312,7 @@
           </figcaption>
         </figure>
         <p>Started by strong results from <a href="https://arxiv.org/pdf/2312.13139" target="_blank">GR-1 paper</a> from ICLR 2024 that showed the potential of video-based policies, there is a growing interest in this subfield.
-          These types of policies can be divided into two general categories: starting by a VLM, that optionally has been trained on image generation and continue training it with future frame and action prediciton. 
+          These types of policies can be divided into two general categories: starting by a VLM, that optionally has been trained on image generation and continue training it with future frame and action prediction. 
           Otherwise several papers instead start from a Video Foundation Model and modify it to also generate actions. 
           Since most state-of-the-art video foundation models are diffusion/flow-based these policies typically struggle with slow inference speed. 
           Overall, the results demonstrate that video generation and the required physics understanding and language grounding are a very useful prior for robot learning.
@@ -424,7 +467,7 @@
           
           This gap is not unique to VLAs, the same is true for LLMs and VLMs.
           For VLAs, fully open-weight models (that share training recipe, data, code and weights) still lag significantly behind closed-weight models like Gemini-Robotics and Pi0.5 on zero-shot tasks.
-          (although there seem to be some promising signs that this gap is closing with <a href="https://arxiv.org/abs/2508.21112">EO-1</a> but I haven tried them myself yet).
+          (although there seem to be some promising signs that this gap is closing with <a href="https://arxiv.org/abs/2508.21112">EO-1</a> but I haven't tried them myself yet).
           This is not to say that open-weight VLAs are useless, they are very useful for research and have strong performance in a lot of scenarios.
           But I wanted to highlight this gap, as I believe it is a significant issue for our community that needs to be addressed in the future.<br><br>
         </p>
@@ -456,12 +499,12 @@
       <p><strong>What would help to bridge this gap without blowing the compute and human manpower budget:</strong></p>
       <ul>
         <li><em>Usage of public zero-shot fair benchmarks.</em> Track progress on setups like <a href="https://robo-arena.github.io/" target="_blank">RoboArena</a> that test post-pretraining generalization by independent operators. 
-          Today, non-Pi models are scarcely represented and far behind.</li>
-        <li><em>Better Pretraining Recipes.”</em> I've seen only very few papers like <a href="https://openreview.net/attachment?id=kt51kZH4aG&name=pdf">X-VLA</a> that properly ablate all their pretraning design decisions to understand the impact of these for performance. 
-        We need more papers like this that share full pretraining recipes and failed ideas that did not work during pretraining.</li>
+          Today, non-Pi models are scarcely represented and far behind. However, the training code for the higher ranked policies are all fully open-sourced by PI in this <a href="https://github.com/Physical-Intelligence/openpi" target="_blank">codebase</a> to facilitate further research.</li> 
+        <li><em>Better Pretraining Recipes.”</em> I've seen only very few papers like <a href="https://openreview.net/attachment?id=kt51kZH4aG&name=pdf">X-VLA</a> that properly ablate all their pretraining design decisions to understand the impact of these for performance. 
+        We need more papers like this that share full pretraining recipes and also discuss failed ideas that did not work during pretraining.</li>
         </ul>
       <p>
-        I wanna clearly highlight, that I don't think simulation or local finetuning are useless for research. 
+        I wanna clearly highlight, that I don't think simulation or local finetuning are useless for research in contrast they are very important for many parts of robot learning. 
         Only that they are a poor proxy for the thing for the main argument of VLA: <em>robust zero-shot behavior in messy, new environments</em>. 
       </p>
 
@@ -472,7 +515,7 @@
           Overall, I am very positive about the current state of VLA research and the progress being made in this field.
           The trends above show strong interest and contributions across VLA models—from architecture design to training strategies and evaluation methods.<br><br>
 
-          However, there are also a few disappointing aspects of the current state of research, apart from the zero-shot gap.<br><br>
+          However, there are also a few disappointing aspects of the current state of VLA research, apart from the zero-shot gap.<br><br>
 
           My biggest complaint for the ICLR submissions is the lack of data-focused papers.
           Given the importance of data quality and diversity for training VLAs, I had hoped to see more work in this direction.
@@ -492,20 +535,15 @@
         </p>
         
         <h2 id="cite">Cite this post</h2>
-      <p>If you’d like to cite this article, use the BibTeX below:</p>
-      <pre><code>@misc{reuss2025state-vla-iclr26,
-        title        = {State of VLA Research at ICLR 2026},
-        author       = {Reuss, Moritz},
-        year         = {2025},
-        month        = {October},
-        howpublished = {\url{https://mbreuss.github.io/blog_post_iclr_26_vla.html}},
-        note         = {Blog post},
-      }</code></pre>
-
-        <hr>
-        <h2 id="references">References</h2>
-        <ol>
-        </ol>
+        <p>If you’d like to cite this article, use the BibTeX below:</p>
+        <pre><code>@misc{reuss2025state-vla-iclr26,
+          title        = {State of VLA Research at ICLR 2026},
+          author       = {Reuss, Moritz},
+          year         = {2025},
+          month        = {October},
+          howpublished = {\url{https://mbreuss.github.io/blog_post_iclr_26_vla.html}},
+          note         = {Blog post},
+        }</code></pre>
 
         
         <hr>
