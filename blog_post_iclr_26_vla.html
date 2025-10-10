@@ -41,12 +41,13 @@
         </p>
 
         <h2>Summary of Key Trends</h2>
-        <p>By scanning and skimm reading most of the ICLR 2026 submissions with the VLA keyword, I identified the following key trends in VLA research with a lot of overlap in between these categories:</p>
+        <p>By scanning and reading most of the ICLR 2026 submissions with the VLA keyword, I identified the following key trends in VLA research with a lot of overlap in between these categories:</p>
         <ul>
           <li><a href="#discrete-diffusion">Discrete Diffusion VLAs</a></li>
           <li><a href="#embodied-cot">Reasoning VLAs and Embodied Chain-of-Thought</a></li>
           <li><a href="#tokenizers">New Discrete Tokenizers</a></li>
           <li><a href="#efficient-vla">Efficient VLAs</a></li>
+          <li><a href="#RL-vla">RL for VLAs</a></li>
           <li><a href="#vla-video">VLA + Video Prediction</a></li>
           <li><a href="#evaluation">Evaluation and Benchmarking of VLAs</a></li>
           <li><a href="#cross-action-space">Cross-Action-Space Learning</a></li>
@@ -81,6 +82,8 @@
           Why discrete diffusion? Compared to autoregressive models, diffusion models can generate sequences in parallel, which is a big advantage for discrete action token generation. Instead of having to run your policy 100 times, you can generate long action sequences in a few forward passes. 
           In addition, you can combine it with ideas from Embodied Chain-of-Thought (see next section) to generate sub-goals and reasoning together with actions in parallel. 
           This tackles some of the biggest limitations of ECoT from prior work, which was extremely slow due to the autoregressive nature of the VLM models.
+          Current attempts for discrete Diffusion either finetune an autoregressive VLM with discrete diffusion because the variety of discrete diffusion VLMs is very limited.
+          Other work use LLaDA-V as a pretrained backbone with good sucess. 
         </p>
 
         <p><strong>Notable papers:</strong></p>
@@ -118,9 +121,10 @@
         <p>
           Since <a href="https://arxiv.org/abs/2407.08693" target="_blank">the first ECoT paper</a> (CoRL 2024), there has been a growing interest in combining spatially grounded reasoning with action prediction for improving VLAs.
           By combining subtask and bounding box prediction, the VLM gets better representations for embodied stuff and show improved performance on benchmarks.
-          Prior results in analysing <a href="https://arxiv.org/abs/2505.08243" target="_blank">ECoT Training </a> show, that these objectives seem to help to bridge the representation gap between VLM pretraining and anything robotic related. 
+          Prior results in analysing <a href="https://arxiv.org/abs/2505.08243" target="_blank">ECoT Training </a> show, that these objectives seem to help to bridge the representation gap between VLM pretraining and robotic related task. 
           However, the main limitation of prior ECoT work was the autoregressive nature of the VLAs and its increased token count which result slow in training and inference.
-          Overall, it remains an open question how to best implement grounded reasoning for VLAs.
+          Overall, it remains an open question how to best implement grounded reasoning for VLAs. 
+          Most methods focussing on ECoT still use the same dataset but dont experiment a lot with which type of objectives are ideal.
         </p>
 
         <p><strong>Notable papers:</strong></p>
@@ -194,6 +198,32 @@
               AUTOQVLA: NOT ALL CHANNELS ARE EQUAL IN VISION-LANGUAGE-ACTION MODEL’S QUANTIZATION
             </a><br>
             <em>TL;DR:</em> Analysis quantization of OpenVLA and proposes improved quantization method for maintaining performance with only 30% of the original VRAM requirements.
+          </li>
+        </ul>
+
+        <h2 id="efficient-vla">5. RL for VLAs</h2>
+        <p>As someone working on this topic myself, I understand the pain of trying to train and run larger VLAs on limited compute setups. 
+          Finetuning VLAs to go from 70-80% success rate in the real world towards 99% is still an open problem.  
+          There is a lot of hope for RL to close this gap. While a lot of attempts have been made before, no method has established itself as the go-to method yet.
+          This year there are several interesting papers that try to tackle this problem with different approaches.
+        </p>
+
+        <p><strong>Notable papers:</strong></p>
+        <ul>
+          <li>
+            <a href="https://openreview.net/attachment?id=eUGoqrZ6Ea&name=pdf">
+              SELF-IMPROVING VISION-LANGUAGE-ACTION MODELS WITH DATA GENERATION VIA RESIDUAL RL
+            </a><br>
+            <em>TL;DR:</em> Residual RL method that collets more data with frozen VLA and small residual policy. The residual interventions are used to get more high quality data with recovery behavior.
+            Finally the VLA is finetuned using SFT. Results on LIBERO achieve 99%.
+            </li>
+
+          <li>
+            <a href="https://openreview.net/attachment?id=TpL2nXanru&name=pdf">
+              PROGRESSIVE STAGE-AWARE REINFORCEMENT FOR FINE-TUNING VISION-LANGUAGE-ACTION MODELS
+            </a><br>
+            <em>TL;DR:</em> The method breaks robot tasks into semantic stages (Reach→Grasp→Transport→Place) and assigns rewards to each stage instead of the whole trajectory. It uses STA-TPO for offline preference learning and STA-PPO for online reinforcement learning, both operating at the stage level.
+            Results on Bridge SIMPLER of 98%. 
           </li>
         </ul>
 
@@ -335,9 +365,9 @@
         <p>
           Overall, I am very positive about the current state of VLA research and the rapid progress being made in this field.
           The trends mentioned above show that there is a lot of interest and innovation in various aspects of VLA models, from architecture design to training strategies and evaluation methods.
-          The only negative thing, I was a bit disappointed by the lack of data-focussed papers in the context of VLas (maybe they could also not be found with the keyword search).
-          Given the importance of data quality and diversity for training VLAs, I was expecting more papers.
-          Another important area of research I haven't discussed much is RL finetuning of VLAs.
+          The only negative thing, I was disappointed by the lack of data-focussed papers (maybe they could also not be found with the keyword search).
+          Given the importance of data quality and diversity for training VLAs, I was expecting more work in this direction. 
+          However, its also important to admit that data-centric research is hard to do. Its an open secret that OXE is mostly low-quality data and there only exist few large-scale high-quality datasets.
           I think data quality and understanding how to quantify quality is one of the most crucial issues in current VLA research.
         </p>
         
