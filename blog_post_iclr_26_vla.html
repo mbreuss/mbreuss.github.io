@@ -93,17 +93,12 @@
           Below is a summary of general research trends with highlighted papers for each category that I found interesting from this year's submissions.
           Please note that this represents only my personal selection and opinion of papers and research, and I may have missed other excellent work.
           If you know of noteworthy papers that I missed, please let me know.<br><br>
+          </p>
 
-          <strong>The Explosive Growth of VLA Research:</strong> Some remarkable observations about VLA research growth based on keyword searches on OpenReview: 
-          In 2024, there was only 1 rejected submission with "Vision-Language-Action" appearing in the keyword search.
-          In 2025, there were 6 accepted papers and 3 rejected submissions with the same keyword.
-          For 2026, OpenReview shows 164 submissions with the same keyword—a large increase in just one year! 
-          Given this exponential growth trajectory, I'm both excited and slightly terrified to review the projected 2,100+ VLA submissions at ICLR 2027.
-        </p>
-
-        <h2>Table of Contents</h2>
+           <h2>Table of Contents</h2>
         <nav style="background: #f8f9fa; padding: 20px; border-left: 4px solid #4CAF50; margin: 20px 0;">
           <ol style="line-height: 1.8;">
+            <li><a href="#growth-vla">The Explosive Growth of VLA Research</a></li>
             <li><a href="#key-trends">Summary of Key Trends</a></li>
             <li><a href="#practitioners-guide">Practitioners Guide to Understanding Benchmark Results</a></li>
             <li><a href="#discrete-diffusion">Discrete Diffusion VLAs</a></li>
@@ -119,6 +114,100 @@
             <li><a href="#summary-outlook">Summary and Outlook</a></li>
           </ol>
         </nav>
+
+        <hr>
+
+        <h2 id="growth-vla">The Explosive Growth of VLA Research</h2>
+        <p>
+          The Vision-Language-Action field has experienced remarkable growth over the past two years. 
+          Based on keyword searches on OpenReview, the numbers tell an interesting story based on ICLR submissions openreview keyword search for "Vision-Language-Action":
+        </p>
+        
+        <ul>
+          <li><strong>ICLR 2024:</strong> Only 1 rejected submission with "Vision-Language-Action" keyword</li>
+          <li><strong>ICLR 2025:</strong> 6 accepted papers and 3 rejected submissions with the same keyword</li>
+          <li><strong>ICLR 2026:</strong> 164 submissions with the same keyword—an 18x increase in just one year!</li>
+        </ul>
+
+        <p>
+          This exponential growth trajectory shows that Vision-Language-Action models are rapidly gaining popularity with many new people from other domains like Vision coming into the exciting field of robot learning. 
+          Given this trend, I'm both excited and a bit terrified to review the projected 2,100+ VLA submissions at ICLR 2027, though I suspect the growth rate may stabilize as the field matures. 
+        </p>
+
+        <!-- Growth Visualization -->
+          <div style="flex: 0 0 400px; min-width: 300px;">
+            <svg viewBox="0 0 450 350" style="width: 100%; height: auto; background: #f8f9fa; border-radius: 8px; padding: 20px; box-sizing: border-box;">
+              <!-- Title -->
+              <text x="225" y="25" text-anchor="middle" style="font-size: 16px; font-weight: bold; fill: #333;">
+                VLA Submissions Growth at ICLR
+              </text>
+              
+              <!-- Y-axis -->
+              <line x1="60" y1="40" x2="60" y2="300" stroke="#666" stroke-width="2"/>
+              <!-- X-axis -->
+              <line x1="60" y1="300" x2="410" y2="300" stroke="#666" stroke-width="2"/>
+              
+              <!-- Y-axis labels -->
+              <text x="45" y="305" text-anchor="end" style="font-size: 11px; fill: #666;">0</text>
+              <text x="45" y="255" text-anchor="end" style="font-size: 11px; fill: #666;">250</text>
+              <text x="45" y="205" text-anchor="end" style="font-size: 11px; fill: #666;">500</text>
+              <text x="45" y="155" text-anchor="end" style="font-size: 11px; fill: #666;">750</text>
+              <text x="45" y="105" text-anchor="end" style="font-size: 11px; fill: #666;">1000</text>
+              <text x="45" y="55" text-anchor="end" style="font-size: 11px; fill: #666;">1250</text>
+              
+              <!-- Grid lines -->
+              <line x1="60" y1="250" x2="410" y2="250" stroke="#ddd" stroke-width="1" stroke-dasharray="4"/>
+              <line x1="60" y1="200" x2="410" y2="200" stroke="#ddd" stroke-width="1" stroke-dasharray="4"/>
+              <line x1="60" y1="150" x2="410" y2="150" stroke="#ddd" stroke-width="1" stroke-dasharray="4"/>
+              <line x1="60" y1="100" x2="410" y2="100" stroke="#ddd" stroke-width="1" stroke-dasharray="4"/>
+              
+              <!-- Bars -->
+              <!-- 2024: 1 submission (barely visible) -->
+              <rect x="80" y="299" width="50" height="1" fill="#4CAF50" opacity="0.8"/>
+              <text x="105" y="315" text-anchor="middle" style="font-size: 12px; font-weight: bold; fill: #333;">2024</text>
+              <text x="105" y="290" text-anchor="middle" style="font-size: 14px; font-weight: bold; fill: #4CAF50;">1</text>
+              
+              <!-- 2025: 9 submissions -->
+              <rect x="160" y="295.4" width="50" height="4.6" fill="#4CAF50" opacity="0.8"/>
+              <text x="185" y="315" text-anchor="middle" style="font-size: 12px; font-weight: bold; fill: #333;">2025</text>
+              <text x="185" y="287" text-anchor="middle" style="font-size: 14px; font-weight: bold; fill: #4CAF50;">9</text>
+              
+              <!-- 2026: 164 submissions -->
+              <rect x="240" y="216.8" width="50" height="83.2" fill="#2E7D32" opacity="0.9"/>
+              <text x="265" y="315" text-anchor="middle" style="font-size: 12px; font-weight: bold; fill: #333;">2026</text>
+              <text x="265" y="205" text-anchor="middle" style="font-size: 16px; font-weight: bold; fill: #2E7D32;">164</text>
+              
+              <!-- 2027: ~1000 submissions (dashed outline bar going way up!) -->
+              <rect x="320" y="94" width="50" height="206" fill="none" stroke="#999" stroke-width="2" stroke-dasharray="5,5" opacity="0.6"/>
+              
+              <!-- Arrow pointing up indicating it goes off-chart -->
+              <path d="M 345 94 L 345 50" stroke="#999" stroke-width="2" stroke-dasharray="5,5" opacity="0.4"/>
+              <polygon points="345,45 350,55 340,55" fill="#999" opacity="0.4"/>
+              
+              <text x="345" y="315" text-anchor="middle" style="font-size: 12px; font-weight: bold; fill: #333;">2027</text>
+              <text x="345" y="82" text-anchor="middle" style="font-size: 18px; font-weight: bold; fill: #999;">1000+?</text>
+              <text x="345" y="330" text-anchor="middle" style="font-size: 10px; fill: #999; font-style: italic;">projected</text>
+              
+              <!-- Growth arrow -->
+              <path d="M 130 295 Q 180 270, 240 230" stroke="#FF6B6B" stroke-width="2" fill="none" stroke-dasharray="5,3"/>
+              <polygon points="240,225 245,235 235,235" fill="#FF6B6B"/>
+              
+              <!-- Future growth arrow (dotted) - dramatic upward curve -->
+              <path d="M 290 230 Q 310 180, 320 120" stroke="#FF6B6B" stroke-width="2" fill="none" stroke-dasharray="2,4" opacity="0.5"/>
+              <polygon points="320,115 325,125 315,125" fill="#FF6B6B" opacity="0.5"/>
+              
+              <!-- Exponential growth annotation -->
+              <text x="180" y="260" text-anchor="middle" style="font-size: 11px; fill: #FF6B6B; font-style: italic;">
+                18x growth!
+              </text>
+              
+              <!-- Future growth annotation -->
+              <text x="310" y="160" text-anchor="middle" style="font-size: 10px; fill: #FF6B6B; font-style: italic;">
+                exponential?
+              </text>
+            </svg>
+          </div>
+        </div>
 
 
         <h2 id="key-trends">Summary of Key Trends</h2>
