@@ -237,9 +237,9 @@
         </ul>
 
         <h2 id="efficient-vla">5. RL for VLAs</h2>
-        <p>As someone working on this topic myself, I understand the pain of trying to train and run larger VLAs on limited compute setups. 
-          Finetuning VLAs to go from 70-80% success rate in the real world towards 99% is still an open problem.  
-          There is a lot of hope for RL to close this gap. While a lot of attempts have been made before, no method has established itself as the go-to method yet.
+        <p>Finetuning VLAs to go from 70-80% success rate in the real world towards 99% is still an open problem.  
+          There is a lot of hope for RL to close this gap. 
+          While a lot of attempts have been made before, no method has established itself as the go-to method yet.
           This year there are several interesting papers that try to tackle this problem with different approaches.
         </p>
 
@@ -262,7 +262,7 @@
           </li>
         </ul>
 
-        <h2 id="vla-video">5. VLA + Video Prediction</h2>
+        <h2 id="vla-video">6. VLA + Video Prediction</h2>
         <p>Started by strong results from <a href="https://arxiv.org/pdf/2312.13139" target="_blank">GR-1 paper</a> from ICLR 2024 that showed the potential of video-based policies, there is a growing interest in this subfield.
           These types of policies can be divided into two general categories: starting by a VLM, that optionally has been trained on image generation and continue training it with future frame and action prediciton. 
           Otherwise several papers instead start from a Video Foundation Model and modify it to also generate actions. 
@@ -292,7 +292,7 @@
           </li>
         </ul>
 
-        <h2 id="evaluation">6. Evaluation and Benchmarking of VLAs</h2>
+        <h2 id="evaluation">7. Evaluation and Benchmarking of VLAs</h2>
         <figure class="figure-container">
           <img src="images/roboarena_real2sim.png" alt="ROBOTARENA Overview">
           <figcaption>Figure 3: Overview of real2sim ROBOTARENA benchmark. 
@@ -333,7 +333,7 @@
           </li>
         </ul>
 
-        <h2 id="cross-action-space">7. Cross-Action-Space-Learning</h2>
+        <h2 id="cross-action-space">8. Cross-Action-Space-Learning</h2>
         <p>
           Most VLAs still avoid pretraining on diverse action spaces, given the difficulties of getting any positive transfer results.
           Thus, it is a very exciting research area for current VLAs to improve. 
@@ -372,7 +372,7 @@
           </li>
         </ul>
 
-        <h2 id="other">8. Other Interesting Papers</h2>
+        <h2 id="other">9. Other Interesting Papers</h2>
         <p>
           There are several other interesting papers that don't fit neatly into the categories above, but are worth mentioning.
           These papers explore various aspects of VLA models, from choice of VLM backbone to including a memory module in the VLA architecture. 
@@ -399,7 +399,7 @@
           </li>
         </ul>
           
-        <h2 id="frontier-gap">9. The Hidden Gap Between Frontier and Research VLAs</h2>
+        <h2 id="frontier-gap">10. The Hidden Gap Between Frontier and Research VLAs</h2>
         <p>
           On paper (pun intended:)), the gap seems small: on simulation setups (LIBERO, CALVIN) open-source VLAs surpass popular frontier baselines like Pi0.5. 
           In practice, there is still a bigger gap that only shows up precisely where current papers rarely evaluate: <em>zero-shot, open-world behavior after pretraining</em>. 
@@ -432,7 +432,6 @@
           Many great papers I discussed here have general interesting findings useful for the community and research. Zero-shot Performance is only one aspect of Policy Performance.</li>
         <li><em>Evaluation scope is narrow.</em> </li>
       </ul>
-      # add image here
       <figure class="figure-container">
         <img src="images/roboarena_leaderboard.png" alt="Zero-Shot Gap Illustration">
         <figcaption>Figure 4: Overview of the current <a href="https://robo-arena.github.io/" target="_blank">RoboArena</a> Leaderboard. There is only one non-Pi model that is near to being competitive in zero-shot tasks.</figcaption>
@@ -450,7 +449,7 @@
       </p>
 
         
-        <h2 id="summary-outlook">10. Summary and Outlook</h2>
+        <h2 id="summary-outlook">11. Summary and Outlook</h2>
 
         <p>
           Overall, I am very positive about the current state of VLA research and the progress being made in this field.
@@ -467,6 +466,17 @@
 
           Nevertheless, I am optimistic that the field will continue to grow and evolve rapidly. 
         </p>
+        
+        <h2 id="cite">Cite this post</h2>
+      <p>If you’d like to cite this article, use the BibTeX below:</p>
+      <pre><code>@misc{reuss2025state-vla-iclr26,
+        title        = {State of VLA Research at ICLR 2026},
+        author       = {Reuss, Moritz},
+        year         = {2025},
+        month        = {October},
+        howpublished = {\url{https://mbreuss.github.io/blog_post_iclr_26_vla.html}},
+        note         = {Blog post},
+      }</code></pre>
 
         <hr>
         <h2 id="references">References</h2>
