@@ -77,6 +77,10 @@
         <hr>
 
         <h2 id="discrete-diffusion">1. Discrete Diffusion VLAs</h2>
+        <figure>
+          <img src="images/discrete_diff_comp.png" alt="Discrete Diffusion VLA Architecture">
+          <figcaption>Figure 1: Overview of discrete diffusion paradigm for action generation. Image from <a href="https://openreview.net/attachment?id=YWeNCMxdhM&name=pdf">DISCRETE DIFFUSION VLA</a>.</figcaption>
+        </figure>
         <p>
           Given the success of discrete diffusion models in other domains like text (e.g. <a href="https://proceedings.neurips.cc/paper_files/paper/2024/file/eb0b13cc515724ab8015bc978fdde0ad-Paper-Conference.pdf">(MDLM</a>) and VLMs (e.g. <a href="https://arxiv.org/pdf/2505.16933">LLaDA-V</a>), it is no surprise that this trend is also making its way into VLA research. 
           Why discrete diffusion? Compared to autoregressive models, diffusion models can generate sequences in parallel, which is a big advantage for discrete action token generation. Instead of having to run your policy 100 times, you can generate long action sequences in a few forward passes. 
@@ -147,6 +151,10 @@
         </ul>
 
         <h2 id="tokenizers">3. New Tokenizers</h2>
+        <figure>
+          <img src="images/discrete_diff_comp.png" alt="Discrete Diffusion VLA Architecture">
+          <figcaption>Figure 2: FASTer Tokenizer Overview. The tokenizer combines RVQ quantization with frequency and time domain losses. Image from <a href="https://openreview.net/attachment?id=k6nTUFoqeT&name=pdf">FASTer</a>.</figcaption>
+        </figure>
         <p>
           Discrete Action Tokenizers for Vision-Language-Action Models is an open problem which was started by <a href="https://arxiv.org/abs/2501.09747" target="_blank">FAST</a>, showing the potential of discrete tokenizers for easy combination of VLMs with action learning without the more complicated flow/diffusion expert.
           Discrete tokenizers can directly be applied to pretrained VLMs without any architecture modifications. 
@@ -260,10 +268,9 @@
         <h2 id="evaluation">6. Evaluation and Benchmarking of VLAs</h2>
         <p>
           As mentioned above, the current state of VLA benchmarks is quite saturated and it is hard to judge which model is actually better given the limited number of benchmarks and the fact that most papers only compare against a few other baselines.
-          Thus, there is a growing interest in better evaluation and benchmarking of VLAs.
-          Several papers try to tackle this problem by either introducing new simulation benchmarks. 
+          Luckily, there are several submission that try to bridge this gap by introducing new benchmarks for VLAs.
           Other ideas include real2sim world models to test policies in generative environments. 
-          While I don't think these ideas are on a good enough level yet to be used as real alternatives, its a very exciting research area that I hope to see more progress in the future.
+          While I don't think these ideas are on a good enough level yet to be used as real alternatives yet, its a very exciting research area that I hope to see more progress in the future.
         </p>
 
         <p><strong>Notable papers:</strong></p>
