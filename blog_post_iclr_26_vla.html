@@ -1,6 +1,16 @@
 <!DOCTYPE HTML>
 <html lang="en">
 <head>
+  <style>
+    .figure-container {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    .figure-container img {
+      width: 100%;
+      height: auto;
+    }
+  </style>
   <meta charset="UTF-8">
   <title>State of VLA Research at ICLR 2026 – Moritz Reuss</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -77,7 +87,7 @@
         <hr>
 
         <h2 id="discrete-diffusion">1. Discrete Diffusion VLAs</h2>
-        <figure>
+        <figure class="figure-container">
           <img src="images/discrete_diff_comp.png" alt="Discrete Diffusion VLA Architecture">
           <figcaption>Figure 1: Overview of discrete diffusion paradigm for action generation. Image from <a href="https://openreview.net/attachment?id=YWeNCMxdhM&name=pdf">DISCRETE DIFFUSION VLA</a>.</figcaption>
         </figure>
@@ -151,8 +161,8 @@
         </ul>
 
         <h2 id="tokenizers">3. New Tokenizers</h2>
-        <figure>
-          <img src="images/discrete_diff_comp.png" alt="Discrete Diffusion VLA Architecture">
+        <figure class="figure-container">
+          <img src="images/faster_tokenizer.png" alt="FASTer Tokenizer Overview">
           <figcaption>Figure 2: FASTer Tokenizer Overview. The tokenizer combines RVQ quantization with frequency and time domain losses. Image from <a href="https://openreview.net/attachment?id=k6nTUFoqeT&name=pdf">FASTer</a>.</figcaption>
         </figure>
         <p>
@@ -266,6 +276,10 @@
         </ul>
 
         <h2 id="evaluation">6. Evaluation and Benchmarking of VLAs</h2>
+        <figure class="figure-container">
+          <img src="images/roboarena_real2sim.png" alt="ROBOTARENA ∞ Overview">
+          <figcaption>Figure 3: Overview of ROBOTARENA ∞. Image from <a href="https://openreview.net/attachment?id=OutljIofvS&name=pdf">ROBOTARENA ∞</a>.</figcaption>
+        </figure>
         <p>
           As mentioned above, the current state of VLA benchmarks is quite saturated and it is hard to judge which model is actually better given the limited number of benchmarks and the fact that most papers only compare against a few other baselines.
           Luckily, there are several submission that try to bridge this gap by introducing new benchmarks for VLAs.
@@ -371,11 +385,11 @@
 
         <p>
           Overall, I am very positive about the current state of VLA research and the rapid progress being made in this field.
-          The trends mentioned above show that there is a lot of interest and innovation in various aspects of VLA models, from architecture design to training strategies and evaluation methods.
+          The trends mentioned above show that there is a lot of interest and contributions in various aspects of VLA models, from architecture design to training strategies and evaluation methods.
           The only negative thing, I was disappointed by the lack of data-focussed papers (maybe they could also not be found with the keyword search).
-          Given the importance of data quality and diversity for training VLAs, I was expecting more work in this direction. 
-          However, its also important to admit that data-centric research is hard to do. Its an open secret that OXE is mostly low-quality data and there only exist few large-scale high-quality datasets.
-          I think data quality and understanding how to quantify quality is one of the most crucial issues in current VLA research.
+          Given the importance of data quality and diversity for training VLAs, I was hoping to see more work in this direction. 
+          However, its also important to admit that data-centric research is hard to do. Its an open secret that OXE is mostly low-quality data and there only exist very few large-scale high-quality datasets.
+          Understanding how to quantify quality of data in imitation learning is one of the most crucial issues in current VLA research.
         </p>
         
         <hr>
