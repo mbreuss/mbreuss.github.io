@@ -34,7 +34,9 @@
         <h1 style="text-align:center;">State of VLA Research at ICLR 2026</h1>
         <p style="text-align:center; color:gray;">October 2025 • by Moritz Reuss</p>
         <hr>
-
+        <figure class="figure-container">
+          <img src="images/blog_header.png" alt="Blog Header Image">
+        </figure>
         <p>
           Every year in autumn, the deadline for ICLR submissions looms over the machine learning community.
           Unlike NeurIPS or ICML, ICLR publicly releases all anonymous submissions a few weeks after the deadline, 
@@ -72,6 +74,12 @@
         </ul>
 
         <h2>Practitioners Guide to Understanding Benchmark Results in VLA Research</h2>
+        <figure class="figure-container">
+          <img src="images/vla_sim_setups.png" alt="VLA Simulation Setups Overview">
+          <figcaption>Figure 1: Overview of the most popular VLA simulation benchmarks: <a href="https://arxiv.org/abs/2306.03310" target="_blank">LIBERO</a>, <a href="https://openreview.net/pdf?id=LZh48DTg71" target="_blank">SIMPLER</a> or <a href="https://arxiv.org/abs/2112.03227" target="_blank">CALVIN</a> 
+          </figcaption>
+        </figure>
+
         <p>
           So you are reading a new VLA paper and want to understand how good the results are?
           In order to better understand the VLA results, it is important to have some context on the current state of popular VLA benchmarks and what good performance looks like.
@@ -396,27 +404,32 @@
           On paper (pun intended:)), the gap seems small: on simulation setups (LIBERO, CALVIN) open-source VLAs surpass popular frontier baselines like Pi0.5. 
           In practice, there is still a bigger gap that only shows up precisely where current papers rarely evaluate: <em>zero-shot, open-world behavior after pretraining</em>. 
           Two weeks ago at CoRL, the Gemini-Robotics VLA demo attempted a wide range of novel tasks with arbitrary objects and paraphrased language. 
-          My own FLOWER is state-of-the-art on CALVIN, but not close to that level of zero-shot robustness. Simulation Benchmarks hide this delta and don't optimize for this goal.<br><br>
+          My own VLA  <a href="https://arxiv.org/pdf/2509.04996">FLOWER</a> is state-of-the-art on CALVIN benchmark, but not close to that level of zero-shot robustness. 
+          Simulation Benchmarks hide this delta and current simulation setups don't optimize for this objective.<br><br>
           
-          This gap is not unique to VLAs, but I believe it is more pronounced here than in other areas of AI research. 
-          For example, in vision-language models, open-weight models like the newest LLaVA are often competitive with closed-weight models like GPT5 on zero-shot tasks.
-          In contrast, in VLAs, open-weight models still lag significantly behind closed-weight models like Gemini-Robotics and Pi0.5 on zero-shot tasks.
-          This is not to say that open-weight VLAs are useless—they are very useful for research and have strong performance on benchmarks.
-          But I wanted to highlight this gap, as I believe it is a significant issue for our community that needs to be addressed.<br><br>
+          This gap is not unique to VLAs, the same is true for LLMs and VLMs.
+          For VLAs, fully open-weight models (that share training recipe, data, code and weights) still lag significantly behind closed-weight models like Gemini-Robotics and Pi0.5 on zero-shot tasks.
+          This is not to say that open-weight VLAs are useless, they are very useful for research and have strong performance in a lot of scenarios.
+          But I wanted to highlight this gap, as I believe it is a significant issue for our community that needs to be addressed in the future.<br><br>
         </p>
       <p><strong>Why the gap exists (based on what’s visible from papers, discussion with peers and personal experience):</strong></p>
       <ul>
         <li><em>Benchmark progress saturation masks real progress.</em> When scores cluster near the ceiling, “+0.5%” is not evidence of real improvements.</li>
+        <li><em>High quality Data Gap</em> The current available open-source data is limited in diversity and scale, which limits the training of more general models.</li>
+        <li><em>Understanding of High Quality Data</em>It's not only the data scale its also about the missing knowledge gap of understanding high quality demonstration data.</li>
         <li><em>Evaluation scope is narrow.</em> Most papers report sim-only or small, locally finetuned setups. 
-          Free-form zero-shot language following and unseen objects/rooms are very rare. However, it's important to highlight that proper large-scale evals are only doable by companies.</li>
-        <li><em>Operational constraints.</em> Research groups lack the manpower/time to run large, diverse real-world trials necessary for rapid iteration. Frontier labs operate at a different scale of manpower, funding, and robot fleet size.
-        Thus, many PhDs with me included iterate on simulation benchmarks to test and try out their ideas.</li>
+          Free-form zero-shot language following and unseen objects/rooms are very rare. 
+          However, it's important to highlight that proper large-scale evals are only doable by companies.</li>
+        <li><em>Operational constraints.</em> Research groups lack the manpower/time to run large, diverse real-world trials necessary for rapid iteration. 
+          Frontier labs operate at a different scale of manpower, funding, and robot fleet size.
+        Thus, many PhDs, including myself, iterate on simulation benchmarks to test and try out their ideas.</li>
         <li><em>Missing Peer Review Incentives.</em> Reviewers at most major conferences expect head-to-head comparison against open-weight but closed-source trained VLAs on standard sims and strong local finetuning numbers. 
           These benchmarks are good for paper acceptance, but weakly correlated with open-world performance.</li>
       </ul>
       <p><strong>Counterarguments against this thesis:</strong></p>
       <ul>
-        <li><em>Research Findings are not equal to performance gains.</em>Many great papers I discussed here have general interesting findings useful for the community.</li>
+        <li><em>Research Findings are not equal to performance gains.</em>
+          Many great papers I discussed here have general interesting findings useful for the community and research. Zero-shot Performance is only one aspect of Policy Performance.</li>
         <li><em>Evaluation scope is narrow.</em> </li>
       </ul>
       # add image here
