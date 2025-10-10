@@ -50,7 +50,7 @@
           In 2025 there were 6 accepted papers and 3 rejected ones with same key-word.
           For 2026 openreview shows 164 submissions with the same keyword. 
           Given the exponential growth, I am excited to review the 2,100 VLA ICLR submissions next year.
-          
+
         </p>
 
         <h2>Summary of Key Trends</h2>
@@ -249,7 +249,7 @@
         </ul>
 
         <h2 id="vla-video">5. VLA + Video Prediction</h2>
-        <p>Started by strong results from <a href="https://arxiv.org/pdf/2312.13139" target="_blank">GR-1 paper</a>  from ICLR 2024 that showed the potential of video-based policies, there is a growing interest in this subfield.
+        <p>Started by strong results from <a href="https://arxiv.org/pdf/2312.13139" target="_blank">GR-1 paper</a> from ICLR 2024 that showed the potential of video-based policies, there is a growing interest in this subfield.
           These types of policies can be divided into two general categories: starting by a VLM, that optionally has been trained on image generation and continue training it with future frame and action prediciton. 
           Otherwise several papers instead start from a Video Foundation Model and modify it to also generate actions. 
           Since most state-of-the-art video foundation models are diffusion/flow-based these policies typically struggle with slow inference speed. 
@@ -280,7 +280,7 @@
 
         <h2 id="evaluation">6. Evaluation and Benchmarking of VLAs</h2>
         <figure class="figure-container">
-          <img src="images/roboarena_real2sim.png" alt="ROBOTARENA-real2sim-Overview">
+          <img src="images/roboarena_real2sim.png" alt="ROBOTARENAOverview">
           <figcaption>Figure 3: Overview of real2sim ROBOTARENA benchmark. 
             Image from <a href="https://openreview.net/attachment?id=OutljIofvS&name=pdf">ROBOTARENA ∞</a>.</figcaption>
         </figure>
@@ -324,10 +324,10 @@
           Most VLAs still avoid pretraining on diverse action spaces, given the difficulties of getting any positive transfer results.
           Thus, it is a very exciting research area for current VLAs to improve. 
           In addition, there is a growing interesting in using human egocentric videos with action labels for pretraining VLAs. 
-          Datasets like EgoDex (https://arxiv.org/pdf/2505.11709) released earlier this year now enable more research in this direction. 
+          Datasets like <a href="https://arxiv.org/pdf/2505.11709" target="_blank">EgoDex</a> released earlier this year now enable more research in this direction. 
           Several interesting papers are submitted this year that try to tackle this problem with different approaches.
           They either focus on architecture details of VLAs to better handle heterogeneous action spaces or use additional abstractions like motion in image-space to get better transfer.
-          It's noteworthy that the recent Gemini Roboitcs 1.5 (https://arxiv.org/pdf/2510.03342) release from DeepMind indicates that a unreleased technique called motion transfer works for them to get positive zero-shot task transfer inbetween action spaces.
+          It's noteworthy that the recent <a href="https://arxiv.org/pdf/2510.03342" target="_blank">Gemini Robotics 1.5</a> release from DeepMind indicates that a unreleased technique called motion transfer works for them to get positive zero-shot task transfer inbetween action spaces.
           So maybe this is just a data and model scale question. Nevertheless, more research is needed to better understand and tackle these issues.
         </p>
 
