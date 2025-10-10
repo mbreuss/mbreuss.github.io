@@ -99,10 +99,29 @@
           In 2025, there were 6 accepted papers and 3 rejected submissions with the same keyword.
           For 2026, OpenReview shows 164 submissions with the same keyword—a large increase in just one year! 
           Given this exponential growth trajectory, I'm both excited and slightly terrified to review the projected 2,100+ VLA submissions at ICLR 2027.
-
         </p>
 
-        <h2>Summary of Key Trends</h2>
+        <h2>Table of Contents</h2>
+        <nav style="background: #f8f9fa; padding: 20px; border-left: 4px solid #4CAF50; margin: 20px 0;">
+          <ol style="line-height: 1.8;">
+            <li><a href="#key-trends">Summary of Key Trends</a></li>
+            <li><a href="#practitioners-guide">Practitioners Guide to Understanding Benchmark Results</a></li>
+            <li><a href="#discrete-diffusion">Discrete Diffusion VLAs</a></li>
+            <li><a href="#embodied-cot">Reasoning VLAs and Embodied Chain-of-Thought (ECoT)</a></li>
+            <li><a href="#tokenizers">New Discrete Tokenizers</a></li>
+            <li><a href="#efficient-vla">Efficient VLAs</a></li>
+            <li><a href="#RL-vla">RL for VLAs</a></li>
+            <li><a href="#vla-video">VLA + Video Prediction</a></li>
+            <li><a href="#evaluation">Evaluation and Benchmarking of VLAs</a></li>
+            <li><a href="#cross-action-space">Cross-Action-Space Learning</a></li>
+            <li><a href="#other">Other Interesting Papers</a></li>
+            <li><a href="#frontier-gap">The Hidden Gap Between Frontier and Research VLAs</a></li>
+            <li><a href="#summary-outlook">Summary and Outlook</a></li>
+          </ol>
+        </nav>
+
+
+        <h2 id="key-trends">Summary of Key Trends</h2>
         <p>By scanning and reading most of the ICLR 2026 submissions with the VLA keyword, I identified the following key trends in VLA research with a lot of overlap in between these categories:</p>
         <ul>
           <li><a href="#discrete-diffusion">Discrete Diffusion VLAs</a></li>
@@ -116,7 +135,7 @@
           <li><a href="#other">Other Interesting Papers</a></li>
         </ul>
 
-        <h2>Practitioners Guide to Understanding Benchmark Results in VLA Research</h2>
+        <h2 id="practitioners-guide">Practitioners Guide to Understanding Benchmark Results in VLA Research</h2>
         <figure class="figure-container">
           <img src="images/vla_sim_setups.png" alt="VLA Simulation Setups Overview">
           <figcaption>Figure 2: Overview of the most popular VLA simulation benchmarks: <a href="https://arxiv.org/abs/2306.03310" target="_blank">LIBERO</a>, <a href="https://openreview.net/pdf?id=LZh48DTg71" target="_blank">SIMPLER</a> or <a href="https://arxiv.org/abs/2112.03227" target="_blank">CALVIN</a> 
@@ -124,19 +143,23 @@
         </figure>
 
         <p>
-          So you are reading a new VLA paper and want to understand how good the results are?
-          In order to better understand the VLA results, it is important to have some context on the current state of popular VLA benchmarks and what good performance looks like.
+          Before diving into the research trends, I want to provide a quick guide for practitioners on how to interpret benchmark results in VLA papers.
+          So you are reading a new VLA paper and want to understand if the claimed results are actually good or not?
+          In order to better understand the VLA results, it is important to have some context on the current state of popular VLA benchmarks and what good performance looks like<br><br>.
+
           Given the current benchmark there is no clear statement possible to say which model is the best, as most papers only compare against each other on the usual simulation benchmarks.
           90% of papers mentioned in this post all test in either <a href="https://arxiv.org/abs/2306.03310" target="_blank">LIBERO</a>, <a href="https://openreview.net/pdf?id=LZh48DTg71" target="_blank">SIMPLER</a> or <a href="https://arxiv.org/abs/2112.03227" target="_blank">CALVIN</a>.<br><br>
           LIBERO is basically solved and showing 99% vs 98% is not very helpful and you don't need VLAs and large-scale pretraining to get competitive results.
           E.g. all mentioned concurrent discrete diffusion policies below test on LIBERO and all achieve between 95-98% average over the 4 versions (Goal, Spatial, Long, Object).
           Based on these results it is impossible to say which model is better, as they are all very close to the ceiling anyways and you don't need internet scale pretraining to solve these.<br><br>
+
           Rule of thumb for getting a impression a VLA is decent or near sota levels on these: LIBERO: >95% is expected for Spatial, Goal and Object, 90-95% is required for Long and 90, lower than 90% is only decent for non-wrist came or few-shot stuff.
           A properly tuned Diffusion Policy can get you there without VLAs although the most cited DP baselines is showing worse results. 
           CALVIN is also almost saturated by current sota models like <a href="https://arxiv.org/pdf/2509.04996">FLOWER</a>.
           For CALVIN higher than 4 score for ABC is standard now and above 4.5 is sota regime. 
           For the D version 3.75 is standard and above 4 is very good. 
           For the ABCD version results above 4.6 are relevant.<br><br>
+
           SIMPLER is kind of in a weird spot and I don't know if progress there translates to real world. The bridge version ranges from 40% up to 99% success rate, making it hard to judge. 
           For the Google Robot version current sota models achieve around 70%-80% success rate. 
           Somehow, <a href="https://arxiv.org/abs/1909.12271" target="_blank">RLBench</a> (the most popular 3d policy benchmark) has gained more popularity in VLA benchmarking, but all VLAs are still far away from 3D SOTA methods like <a href="https://arxiv.org/abs/2402.10885" target="_blank">3DDA</a>. 
