@@ -411,15 +411,20 @@
         </ul>
           
         <h2 id="frontier-gap">10. The Hidden Gap Between Frontier and Research VLAs</h2>
+        <figure class="figure-container">
+          <img src="images/closed_vs_open_VLAs.png" alt="VLAs Overview">
+          <figcaption>Figure 7: Overview of closed-weight vs open-weight VLAs.</a>.</figcaption>
+        </figure>
         <p>
           On paper (pun intended:)), the gap seems small: on simulation setups (LIBERO, CALVIN) open-source VLAs surpass popular frontier baselines like Pi0.5. 
           In practice, there is still a bigger gap that only shows up precisely where current papers rarely evaluate: <em>zero-shot, open-world behavior after pretraining</em>. 
           Two weeks ago at CoRL, the Gemini-Robotics VLA demo attempted a wide range of novel tasks with arbitrary objects and paraphrased language. 
-          My own VLA  <a href="https://arxiv.org/pdf/2509.04996">FLOWER</a> is state-of-the-art on CALVIN benchmark, but not close to that level of zero-shot robustness. 
+          My own VLA  <a href="https://arxiv.org/pdf/2509.04996">FLOWER</a> is state-of-the-art on CALVIN benchmark, but nowhere close to that level of zero-shot robustness. 
           Simulation Benchmarks hide this delta and current simulation setups don't optimize for this objective.<br><br>
           
           This gap is not unique to VLAs, the same is true for LLMs and VLMs.
           For VLAs, fully open-weight models (that share training recipe, data, code and weights) still lag significantly behind closed-weight models like Gemini-Robotics and Pi0.5 on zero-shot tasks.
+          (although there seem to be some promising signs that this gap is closing with <a href="https://arxiv.org/abs/2508.21112">EO-1</a> but I haven tried them myself yet).
           This is not to say that open-weight VLAs are useless, they are very useful for research and have strong performance in a lot of scenarios.
           But I wanted to highlight this gap, as I believe it is a significant issue for our community that needs to be addressed in the future.<br><br>
         </p>
@@ -440,9 +445,10 @@
       <p><strong>Counterarguments against this thesis:</strong></p>
       <ul>
         <li><em>Research Findings are not equal to performance gains.</em>
-          Many great papers I discussed here have general interesting findings useful for the community and research. Zero-shot Performance is only one aspect of Policy Performance.</li>
-        <li><em>Evaluation scope is narrow.</em> </li>
+          Many great papers I discussed here have general interesting findings useful for the community and research. 
+          Zero-shot Performance is only one aspect of VLA Performance.</li>
       </ul>
+      If you have good arguments for or against this thesis, please reach out to me, very happy to hear other opinions.<br><br>
       <figure class="figure-container">
         <img src="images/roboarena_leaderboard.png" alt="Zero-Shot Gap Illustration">
         <figcaption>Figure 7: Overview of the current <a href="https://robo-arena.github.io/" target="_blank">RoboArena</a> Leaderboard. There is only one non-Pi model that is near to being competitive in zero-shot tasks.</figcaption>
@@ -455,7 +461,7 @@
         We need more papers like this that share full pretraining recipes and failed ideas that did not work during pretraining.</li>
         </ul>
       <p>
-        I wanna clearly highlgiht, that I don't think simulation or local finetuning are useless for research. 
+        I wanna clearly highlight, that I don't think simulation or local finetuning are useless for research. 
         Only that they are a poor proxy for the thing for the main argument of VLA: <em>robust zero-shot behavior in messy, new environments</em>. 
       </p>
 
