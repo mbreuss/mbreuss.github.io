@@ -81,8 +81,8 @@
           <img src="images/blog_header.png" alt="Vision-Language-Action (VLA) models research overview and trends at ICLR 2026">
         </figure>
         <p>
-
-
+          ICLR’s open submission policy gives a rare, real-time view of what the community is actually building. 
+          This post distills the state of <strong>Vision-Language-Action (VLA) Models</strong> research slice of ICLR 2026: what ‘counts’ as a VLA (and why that definition matters), what people are working on in the VLA field (discrete diffusion, embodied reasoning, new tokenizers), how to read benchmark results in VLA research, and the not-so-invisible frontier gap that sim leaderboards hide.
         </p>
 
         <p>
@@ -91,7 +91,7 @@
           providing a unique real-time snapshot of ongoing research around the world without the typical six-month delay of other top ML conferences.  
           Given my personal research interests, I wanted to analyze <strong>Vision-Language-Action (VLA) Models</strong> research and share insights from this year's submissions.<br><br>
 
-          In this blog post, I share my findings about current trends and challenges in VLA research, highlighting the some interesting papers submitted to ICLR 2026.
+          In this blog post, I briefly explain what VLAs are, share my findings about current trends and challenges in VLA research, highlighting some interesting papers submitted to ICLR 2026.
           To help researchers and practitioners better understand the current state of VLA research, I've also included a practical guide on how to interpret benchmark results in VLA papers.
           Finally, there is a discussion about the hidden gap between frontier labs and academic research labs in the VLA field—a gap that isn't visible from reading papers alone.<br><br>
 
@@ -131,6 +131,7 @@
           <figcaption>Figure 1: Decision flowchart to determine if your model qualifies as a VLA based on my vision-language internet-scale pretraining criteria.</figcaption>
         </figure>
           <p>
+            Before diving into the research trends, it's important to clarify what exactly a Vision-Language-Action (VLA) model is.
             The definition of VLAs is surprisingly contentious, with no clear consensus in the community.
             A <a href="https://arxiv.org/pdf/2510.07077" target="_blank">recent survey paper</a> defines it broadly: 
             "A Vision-Language-Action (VLA) model is a system that takes visual observations and natural language instructions as required inputs and may incorporate additional sensory modalities. 
@@ -142,10 +143,10 @@
           </p>
 
           <p>
-            <strong>My personal definition:</strong> A VLA is a model that uses a pretrained backbone—trained on large-scale vision-language data—and is subsequently trained with an action-generation objective to directly output robot actions.
+            <strong>My personal definition:</strong> A VLA is a model that uses a pretrained backbone, which was trained on large-scale vision-language data—and is subsequently trained with an action-generation objective to directly output robot actions.
             Without the internet-scale pretraining, it's just a multi-modal policy, not a VLA. 
             This definition also includes Video-Action Policies that use pretrained video-generation models as their backbone. 
-            Where it becomes a bit fuzzy is when a model uses a a pretrained text encoder model like CLIP-text or T5 and a separately trained vision encoder like DinoV2 or SigLip-Vision.
+            Where it becomes a bit fuzzy is when a model uses a pretrained text encoder model like CLIP-text or T5 and a separately trained vision encoder like DinoV2 or SigLip-Vision.
             For me, these are not VLAs as the crucial text-vision alignment from internet-scale pretraining of VLMs or video models is missing. 
           </p>
 
@@ -290,7 +291,7 @@
         </figure>
 
         <p>
-          Before diving into the research trends, I want to provide a quick guide for practitioners on how to interpret benchmark results in VLA papers.
+          I want to provide a quick guide for practitioners on how to interpret benchmark results in VLA papers.
           So you are reading a new VLA paper and want to understand if the claimed results are actually good or not?
           In order to better understand the VLA results, it is important to have some context on the current state of popular VLA benchmarks and what good performance looks like.<br><br>
 
@@ -571,7 +572,7 @@
           As mentioned above, the current state of VLA benchmarks is quite saturated and it is hard to judge which model is actually better given the limited number of benchmarks and the fact that most papers only compare against a few other baselines.
           Luckily, there are several submission that try to bridge this gap by introducing new benchmarks for VLAs.
           Other ideas include real2sim world models to test policies in generative environments. 
-          While I don't think these ideas are on a good enough level yet to be used as real alternatives yet, its a very exciting research area that I hope to see more progress in the future.
+          While I don't think these ideas are on a good enough level yet to be used as real alternatives yet, it's a very exciting research area that I hope to see more progress in the future.
         </p>
 
         <p><strong>Notable papers:</strong></p>
@@ -741,7 +742,7 @@
         We need more papers like this that share full pretraining recipes and also discuss failed ideas that did not work during pretraining.</li>
         </ul>
       <p>
-        I wanna clearly highlight, that I don't think simulation or local finetuning are useless for research in contrast they are very important for many parts of robot learning. 
+        I want to clearly highlight, that I don't think simulation or local finetuning are useless for research in contrast they are very important for many parts of robot learning. 
         Only that they are a poor proxy for the thing for the main argument of VLA: <em>robust zero-shot behavior in messy, new environments</em>. 
       </p>
 
