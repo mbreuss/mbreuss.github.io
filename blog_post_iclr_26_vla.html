@@ -29,21 +29,25 @@
   
   <!-- Schema.org Structured Data -->
   <script type="application/ld+json">
-  {
+    {
     "@context": "https://schema.org",
     "@type": "BlogPosting",
     "headline": "State of Vision-Language-Action (VLA) Research at ICLR 2026",
-    "author": {
-      "@type": "Person",
-      "name": "Moritz Reuss"
+    "author": { "@type": "Person", "name": "Moritz Reuss" },
+    "publisher": {
+      "@type": "Organization",
+      "name": "Moritz Reuss",
+      "logo": { "@type": "ImageObject", "url": "https://mbreuss.github.io/images/logo.png" }
     },
+    "mainEntityOfPage": { "@type": "WebPage", "@id": "https://mbreuss.github.io/blog_post_iclr_26_vla.html" },
     "datePublished": "2025-10-10",
     "dateModified": "2025-10-10",
-    "description": "Comprehensive analysis of Vision-Language-Action models at ICLR 2026, covering discrete diffusion, reasoning VLAs, benchmarks, and research trends.",
-    "keywords": "VLA models, Vision-Language-Action, robot learning, ICLR 2026, embodied AI, discrete diffusion",
+    "description": "...",
     "image": "https://mbreuss.github.io/images/blog_header.png",
-    "url": "https://mbreuss.github.io/blog_post_iclr_26_vla.html"
+    "articleSection": "Robotics, Embodied AI",
+    "keywords": "Vision-Language-Action, Robotics, ICLR 2026"
   }
+
   </script>
   
   <link rel="stylesheet" type="text/css" href="stylesheet.css">
@@ -86,8 +90,7 @@
         </p>
 
         <p>
-          Every year in autumn, the ICLR submission deadline looms over the machine learning community.
-          Unlike NeurIPS or ICML, ICLR publicly releases all anonymous submissions a few weeks after the deadline, 
+          Each autumn, the ICLR publicly releases all anonymous submissions a few weeks after the deadline, 
           providing a unique real-time snapshot of ongoing research around the world without the typical six-month delay of other top ML conferences.  
           Given my personal research interests, I wanted to analyze <strong>Vision-Language-Action (VLA) Models</strong> research and share insights from this year's submissions.<br><br>
 
@@ -144,7 +147,8 @@
       </p>
 
       <p>
-        <strong>My personal definition:</strong> A VLA is a model that uses a pretrained backbone, which was trained on large-scale vision-language data and is subsequently trained with an action-generation objective to directly output robot actions.
+        <strong>My personal definition:</strong> A VLA is a model that uses a pretrained backbone, which was trained on large-scale vision-language data and is subsequently trained with generating control commands.
+        This control commands can be robot joints, end-effector poses, steering angle for a car, latent actions or mouse and keyboard commands for a virtual agent.
         This definition also includes Video-Action Policies that use pretrained video-generation models as their backbone. 
         Without internet-scale pretraining, I refer to these as <strong>multimodal policies</strong> rather than VLAs.
         Where it becomes a bit fuzzy is when a model uses a pretrained text encoder like CLIP-text or T5 and a separately pretrained vision encoder like DINOv2 or SigLIP-Vision.
@@ -291,7 +295,7 @@
         <h2 id="practitioners-guide">Practitioners Guide to Understanding Benchmark Results in VLA Research</h2>
         <figure class="figure-container">
           <img src="images/vla_sim_setups.png" alt="VLA Simulation Setups Overview">
-          <figcaption>Figure 2: Overview of the most popular VLA simulation benchmarks: <a href="https://arxiv.org/abs/2306.03310" target="_blank">LIBERO</a>, <a href="https://openreview.net/pdf?id=LZh48DTg71" target="_blank">SIMPLER</a> and <a href="https://arxiv.org/abs/2112.03227" target="_blank">CALVIN</a> 
+          <figcaption>Figure 3: Overview of the most popular VLA simulation benchmarks: <a href="https://arxiv.org/abs/2306.03310" target="_blank">LIBERO</a>, <a href="https://openreview.net/pdf?id=LZh48DTg71" target="_blank">SIMPLER</a> and <a href="https://arxiv.org/abs/2112.03227" target="_blank">CALVIN</a> 
           </figcaption>
         </figure>
 
@@ -328,7 +332,7 @@
         <h2 id="discrete-diffusion">1. Discrete Diffusion VLAs</h2>
         <figure class="figure-container">
           <img src="images/discrete_diff_comp.png" alt="Discrete Diffusion VLA Architecture">
-          <figcaption>Figure 3: Overview of discrete diffusion paradigm for action generation. Image from <a href="https://openreview.net/attachment?id=YWeNCMxdhM&name=pdf">DISCRETE DIFFUSION VLA</a></figcaption>
+          <figcaption>Figure 4: Overview of discrete diffusion paradigm for action generation. Image from <a href="https://openreview.net/attachment?id=YWeNCMxdhM&name=pdf">DISCRETE DIFFUSION VLA</a></figcaption>
         </figure>
         <p>
           Given the success of discrete diffusion models in other domains like text (e.g. <a href="https://proceedings.neurips.cc/paper_files/paper/2024/file/eb0b13cc515724ab8015bc978fdde0ad-Paper-Conference.pdf">(MDLM</a>) and VLMs (e.g. <a href="https://arxiv.org/pdf/2505.16933">LLaDA-V</a>), it is no surprise that this trend is also making its way into VLA research. 
@@ -433,7 +437,7 @@
         <h2 id="tokenizers">3. New Tokenizers</h2>
         <figure class="figure-container">
           <img src="images/faster_tokenizer.png" alt="FASTer Tokenizer Overview">
-          <figcaption>Figure 4: FASTer Tokenizer Overview. The tokenizer combines RVQ quantization with frequency and time domain losses. Image from <a href="https://openreview.net/attachment?id=k6nTUFoqeT&name=pdf">FASTer</a>.</figcaption>
+          <figcaption>Figure 5: FASTer Tokenizer Overview. The tokenizer combines RVQ quantization with frequency and time domain losses. Image from <a href="https://openreview.net/attachment?id=k6nTUFoqeT&name=pdf">FASTer</a>.</figcaption>
         </figure>
         <p>
           We command robots with high-frequency, continuous control values (e.g., joint angles, gripper state). Vision-Language models, however, operate most effectively on discrete tokens. Naively fine-tuning a VLM to regress continuous actions tends to underperform and often induces catastrophic forgetting, because the new objective misaligns with the model’s pretrained representations.
@@ -527,7 +531,7 @@
         <h2 id="vla-video">6. VLA + Video Prediction</h2>
         <figure class="figure-container">
           <img src="images/video_policy_header.png" alt="Video Pretraining for VLAs">
-          <figcaption>Figure 5: Example Pretraining Paradigm from <a href="https://openreview.net/attachment?id=DdrsHWobR1&name=pdf">DISENTANGLED ROBOT LEARNING Paper</a><br>
+          <figcaption>Figure 6: Example Pretraining Paradigm from <a href="https://openreview.net/attachment?id=DdrsHWobR1&name=pdf">DISENTANGLED ROBOT LEARNING Paper</a><br>
           </figcaption>
         </figure>
         <p>Started by strong results from <a href="https://arxiv.org/pdf/2312.13139" target="_blank">GR-1 paper</a> from ICLR 2024 that showed the potential of video-based policies, there is a growing interest in this subfield.
@@ -570,7 +574,7 @@
         <h2 id="evaluation">7. Evaluation and Benchmarking of VLAs</h2>
         <figure class="figure-container">
           <img src="images/roboarena_real2sim.png" alt="ROBOTARENA Overview">
-          <figcaption>Figure 6: Overview of real2sim ROBOTARENA benchmark. 
+          <figcaption>Figure 7: Overview of real2sim ROBOTARENA benchmark. 
             Image from <a href="https://openreview.net/attachment?id=OutljIofvS&name=pdf">ROBOTARENA ∞</a>.</figcaption>
         </figure>
         <p>
@@ -611,7 +615,7 @@
         <h2 id="cross-action-space">8. Cross-Action-Space-Learning</h2>
         <figure class="figure-container">
           <img src="images/xvla_cross_embedding.png" alt="X-VLA Overview">
-          <figcaption>Figure 7: Different Paradigms for VLAs to handle different action spaces.
+          <figcaption>Figure 8: Different Paradigms for VLAs to handle different action spaces.
             Image from <a href="https://openreview.net/attachment?id=kt51kZH4aG&name=pdf">X-VLA</a>.</figcaption>
         </figure>
 
@@ -698,7 +702,7 @@
         <h2 id="frontier-gap">10. The Hidden Gap Between Frontier and Research VLAs</h2>
         <figure class="figure-container">
           <img src="images/closed_vs_open_VLAs.png" alt="VLAs Overview">
-          <figcaption>Figure 8: Overview of closed-weight vs open-weight VLAs.</a>.</figcaption>
+          <figcaption>Figure 9: Overview of closed-weight vs open-weight VLAs.</a>.</figcaption>
         </figure>
         <p>
           On paper (pun intended:)), the gap seems small: on simulation setups (LIBERO, CALVIN) open-source VLAs surpass popular frontier baselines like Pi0.5. 
@@ -736,7 +740,7 @@
       If you have good arguments for or against this thesis, please reach out to me, very happy to hear other opinions.<br><br>
       <figure class="figure-container">
         <img src="images/roboarena_leaderboard.png" alt="Zero-Shot Gap Illustration">
-        <figcaption>Figure 9: Overview of the current <a href="https://robo-arena.github.io/" target="_blank">RoboArena</a> Leaderboard. There is only one non-Pi model that is near to being competitive in zero-shot tasks.</figcaption>
+        <figcaption>Figure 10: Overview of the current <a href="https://robo-arena.github.io/" target="_blank">RoboArena</a> Leaderboard. There is only one non-Pi model that is near to being competitive in zero-shot tasks.</figcaption>
       </figure>
       <p><strong>What would help to bridge this gap without blowing the compute and human manpower budget:</strong></p>
       <ul>
