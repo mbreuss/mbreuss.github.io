@@ -215,7 +215,7 @@
 
 
         <h2 id="key-trends">Summary of Key Trends</h2>
-        <p>By scanning and reading most of the ICLR 2026 submissions with the VLA keyword, I identified the following key trends in VLA research with a lot of overlap in between these categories:</p>
+        <p>After scanning most ICLR 2026 submissions with the VLA keyword, I identified the following key trends in VLA research with a lot of overlap in between these categories:</p>
         <ul>
           <li><a href="#discrete-diffusion">Discrete Diffusion VLAs</a></li>
           <li><a href="#embodied-cot">Reasoning VLAs and Embodied Chain-of-Thought</a></li>
@@ -256,8 +256,7 @@
           For the D version 3.75 is standard and above 4 is very good. 
           For the ABCD version results above 4.5 are relevant.<br><br>
 
-          SIMPLER is kind of in a weird spot and I don't know if progress there translates to real world. 
-          The bridge version ranges from 40% up to 99% success rate, making it hard to judge. 
+          SIMPLER is hard to interpret across setups; success spans 40–99% on Bridge, making cross-paper comparison noisy.
           For the Google Robot version current sota models achieve around 70%-80% success rate. 
           Somehow, <a href="https://arxiv.org/abs/1909.12271" target="_blank">RLBench</a> (the most popular 3d policy benchmark) has gained more popularity in VLA benchmarking, but all VLAs are still far away from 3D SOTA methods like <a href="https://arxiv.org/abs/2402.10885" target="_blank">3DDA</a>. 
           Most VLA policies try to avoid comparing against all relevant 3D baselines for some reason. 
@@ -314,13 +313,28 @@
         </ul>
 
         <h2 id="embodied-cot">2. Reasoning VLAs and Embodied Chain-of-Thought (ECoT)</h2>
+
+
         <p>
-          Since <a href="https://arxiv.org/abs/2407.08693" target="_blank">the first ECoT paper</a> (CoRL 2024), there has been a growing interest in combining spatially grounded reasoning with action prediction for improving VLAs.
-          By combining subtask, bounding box prediction for task-relevant objects and 2d motion trajectories, the VLM gets better representations for embodied tasks and show improved performance on generalization tasks.
-          Prior results in analysing <a href="https://arxiv.org/abs/2505.08243" target="_blank">ECoT Training </a> indicates, that these objectives seem to help to bridge the representation gap between VLM pretraining and robotic related task. 
-          However, the main limitation of prior ECoT work was the autoregressive nature of the VLAs and its increased token count which result slow in training and inference.
-          Overall, it remains an open question how to best implement grounded reasoning for VLAs. 
-          Most submissions focussing on ECoT still use the same Bridge and LIBERO labeled datasets but don't experiment a lot with which type of objectives are ideal.
+          Reasoning holds strong promise for improving the generalization and performance of VLAs, which still struggle with complex tasks and out-of-distribution scenarios.
+          Inspired by the success of Chain-of-Thought prompting in LLMs, there is growing interest in applying similar ideas to VLAs.
+          The core idea is to bridge action generation with intermediate visual and textual reasoning steps that help the VLA better ground and understand the task and environment.
+          These reasoning traces are also more interpretable and can be used for debugging and understanding a VLA’s behavior.
+        </p>
+
+        <p>
+          Since <a href="https://arxiv.org/abs/2407.08693" target="_blank">the first ECoT paper</a> (CoRL 2024), interest has grown in combining spatially grounded reasoning with action prediction to improve VLAs.
+          By combining subtasks, bounding-box predictions for task-relevant objects, and 2D motion trajectories, VLMs learn better representations for embodied tasks and show improved performance on generalization benchmarks.
+          Prior analyses of <a href="https://arxiv.org/abs/2505.08243" target="_blank">ECoT training</a> indicate that these objectives help bridge the representation gap between VLM static pretraining and robotics tasks.
+          However, a key limitation of prior ECoT work is the autoregressive nature of VLAs and the increased token count, which results in slower training and inference.
+        </p>
+
+        <p>
+          Overall, it remains an open question how to best implement grounded reasoning for VLAs.
+          Recent work has explored additional modalities like depth prediction in <a href="https://arxiv.org/pdf/2508.07917" target="_blank">MolmoAct</a>.
+          A major bottleneck is the limited availability of diverse training data: many ECoT studies still rely on the same BRIDGE and LIBERO labeled datasets.
+          More diverse datasets with more complex tasks and environments are needed to push this direction further; however, labeling large-scale sources like DROID is tough.
+
         </p>
 
         <p><strong>Notable papers:</strong></p>
@@ -333,6 +347,20 @@
             This training method is able to bridge the domain gap of VLMs without reducing performance on other VQA benchmarks from pretraining. 
             Finally cheap LORA finetuning is enough to get strong results for action prediction while maintaining VLM reasoning capabilities.
           </li>
+          <li>
+            <a href="https://openreview.net/attachment?id=tsxwloasw5&name=pdf">
+              VISION-LANGUAGE-ACTION INSTRUCTION TUNING: FROM UNDERSTANDING TO MANIPULATION
+            </a><br>
+            <em>TL;DR:</em> InstructVLA proposes a two-stage Vision-Language-Action Instruction Tuning pipeline that tries to preserves a pretrained VLM’s multimodal reasoning while adding precise manipulation: (1) pretrain an action expert and latent action interface, then (2) instruction-tune a MoE-adapted VLM to switch between textual reasoning and latent action generation.
+                   It puts emphasis on decoupling multimodal reasoning and action generation to avoid catastrophic forgetting with an action expert, and introduces an instructed-based SIMPLER benchmark to test instruction-following VLAs.
+          
+          <li>
+            <a href="https://openreview.net/attachment?id=i5wlozMFsQ&name=pdf">EMBODIED-R1: REINFORCED EMBODIED REASONING FOR GENERAL ROBOTIC MANIPULATION</a><br>
+            <em>TL;DR:</em> R1 is a pointing VLM for embodied reasoning: it trains Qwen2.5-VL base with a two-stage Reinforced Fine-Tuning (RFT) curriculum on the new Embodied-Points-200K dataset.
+            It uses an embodiment-agnostic intermediate REG (point to the referred object), RRG (point to a relation-defined place), OFG (point to a functional part, e.g., a handle), VTG (output a sequence of points as a visual trace/trajectory).
+            Strong performance on embodied benchmarks and pointing ones with good generalization to SIMPLER as planner with intermediate waypoints.
+          </li>
+
           <li>
             <a href="https://openreview.net/attachment?id=IBJtOltTbx&name=pdf">
               HYBRID TRAINING FOR VISION-LANGUAGE-ACTION MODELS
@@ -348,15 +376,20 @@
           <figcaption>Figure 3: FASTer Tokenizer Overview. The tokenizer combines RVQ quantization with frequency and time domain losses. Image from <a href="https://openreview.net/attachment?id=k6nTUFoqeT&name=pdf">FASTer</a>.</figcaption>
         </figure>
         <p>
+          We command robots with high-frequency, continuous control values (e.g., joint angles, gripper state). Vision-Language models, however, operate most effectively on discrete tokens. Naively fine-tuning a VLM to regress continuous actions tends to underperform and often induces catastrophic forgetting, because the new objective misaligns with the model’s pretrained representations.
+        </p>
+        
+        <p></p>
+          The core idea of these tokenizers is to convert continuous action sequences into compact discrete tokens that a VLM can predict—retaining accuracy and smoothness while minimizing compute and integration overhead. 
+          An ideal action tokenizer is fast, achieves a high compression ratio for long action-chunks, produces smooth long-horizon outputs, and drops into existing VLM architectures without modification.
+        </p>
 
-          We command robots with high-frequency, continuous control values (e.g., joint angles, gripper state). Vision-Language models, however, operate most effectively on discrete tokens. Naively fine-tuning a VLM to regress continuous actions tends to underperform and often induces catastrophic forgetting, because the new objective misaligns with the model’s pretrained representations.</p>
-
-          <p><strong>Idea:</strong> Convert continuous action sequences into compact discrete tokens that a VLM can predict—retaining accuracy and smoothness while minimizing compute and integration overhead. An ideal tokenizer is fast, achieves a high compression ratio, produces smooth long-horizon outputs, and drops into existing VLM architectures without modification.</p>
-
+        <p>
           Prior work used discrete binning (e.g., <a href="https://arxiv.org/pdf/2212.06817" target="_blank">RT-1</a>) and <a href="https://arxiv.org/pdf/2403.03181" target="_blank">VQ-VAE</a> codebooks, but both struggle with either coarse precision or long-sequence efficiency. 
-          <a href="https://arxiv.org/abs/2501.09747" target="_blank">FAST</a> introduced action-chunk tokenizers tailored for VLM prediction, demonstrating that discrete tokens can replace more complex diffusion/flow experts for integration. 
-          Building on this, newer tokenizers submitted to ICLR combine Residual Vector Quantization (RVQ) (e.g., <a href="https://arxiv.org/abs/2107.03312" target="_blank">SoundStream</a>) for higher compression, spline-based parameterizations (e.g., <a href="https://arxiv.org/pdf/2506.06072" target="_blank">BEAST tokenizer</a>) for smooth, long trajectories, and DCT-style objectives (as in <a href="https://arxiv.org/abs/2501.09747" target="_blank">FAST</a>) to bias toward low-frequency, physically plausible motion. 
-          I’m excited to test these tokenizers myself when they release.</p>
+          <a href="https://arxiv.org/abs/2501.09747" target="_blank">FAST</a> introduced action-chunk tokenizers tailored for VLA prediction, demonstrating that discrete tokens can replace more complex diffusion/flow experts for integration. 
+          Building on this, newer tokenizers submitted to ICLR combine Residual Vector Quantization (RVQ) (e.g., <a href="https://arxiv.org/abs/2107.03312" target="_blank">SoundStream</a>) for higher compression, spline-based parameterizations inspired by <a href="https://arxiv.org/pdf/2506.06072" target="_blank">BEAST tokenizer</a> for smooth, long trajectories, and DCT-style objectives (as in <a href="https://arxiv.org/abs/2501.09747" target="_blank">FAST</a>) to bias toward low-frequency, physically plausible motion. 
+          I’m excited to test these tokenizers myself when they release.
+        </p>
 
 
         <p><strong>Notable papers:</strong></p>
@@ -405,7 +438,7 @@
           </li>
         </ul>
 
-        <h2 id="efficient-vla">5. RL for VLAs</h2>
+        <h2 id="RL-vla">5. RL for VLAs</h2>
         <p>Finetuning VLAs to go from 70-80% success rate in the real world towards 99% is still an open problem.  
           There is a lot of hope for RL Finetuning to close this gap. 
           While a lot of attempts have been made before, no method has established itself as the go-to method yet.
@@ -455,6 +488,14 @@
             <em>TL;DR:</em> Introduces a novel approach to robot learning by pretraining separate forward and inverse dynamics models pretraining.
             In the second stage they are combined again for a coupled finetuning of the policy. Results on CALVIN are good on SIMPLER decent.
           </li>
+          
+          <li>
+            <a href="https://openreview.net/attachment?id=PklMD8PwUy&name=pdf">UNIFIED VISION–LANGUAGE–ACTION MODEL</a><br>
+            <em>TL;DR:</em> Models vision, language, and actions as a single interleaved stream of discrete tokens (VQ image tokens + FAST/DCT action tokens) and trains one autoregressive 8.5B VLA.
+            UniVLA has two training stages for converting the VLM into a VLA: First post-train VLM with text and images to predict future frames, next is the fine-tuning stage with vision and action token prediction. 
+            Main emphasis on the post-training stage to better align VLM representations with robot tasks. 
+            Results on CALVIN, LIBERO, and SimplerEnv-Bridge are strong. 
+          </li>
 
           <li>
             <a href="https://openreview.net/attachment?id=wPEIStHxYH&name=pdf">
@@ -495,7 +536,7 @@
             <a href="https://openreview.net/attachment?id=tQJYKwc3n4&name=pdf">
               ROBOCASA365: A LARGE-SCALE SIMULATION FRAMEWORK FOR TRAINING AND BENCHMARKING GENERALIST ROBOTS
             </a><br>
-            <em>TL;DR:</em> Extends the initial RoboCase sim and benchmark setup with a very diverse setup of 365 tasks across 2k+ kitchen scenes and more than 2k hours of teleop data. 
+            <em>TL;DR:</em> Extends the initial RoboCasa sim and benchmark setup with a very diverse setup of 365 tasks across 2k+ kitchen scenes and more than 2k hours of teleop data. 
             The task setups look great and the data scale is also promising I just wish they tested more baseline policies than just 3. 
           </li>
 
@@ -554,11 +595,20 @@
 
         <h2 id="other">9. Other Interesting Papers</h2>
         <p>
-          There are several other interesting papers that don't fit neatly into the categories above, but are worth mentioning.
-          These papers explore various aspects of VLA models, from choice of VLM backbone to including a memory module in the VLA architecture. 
-          I especially like the memory idea, as most VLAs just encode the current image and ignore prior timesteps, which is a big limitation for many tasks.
-          However natively adding long history does not work well, because they overfit too strong on the history. During rollouts, its unlikely to encounter the same sequence of states than human demonstrators which result in low performance.
-          Thus, memory modules that aggregate prior timesteps in a more general way are a very exciting research area.
+          There are several other interesting papers that don’t fit neatly into the categories above but are worth mentioning.
+          They explore varied aspects of VLA design, from the choice of VLM backbone to adding memory modules into the policy.
+          I’m especially interested in memory: most VLAs encode only the current image and ignore prior timesteps, which is a major limitation for many tasks.
+        </p>
+        <p>
+          Naively feeding long histories, into VLAs often backfires: models overfit to demonstrator-specific trajectories, and during rollouts the agent rarely encounters the same state sequences, leading to large performance drops.
+          By contrast, memory modules that aggregate and compress past context (rather than memorizing it) look promising.
+          Hopefully this makes learned policies more robust to distribution shift while preserving the temporal cues needed for long-horizon control.
+        </p>
+
+        <p>
+          Another cool work I wanted to highlight is the challenge of composing multiple policies at test time to improve performance.
+          Diffusion and flow-based VLAs are required for this, since their energy-based formulation allows combining multiple models by summing their scores.
+          This is a promising direction to improve performance without training, and I hope to see more. 
         </p>
 
         <p><strong>Notable papers:</strong></p>
@@ -569,7 +619,13 @@
             </a><br>
             <em>TL;DR:</em> Introduces a plug-and-play style memory module with moment tokens to capture temporal stuff from prior timesteps. A proposed memory module aggregates tokens over time to enable history-conditioned prediction.
           </li>
-
+          <li>
+            <a href="https://openreview.net/attachment?id=TnLFRhLuZ6&name=pdf">
+              COMPOSE YOUR POLICIES! IMPROVING DIFFUSION-BASED OR FLOW-BASED ROBOT POLICIES VIA TEST-TIME DISTRIBUTION-LEVEL COMPOSITION
+            </a><br>
+            <em>TL;DR:</em> Introduces a method to compose flow/diffusion-based VLA policies at test time to improve performance over individual policies.
+            The authors use convex optimization and test-time search to compose scores from multiple policies to improve performance.
+          </li>
           <li>
             <a href="https://openreview.net/attachment?id=tc2UsBeODW&name=pdf">
               VLM4VLA: REVISITING VISION-LANGUAGE-MODELS IN VISION-LANGUAGE-ACTION MODELS
@@ -620,13 +676,14 @@
       If you have good arguments for or against this thesis, please reach out to me, very happy to hear other opinions.<br><br>
       <figure class="figure-container">
         <img src="images/roboarena_leaderboard.png" alt="Zero-Shot Gap Illustration">
-        <figcaption>Figure 7: Overview of the current <a href="https://robo-arena.github.io/" target="_blank">RoboArena</a> Leaderboard. There is only one non-Pi model that is near to being competitive in zero-shot tasks.</figcaption>
+        <figcaption>Figure 8: Overview of the current <a href="https://robo-arena.github.io/" target="_blank">RoboArena</a> Leaderboard. There is only one non-Pi model that is near to being competitive in zero-shot tasks.</figcaption>
       </figure>
       <p><strong>What would help to bridge this gap without blowing the compute and human manpower budget:</strong></p>
       <ul>
         <li><em>Usage of public zero-shot fair benchmarks.</em> Track progress on setups like <a href="https://robo-arena.github.io/" target="_blank">RoboArena</a> that test post-pretraining generalization by independent operators. 
           Today, non-Pi models are scarcely represented and far behind. However, the training code for the higher ranked policies are all fully open-sourced by PI in this <a href="https://github.com/Physical-Intelligence/openpi" target="_blank">codebase</a> to facilitate further research.</li> 
-        <li><em>Better Pretraining Recipes.”</em> I've seen only very few papers like <a href="https://openreview.net/attachment?id=kt51kZH4aG&name=pdf">X-VLA</a> that properly ablate all their pretraining design decisions to understand the impact of these for performance. 
+          Another new interesting attempt to tackle this is <a href="https://manipulation-net.org/" target="_blank">ManipulationNet</a>. I hope the community is able to adopt some of these for better evaluation. 
+          <li><em>Better Pretraining Recipes.”</em> I've seen only very few papers like <a href="https://openreview.net/attachment?id=kt51kZH4aG&name=pdf">X-VLA</a> that properly ablate all their pretraining design decisions to understand the impact of these for performance. 
         We need more papers like this that share full pretraining recipes and also discuss failed ideas that did not work during pretraining.</li>
         </ul>
       <p>
