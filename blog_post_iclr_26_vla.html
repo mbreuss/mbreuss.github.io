@@ -81,6 +81,11 @@
           <img src="images/blog_header.png" alt="Vision-Language-Action (VLA) models research overview and trends at ICLR 2026">
         </figure>
         <p>
+
+
+        </p>
+
+        <p>
           Every year in autumn, the ICLR submission deadline looms over the machine learning community.
           Unlike NeurIPS or ICML, ICLR publicly releases all anonymous submissions a few weeks after the deadline, 
           providing a unique real-time snapshot of ongoing research around the world without the typical six-month delay of other top ML conferences.  
@@ -98,6 +103,7 @@
            <h2>Table of Contents</h2>
         <nav style="background: #f8f9fa; padding: 20px; border-left: 4px solid #4CAF50; margin: 20px 0;">
           <ol style="line-height: 1.8;">
+            <li><a href="#definition-vla">What is a Vision-Language-Action Model?</a></li>
             <li><a href="#growth-vla">The Explosive Growth of VLA Research</a></li>
             <li><a href="#key-trends">Summary of Key Trends</a></li>
             <li><a href="#practitioners-guide">Practitioners Guide to Understanding Benchmark Results</a></li>
@@ -116,6 +122,54 @@
         </nav>
 
         <hr>
+
+        <h2 id="definition-vla">What is a Vision-Language-Action Model?</h2>
+
+        <h3>What Exactly Is a VLA?</h3>
+          <figure class="figure-container">
+          <img src="images/vla_or_not_chart.png" alt="Flowchart for determining if your model is a VLA">
+          <figcaption>Figure 1: Decision flowchart to determine if your model qualifies as a VLA based on my vision-language internet-scale pretraining criteria.</figcaption>
+        </figure>
+          <p>
+            The definition of VLAs is surprisingly contentious, with no clear consensus in the community.
+            A <a href="https://arxiv.org/pdf/2510.07077" target="_blank">recent survey paper</a> defines it broadly: 
+            "A Vision-Language-Action (VLA) model is a system that takes visual observations and natural language instructions as required inputs and may incorporate additional sensory modalities. 
+            It produces robot actions by directly generating control commands."
+          </p>
+
+          <p>
+            While not wrong, this definition misses what I consider the crucial distinguishing feature compared to other multimodal policies: <strong>internet-scale pretraining on some type of vision-language data</strong>.
+          </p>
+
+          <p>
+            <strong>My personal definition:</strong> A VLA is a model that uses a pretrained backbone—trained on large-scale vision-language data—and is subsequently trained with an action-generation objective to directly output robot actions.
+            Without the internet-scale pretraining, it's just a multi-modal policy, not a VLA. 
+            This definition also includes Video-Action Policies that use pretrained video-generation models as their backbone. 
+            Where it becomes a bit fuzzy is when a model uses a a pretrained text encoder model like CLIP-text or T5 and a separately trained vision encoder like DinoV2 or SigLip-Vision.
+            For me, these are not VLAs as the crucial text-vision alignment from internet-scale pretraining of VLMs or video models is missing. 
+          </p>
+
+          <p>
+            This distinction matters because internet-scale pretraining is what theoretically gives VLAs their moat: stronger language-instruction following and better generalization across tasks and environments.
+            That's the promise, at least.
+            The reality? Most current VLAs still struggle with zero-shot generalization and complex tasks—making them better described as "less dumb multi-modal policies" rather than truly general robot brains.
+            But the potential is there and it has many exciting open problems for researchers to tackle.
+          </p>
+
+          <figure class="figure-container">
+            <img src="images/lbm_flow_chart.png" alt="Taxonomy diagram to determine if your model is a LBM">
+            <figcaption>Figure 2: Visual taxonomy showing if your policy is a LBM or not.</figcaption>
+          </figure>
+          <p>
+            <strong>Related and complementary:</strong> Large Behavior Models (LBMs), a term from Toyota Research Institute (TRI) defined in their <a href="https://arxiv.org/pdf/2507.05331" target="_blank">recent paper</a>, represent another category.
+            LBMs are robot policies trained on large-scale multitask robotic demonstration data, but they don't require internet-scale vision-language pretraining or a VLM backbone.
+            Think of it this way: all VLAs trained on large-scale robotic data are also LBMs, but not all LBMs are VLAs. 
+            Together these two terms cover all types of robot foundation policies. 
+          </p>
+
+          <p>
+            What's your personal definition of a VLA? Do you agree with my emphasis on internet-scale pretraining as the key differentiator? I'd love to hear alternative perspectives—reach out if you disagree.
+          </p>
 
         <h2 id="growth-vla">The Explosive Growth of VLA Research</h2>
 
@@ -268,7 +322,7 @@
         <h2 id="discrete-diffusion">1. Discrete Diffusion VLAs</h2>
         <figure class="figure-container">
           <img src="images/discrete_diff_comp.png" alt="Discrete Diffusion VLA Architecture">
-          <figcaption>Figure 1: Overview of discrete diffusion paradigm for action generation. Image from <a href="https://openreview.net/attachment?id=YWeNCMxdhM&name=pdf">DISCRETE DIFFUSION VLA</a></figcaption>
+          <figcaption>Figure 3: Overview of discrete diffusion paradigm for action generation. Image from <a href="https://openreview.net/attachment?id=YWeNCMxdhM&name=pdf">DISCRETE DIFFUSION VLA</a></figcaption>
         </figure>
         <p>
           Given the success of discrete diffusion models in other domains like text (e.g. <a href="https://proceedings.neurips.cc/paper_files/paper/2024/file/eb0b13cc515724ab8015bc978fdde0ad-Paper-Conference.pdf">(MDLM</a>) and VLMs (e.g. <a href="https://arxiv.org/pdf/2505.16933">LLaDA-V</a>), it is no surprise that this trend is also making its way into VLA research. 
@@ -373,7 +427,7 @@
         <h2 id="tokenizers">3. New Tokenizers</h2>
         <figure class="figure-container">
           <img src="images/faster_tokenizer.png" alt="FASTer Tokenizer Overview">
-          <figcaption>Figure 3: FASTer Tokenizer Overview. The tokenizer combines RVQ quantization with frequency and time domain losses. Image from <a href="https://openreview.net/attachment?id=k6nTUFoqeT&name=pdf">FASTer</a>.</figcaption>
+          <figcaption>Figure 4: FASTer Tokenizer Overview. The tokenizer combines RVQ quantization with frequency and time domain losses. Image from <a href="https://openreview.net/attachment?id=k6nTUFoqeT&name=pdf">FASTer</a>.</figcaption>
         </figure>
         <p>
           We command robots with high-frequency, continuous control values (e.g., joint angles, gripper state). Vision-Language models, however, operate most effectively on discrete tokens. Naively fine-tuning a VLM to regress continuous actions tends to underperform and often induces catastrophic forgetting, because the new objective misaligns with the model’s pretrained representations.
@@ -467,7 +521,7 @@
         <h2 id="vla-video">6. VLA + Video Prediction</h2>
         <figure class="figure-container">
           <img src="images/video_policy_header.png" alt="Video Pretraining for VLAs">
-          <figcaption>Figure 4: Example Pretraining Paradigm from <a href="https://openreview.net/attachment?id=DdrsHWobR1&name=pdf">DISENTANGLED ROBOT LEARNING Paper</a><br>
+          <figcaption>Figure 5: Example Pretraining Paradigm from <a href="https://openreview.net/attachment?id=DdrsHWobR1&name=pdf">DISENTANGLED ROBOT LEARNING Paper</a><br>
           </figcaption>
         </figure>
         <p>Started by strong results from <a href="https://arxiv.org/pdf/2312.13139" target="_blank">GR-1 paper</a> from ICLR 2024 that showed the potential of video-based policies, there is a growing interest in this subfield.
@@ -510,7 +564,7 @@
         <h2 id="evaluation">7. Evaluation and Benchmarking of VLAs</h2>
         <figure class="figure-container">
           <img src="images/roboarena_real2sim.png" alt="ROBOTARENA Overview">
-          <figcaption>Figure 5: Overview of real2sim ROBOTARENA benchmark. 
+          <figcaption>Figure 6: Overview of real2sim ROBOTARENA benchmark. 
             Image from <a href="https://openreview.net/attachment?id=OutljIofvS&name=pdf">ROBOTARENA ∞</a>.</figcaption>
         </figure>
         <p>
@@ -551,7 +605,7 @@
         <h2 id="cross-action-space">8. Cross-Action-Space-Learning</h2>
         <figure class="figure-container">
           <img src="images/xvla_cross_embedding.png" alt="X-VLA Overview">
-          <figcaption>Figure 6: Different Paradigms for VLAs to handle different action spaces.
+          <figcaption>Figure 7: Different Paradigms for VLAs to handle different action spaces.
             Image from <a href="https://openreview.net/attachment?id=kt51kZH4aG&name=pdf">X-VLA</a>.</figcaption>
         </figure>
 
@@ -638,7 +692,7 @@
         <h2 id="frontier-gap">10. The Hidden Gap Between Frontier and Research VLAs</h2>
         <figure class="figure-container">
           <img src="images/closed_vs_open_VLAs.png" alt="VLAs Overview">
-          <figcaption>Figure 7: Overview of closed-weight vs open-weight VLAs.</a>.</figcaption>
+          <figcaption>Figure 8: Overview of closed-weight vs open-weight VLAs.</a>.</figcaption>
         </figure>
         <p>
           On paper (pun intended:)), the gap seems small: on simulation setups (LIBERO, CALVIN) open-source VLAs surpass popular frontier baselines like Pi0.5. 
@@ -676,7 +730,7 @@
       If you have good arguments for or against this thesis, please reach out to me, very happy to hear other opinions.<br><br>
       <figure class="figure-container">
         <img src="images/roboarena_leaderboard.png" alt="Zero-Shot Gap Illustration">
-        <figcaption>Figure 8: Overview of the current <a href="https://robo-arena.github.io/" target="_blank">RoboArena</a> Leaderboard. There is only one non-Pi model that is near to being competitive in zero-shot tasks.</figcaption>
+        <figcaption>Figure 9: Overview of the current <a href="https://robo-arena.github.io/" target="_blank">RoboArena</a> Leaderboard. There is only one non-Pi model that is near to being competitive in zero-shot tasks.</figcaption>
       </figure>
       <p><strong>What would help to bridge this gap without blowing the compute and human manpower budget:</strong></p>
       <ul>
@@ -696,25 +750,26 @@
 
         <p>
           Overall, I am very positive about the current state of VLA research and the progress being made in this field.
-          The trends above show strong interest and contributions across VLA models—from architecture design to training strategies and evaluation methods.<br><br>
+          The trends above show strong interest and contributions across VLA models—from architecture design to training strategies and evaluation methods.
+          However, there are also a few disappointing aspects aside from the zero-shot performance gap of the current state of VLA research that are worth highlighting.
+        </p>
 
-          However, there are also a few disappointing aspects of the current state of VLA research, apart from the zero-shot gap.<br><br>
+        <p><strong>Two Underrepresented Problems in Current VLA Research:</strong></p>
 
-          My biggest complaint for the ICLR submissions is the lack of data-focused papers.
-          Given the importance of data quality and diversity for training VLAs, I had hoped to see more work in this direction.
-          I believe this remains one of the least understood areas of VLA research, and we need better methods to collect and curate high-quality datasets.
-          That said, data-centric research is hard.
-          It’s an open secret that OXE is mostly low-quality data, and there are only a few large-scale, high-quality datasets.
-          Understanding how to quantify data quality in imitation learning is one of the most crucial open problems in VLA research.<br><br>
+        <ul>
+          <li><strong>Data quality:</strong> Despite being critical for VLA performance, surprisingly few ICLR 2026 submissions focused on data collection and curation. 
+            It's an open secret that OXE is mostly low-quality data, yet we still lack good methods to quantify data quality in imitation learning. 
+            Data-centric research is hard, but understanding how to curate high-quality datasets remains one of the most crucial unsolved problems in VLA research.</li>
+          
+          <li><strong>In-context learning:</strong> Given the success of in-context learning for LLMs and VLMs, I expected more VLA work in this direction but found almost none. 
+            Language alone provides limited context for complex physical tasks—in-context learning could be key to enabling better prompting and zero-shot task generalization for VLAs. 
+            There have been some good attempts, but it's still unclear how to best implement this for VLAs in a way that captures the rich contextual information needed to solve complex manipulation tasks.</li>
+        </ul>
 
-          Another interesting direction I was not able to find relevant submissions is in-context learning for VLAs.
-          I believe there is a lot of potential in this direction, given the success of in-context learning for LLMs and VLMs.
-          But its unclear to how to best implement this for VLAs so far.
-          There have been good attempts but I think this could be key to enable easy prompting and zero-shot task generalization for VLAs.
-          Language is great as an universal interface to communicate tasks but it also lacks a lot of information and context that is needed to solve complex tasks.
-          I hope to see more research in this direction in the next year.<br><br>
-
-          Nevertheless, I am optimistic that the field will continue to grow and evolve rapidly. 
+        <p>
+          Despite these gaps, I remain optimistic that the field will continue to grow and evolve rapidly. 
+          The explosive growth in submissions and the convergence on promising directions like discrete diffusion and embodied reasoning suggest that VLA research is maturing quickly. 
+          As we address these fundamental challenges around data quality and contextual learning, we'll move closer to VLAs that can truly generalize in the messy, unstructured environments where robots need to operate.
         </p>
         
         <h2 id="cite">Cite this post</h2>
