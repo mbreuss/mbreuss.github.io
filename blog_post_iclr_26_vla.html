@@ -144,10 +144,10 @@
       </p>
 
       <p>
-        <strong>My personal definition:</strong> A VLA is a model that uses a pretrained backbone, which was trained on large-scale vision-language data—and is subsequently trained with an action-generation objective to directly output robot actions.
-        Without internet-scale pretraining, I refer to these as <strong>multimodal policies</strong> rather than VLAs.
+        <strong>My personal definition:</strong> A VLA is a model that uses a pretrained backbone, which was trained on large-scale vision-language data and is subsequently trained with an action-generation objective to directly output robot actions.
         This definition also includes Video-Action Policies that use pretrained video-generation models as their backbone. 
-        Where it becomes a bit fuzzy is when a model uses a pretrained text encoder like CLIP-text or T5 and a separately trained vision encoder like DINOv2 or SigLIP-Vision.
+        Without internet-scale pretraining, I refer to these as <strong>multimodal policies</strong> rather than VLAs.
+        Where it becomes a bit fuzzy is when a model uses a pretrained text encoder like CLIP-text or T5 and a separately pretrained vision encoder like DINOv2 or SigLIP-Vision.
         In my personal opinion, I like to group these as multimodal policies and not VLAs since they are lacking the joint vision-language pretraining.
         For reference I also included a flowchart (Figure 1) to help you determine if your model is a VLA or not based on my definition.
       </p>
@@ -155,7 +155,7 @@
       <p>
         This distinction matters because internet-scale pretraining is what theoretically gives VLAs their moat: stronger language-instruction following and better generalization across tasks and environments.
         That's the promise, at least.
-        The reality? Most current VLAs still struggle with zero-shot generalization and complex tasks—making them better described as "less dumb multi-modal policies" rather than truly general robot brains.
+        The reality? Most current VLAs still struggle with zero-shot generalization and complex tasks, making them better described as "less dumb multi-modal policies" rather than truly general robot brains.
         But the potential is there and it has many exciting open problems for researchers to tackle.
       </p>
 
