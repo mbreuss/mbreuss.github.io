@@ -125,52 +125,57 @@
 
         <h2 id="definition-vla">What is a Vision-Language-Action Model?</h2>
 
-        <h3>What Exactly Is a VLA?</h3>
-          <figure class="figure-container">
-          <img src="images/vla_or_not_chart.png" alt="Flowchart for determining if your model is a VLA">
-          <figcaption>Figure 1: Decision flowchart to determine if your model qualifies as a VLA based on my vision-language internet-scale pretraining criteria.</figcaption>
-        </figure>
-          <p>
-            Before diving into the research trends, it's important to clarify what exactly a Vision-Language-Action (VLA) model is.
-            The definition of VLAs is surprisingly contentious, with no clear consensus in the community.
-            A <a href="https://arxiv.org/pdf/2510.07077" target="_blank">recent survey paper</a> defines it broadly: 
-            "A Vision-Language-Action (VLA) model is a system that takes visual observations and natural language instructions as required inputs and may incorporate additional sensory modalities. 
-            It produces robot actions by directly generating control commands."
-          </p>
+        <h2 id="definition-vla">What is a Vision-Language-Action Model?</h2>
 
-          <p>
-            While not wrong, this definition misses what I consider the crucial distinguishing feature compared to other multimodal policies: <strong>internet-scale pretraining on some type of vision-language data</strong>.
-          </p>
+      <h3>What Exactly Is a VLA?</h3>
+      <figure class="figure-container">
+        <img src="images/vla_or_not_chart.png" alt="Flowchart for determining if your model is a VLA">
+        <figcaption>Figure 1: Decision flowchart to determine if your model qualifies as a VLA based on my vision-language internet-scale pretraining criteria.</figcaption>
+      </figure>
+      <p>
+        The definition of VLAs is surprisingly contentious, with no clear consensus in the community.
+        A <a href="https://arxiv.org/pdf/2510.07077" target="_blank">recent survey paper</a> defines it broadly: 
+        "A Vision-Language-Action (VLA) model is a system that takes visual observations and natural language instructions as required inputs and may incorporate additional sensory modalities. 
+        It produces robot actions by directly generating control commands."
+      </p>
 
-          <p>
-            <strong>My personal definition:</strong> A VLA is a model that uses a pretrained backbone, which was trained on large-scale vision-language data—and is subsequently trained with an action-generation objective to directly output robot actions.
-            Without the internet-scale pretraining, it's just a multi-modal policy, not a VLA. 
-            This definition also includes Video-Action Policies that use pretrained video-generation models as their backbone. 
-            Where it becomes a bit fuzzy is when a model uses a pretrained text encoder model like CLIP-text or T5 and a separately trained vision encoder like DinoV2 or SigLip-Vision.
-            For me, these are not VLAs as the crucial text-vision alignment from internet-scale pretraining of VLMs or video models is missing. 
-          </p>
+      <p>
+        While this is a valid definition, in my personal opinion it misses what I consider the crucial distinguishing feature compared to other multimodal policies: <strong>internet-scale pretraining on some type of vision-language data</strong>.
+      </p>
 
-          <p>
-            This distinction matters because internet-scale pretraining is what theoretically gives VLAs their moat: stronger language-instruction following and better generalization across tasks and environments.
-            That's the promise, at least.
-            The reality? Most current VLAs still struggle with zero-shot generalization and complex tasks—making them better described as "less dumb multi-modal policies" rather than truly general robot brains.
-            But the potential is there and it has many exciting open problems for researchers to tackle.
-          </p>
+      <p>
+        <strong>My personal definition:</strong> A VLA is a model that uses a pretrained backbone, which was trained on large-scale vision-language data—and is subsequently trained with an action-generation objective to directly output robot actions.
+        Without internet-scale pretraining, I refer to these as <strong>multimodal policies</strong> rather than VLAs.
+        This definition also includes Video-Action Policies that use pretrained video-generation models as their backbone. 
+        Where it becomes a bit fuzzy is when a model uses a pretrained text encoder like CLIP-text or T5 and a separately trained vision encoder like DINOv2 or SigLIP-Vision.
+        In my personal opinion, I like to group these as multimodal policies and not VLAs since they are lacking the joint vision-language pretraining.
+        For reference I also included a flowchart (Figure 1) to help you determine if your model is a VLA or not based on my definition.
+      </p>
 
-          <figure class="figure-container">
-            <img src="images/lbm_flow_chart.png" alt="Taxonomy diagram to determine if your model is a LBM">
-            <figcaption>Figure 2: Visual taxonomy showing if your policy is a LBM or not.</figcaption>
-          </figure>
-          <p>
-            <strong>Related and complementary:</strong> Large Behavior Models (LBMs), a term from Toyota Research Institute (TRI) defined in their <a href="https://arxiv.org/pdf/2507.05331" target="_blank">recent paper</a>, represent another category.
-            LBMs are robot policies trained on large-scale multitask robotic demonstration data, but they don't require internet-scale vision-language pretraining or a VLM backbone.
-            Think of it this way: all VLAs trained on large-scale robotic data are also LBMs, but not all LBMs are VLAs. 
-            Together these two terms cover all types of robot foundation policies. 
-          </p>
+      <p>
+        This distinction matters because internet-scale pretraining is what theoretically gives VLAs their moat: stronger language-instruction following and better generalization across tasks and environments.
+        That's the promise, at least.
+        The reality? Most current VLAs still struggle with zero-shot generalization and complex tasks—making them better described as "less dumb multi-modal policies" rather than truly general robot brains.
+        But the potential is there and it has many exciting open problems for researchers to tackle.
+      </p>
 
-          <p>
-            What's your personal definition of a VLA? Do you agree with my emphasis on internet-scale pretraining as the key differentiator? I'd love to hear alternative perspectives—reach out if you disagree.
-          </p>
+      <figure class="figure-container">
+        <img src="images/lbm_flow_chart.png" alt="Taxonomy diagram to determine if your model is a LBM">
+        <figcaption>Figure 2: Visual taxonomy showing if your policy is a LBM or not.</figcaption>
+      </figure>
+
+      <p>
+        <strong>Related and complementary:</strong> Large Behavior Models (LBMs), a term from Toyota Research Institute (TRI) defined in their <a href="https://arxiv.org/pdf/2507.05331" target="_blank">recent paper</a>, represent another category.
+        LBMs are robot policies trained on large-scale multitask robotic demonstration data, but they don't require internet-scale vision-language pretraining or a VLM backbone.
+        Think of it this way: all VLAs trained on large-scale robotic data are also LBMs, but not all LBMs are VLAs. 
+        Together these two terms cover all types of robot foundation policies. 
+        I also included a flowchart (Figure 2) to help you determine if your model is a LBM or not based on my understanding
+      </p>
+
+      <p>
+        What's your personal definition of a VLA? Do you agree with my take on internet-scale pretraining as the key differentiator?  Let me know your thoughts!
+      </p>
+
 
         <h2 id="growth-vla">The Explosive Growth of VLA Research</h2>
 
