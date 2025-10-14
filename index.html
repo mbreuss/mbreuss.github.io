@@ -105,17 +105,6 @@
                     <a href="https://www.linkedin.com/in/moritzreuss/?locale=en_US" target="_blank" rel="noopener noreferrer">LinkedIn</a> &nbsp;/&nbsp;
                     <a href="https://mbreuss.github.io/blog_post_iclr_26_vla.html">Blog</a>
                   </p>
-
-                  <!-- Writing section (new) -->
-                  <div style="margin:16px 0; padding:12px 16px; background:#f8fafc; border-left:4px solid #4CAF50;">
-                    <heading>Writing</heading>
-                    <p style="margin-top:6px; margin-bottom:0;">
-                      <a href="https://mbreuss.github.io/blog_post_iclr_26_vla.html">
-                        State of Vision-Language-Action (VLA) Research at ICLR 2026
-                      </a>
-                      <span style="color:#4b5563;">(Oct 2025)</span>
-                    </p>
-                  </div>
                 </td>
 
                 <td style="padding:2.5%;width:40%;max-width:40%">
@@ -133,7 +122,7 @@
             </tbody>
           </table>
 
-          <!-- Research intro -->
+          <!-- Research (now first) -->
           <table style="width:100%;border:0;border-spacing:0;border-collapse:separate;margin:0 auto;">
             <tbody>
               <tr>
@@ -141,16 +130,45 @@
                   <heading>Research</heading>
                   <p>
                     My primary research goal is to build intelligent embodied agents that assist people in their everyday lives and
-                    communicate intuitively. I am focusing on language-conditioned multitask imitation learning from robot play data.
+                    communicate intuitively. I focus on language-conditioned multitask imitation learning from robot play data.
                     My work explores efficient Vision-Language-Action (VLA) policies and novel policy representations
                     that can learn from uncurated, multimodal human demonstrations without rewards.
-                    I have worked on score-based diffusion policies and developed generalist VLA models that achieve strong performance with
+                    I have worked on score/flow-based diffusion policies and developed generalist VLA models that achieve strong performance with
                     minimal computational requirements. Representative papers are <span class="highlight">highlighted</span>.
                   </p>
+
+                  <!-- Short, precise sub-topics -->
+                  <ul style="margin-top:8px;">
+                  <li><strong>Efficient VLAs:</strong> Compact flow/diffusion-based vision-language-action models (e.g., <em>FLOWER</em>, <em>MoDE</em>) and novel efficient action tokenization methods (e.g., <em>BEAST</em>) that achieve strong performance with minimal computational requirements.</li>
+                  
+                  <li><strong>Expressive Policy Representations:</strong> Diffusion and flow-based policies that capture multimodal action distributions and handle diverse goal specifications including language, images, and waypoints (e.g., <em>BESO</em>, <em>MDT</em>), with benchmarks for evaluating behavior diversity (e.g., <em>D3IL</em>).</li>
+                  
+                  <li><strong>Learning from Uncurated Data:</strong> Zero-shot dataset labeling with vision-language foundation models (e.g., <em>NILS</em>) to enable scalable learning from robot play data without manual annotation, and methods for handling multimodal observations (RGB + 3D inputs).</li>
+                </ul>
                 </td>
               </tr>
             </tbody>
           </table>
+
+          <!-- Writing (moved below Research) -->
+          <table style="width:100%;border:0;border-spacing:0;border-collapse:separate;margin:0 auto;">
+            <tbody>
+              <tr>
+                <td style="padding:20px;width:100%;vertical-align:middle">
+                  <div style="margin:0; padding:12px 16px; background:#f8fafc; border-left:4px solid #4CAF50;">
+                    <heading>Writing</heading>
+                    <p style="margin-top:6px; margin-bottom:0;">
+                      <a href="https://mbreuss.github.io/blog_post_iclr_26_vla.html">
+                        State of Vision-Language-Action (VLA) Research at ICLR 2026
+                      </a>
+                      <span style="color:#4b5563;">(Oct 2025)</span>
+                    </p>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+
 
           <!-- Papers list -->
           <table style="width:100%;border:0;border-spacing:0;border-collapse:separate;margin:0 auto;">
