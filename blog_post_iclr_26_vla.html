@@ -104,25 +104,28 @@
           </p>
 
            <h2>Table of Contents</h2>
-        <nav style="background: #f8f9fa; padding: 20px; border-left: 4px solid #4CAF50; margin: 20px 0;">
-          <ol style="line-height: 1.8;">
-            <li><a href="#definition-vla">What is a Vision-Language-Action Model?</a></li>
-            <li><a href="#growth-vla">The Explosive Growth of VLA Research</a></li>
-            <li><a href="#key-trends">Summary of Key Trends</a></li>
-            <li><a href="#practitioners-guide">Practitioners Guide to Understanding Benchmark Results</a></li>
-            <li><a href="#discrete-diffusion">Discrete Diffusion VLAs</a></li>
-            <li><a href="#embodied-cot">Reasoning VLAs and Embodied Chain-of-Thought (ECoT)</a></li>
-            <li><a href="#tokenizers">New Discrete Tokenizers</a></li>
-            <li><a href="#efficient-vla">Efficient VLAs</a></li>
-            <li><a href="#RL-vla">RL for VLAs</a></li>
-            <li><a href="#vla-video">VLA + Video Prediction</a></li>
-            <li><a href="#evaluation">Evaluation and Benchmarking of VLAs</a></li>
-            <li><a href="#cross-action-space">Cross-Action-Space Learning</a></li>
-            <li><a href="#other">Other Interesting Papers</a></li>
-            <li><a href="#frontier-gap">The Hidden Gap Between Frontier and Research VLAs</a></li>
-            <li><a href="#summary-outlook">Summary and Outlook</a></li>
-          </ol>
-        </nav>
+          <nav style="background: #f8f9fa; padding: 20px; border-left: 4px solid #4CAF50; margin: 20px 0;">
+            <ol style="line-height: 1.8;">
+              <li><a href="#definition-vla">What is a Vision-Language-Action Model?</a></li>
+              <li><a href="#growth-vla">The Explosive Growth of VLA Research</a></li>
+              <li><a href="#practitioners-guide">Practitioners Guide to Understanding Benchmark Results</a></li>
+              <li><a href="#research-trends">ICLR 2026 VLA Research Trends</a>
+                <ol style="margin-left: 20px; margin-top: 8px;">
+                  <li><a href="#discrete-diffusion">Discrete Diffusion VLAs</a></li>
+                  <li><a href="#embodied-cot">Reasoning VLAs and Embodied Chain-of-Thought (ECoT)</a></li>
+                  <li><a href="#tokenizers">New Discrete Tokenizers</a></li>
+                  <li><a href="#efficient-vla">Efficient VLAs</a></li>
+                  <li><a href="#RL-vla">RL for VLAs</a></li>
+                  <li><a href="#vla-video">VLA + Video Prediction</a></li>
+                  <li><a href="#evaluation">Evaluation and Benchmarking of VLAs</a></li>
+                  <li><a href="#cross-action-space">Cross-Action-Space Learning</a></li>
+                  <li><a href="#other">Other Interesting Papers</a></li>
+                </ol>
+              </li>
+              <li><a href="#frontier-gap">The Hidden Gap Between Frontier and Research VLAs</a></li>
+              <li><a href="#summary-outlook">Summary and Outlook</a></li>
+            </ol>
+          </nav>
 
         <hr>
 
@@ -273,21 +276,6 @@
           </div>
         </div>
 
-
-        <h2 id="key-trends">Summary of Key Trends</h2>
-        <p>After scanning most ICLR 2026 submissions with the VLA keyword, I identified the following key trends in VLA research with a lot of overlap in between these categories:</p>
-        <ul>
-          <li><a href="#discrete-diffusion">Discrete Diffusion VLAs</a></li>
-          <li><a href="#embodied-cot">Reasoning VLAs and Embodied Chain-of-Thought</a></li>
-          <li><a href="#tokenizers">New Discrete Tokenizers</a></li>
-          <li><a href="#efficient-vla">Efficient VLAs</a></li>
-          <li><a href="#RL-vla">RL for VLAs</a></li>
-          <li><a href="#vla-video">VLA + Video Prediction</a></li>
-          <li><a href="#evaluation">Evaluation and Benchmarking of VLAs</a></li>
-          <li><a href="#cross-action-space">Cross-Action-Space Learning</a></li>
-          <li><a href="#other">Other Interesting Papers</a></li>
-        </ul>
-
         <h2 id="practitioners-guide">Practitioners Guide to Understanding Benchmark Results in VLA Research</h2>
         <figure class="figure-container">
           <img src="images/vla_sim_setups.png" alt="VLA Simulation Setups Overview">
@@ -325,7 +313,15 @@
 
         <hr>
 
-        <h2 id="discrete-diffusion">1. Discrete Diffusion VLAs</h2>
+        <h2 id="research-trends">ICLR 2026 VLA Research Trends</h2>
+        <p>
+          After scanning most ICLR 2026 submissions with the VLA keyword, I identified the following key trends in VLA research. 
+          There is significant overlap between these categories, as many papers combine multiple ideas—for example, discrete diffusion with embodied reasoning, or efficient architectures with new tokenizers. 
+          Below, I highlight some notable papers in each category along with brief comments.
+          Please note that this is not an exhaustive list, and I may have missed many excellent works.
+        </p>
+
+        <h3 id="discrete-diffusion">1. Discrete Diffusion VLAs</h3>
         <figure class="figure-container">
           <img src="images/discrete_diff_comp.png" alt="Discrete Diffusion VLA Architecture">
           <figcaption>Figure 4: Overview of discrete diffusion paradigm for action generation. Image from <a href="https://openreview.net/attachment?id=YWeNCMxdhM&name=pdf">DISCRETE DIFFUSION VLA</a></figcaption>
@@ -372,9 +368,7 @@
           </li>
         </ul>
 
-        <h2 id="embodied-cot">2. Reasoning VLAs and Embodied Chain-of-Thought (ECoT)</h2>
-
-
+        <h3 id="embodied-cot">2. Reasoning VLAs and Embodied Chain-of-Thought (ECoT)</h3>
         <p>
           Reasoning holds strong promise for improving the generalization and performance of VLAs, which still struggle with complex tasks and out-of-distribution scenarios.
           Inspired by the success of Chain-of-Thought prompting in LLMs, there is growing interest in applying similar ideas to VLAs.
@@ -430,7 +424,7 @@
           </li>
         </ul>
 
-        <h2 id="tokenizers">3. New Tokenizers</h2>
+        <h3 id="tokenizers">3. New Tokenizers</h3>
         <figure class="figure-container">
           <img src="images/faster_tokenizer.png" alt="FASTer Tokenizer Overview">
           <figcaption>Figure 5: FASTer Tokenizer Overview. The tokenizer combines RVQ quantization with frequency and time domain losses. Image from <a href="https://openreview.net/attachment?id=k6nTUFoqeT&name=pdf">FASTer</a>.</figcaption>
@@ -473,7 +467,7 @@
         </ul>
       
 
-        <h2 id="efficient-vla">4. Efficient VLAs</h2>
+        <h3 id="efficient-vla">4. Efficient VLAs</h3>
         <p>As someone working on this topic myself, I understand the pain of trying to train and run larger VLAs on limited compute setups. 
           Thus, efficient VLAs are always relevant. Especially, since this gives labs with limited compute access the chance to work on VLAs too.
           There are several interesting papers this year that try to tackle this problem with different approaches.
@@ -498,7 +492,7 @@
           </li>
         </ul>
 
-        <h2 id="RL-vla">5. RL for VLAs</h2>
+        <h3 id="RL-vla">5. RL for VLAs</h3>
         <p>Finetuning VLAs to go from 70-80% success rate in the real world towards 99% is still an open problem.  
           There is a lot of hope for RL Finetuning to close this gap. 
           While a lot of attempts have been made before, no method has established itself as the go-to method yet.
@@ -524,7 +518,7 @@
           </li>
         </ul>
 
-        <h2 id="vla-video">6. VLA + Video Prediction</h2>
+        <h3 id="vla-video">6. VLA + Video Prediction</h3>
         <figure class="figure-container">
           <img src="images/video_policy_header.png" alt="Video Pretraining for VLAs">
           <figcaption>Figure 6: Example Pretraining Paradigm from <a href="https://openreview.net/attachment?id=DdrsHWobR1&name=pdf">DISENTANGLED ROBOT LEARNING Paper</a><br>
@@ -567,7 +561,7 @@
           </li>
         </ul>
 
-        <h2 id="evaluation">7. Evaluation and Benchmarking of VLAs</h2>
+        <h3 id="evaluation">7. Evaluation and Benchmarking of VLAs</h3>
         <figure class="figure-container">
           <img src="images/roboarena_real2sim.png" alt="ROBOTARENA Overview">
           <figcaption>Figure 7: Overview of real2sim ROBOTARENA benchmark. 
@@ -586,7 +580,7 @@
             <a href="https://openreview.net/attachment?id=OutljIofvS&name=pdf">
               ROBOTARENA ∞: UNLIMITED ROBOT BENCHMARKING VIA REAL-TO-SIM TRANSLATION
             </a><br>
-            <em>TL;DR: </em> Introduces a new benchmarking framework inspired by the <a href="https://robo-arena.github.io/" target="_blank">RoboArena</a> work for real2sim setup. 
+            <em>TL;DR: </em> Introduces a new benchmarking framework for real2sim setup that has similar rating system to the <a href="https://robo-arena.github.io/" target="_blank">RoboArena</a>. 
             It provides automatic environment construction and evaluation using physics engine, real-2-sim translation and human feedback. 
             They use real2sim translation pipeline with a bunch of foundation models and differentiable rendering and VLM-based task progression scores.
             Seems very interesting on first glance and I am excited to try it out myself. 
@@ -608,7 +602,7 @@
           </li>
         </ul>
 
-        <h2 id="cross-action-space">8. Cross-Action-Space-Learning</h2>
+        <h3 id="cross-action-space">8. Cross-Action-Space Learning</h3>
         <figure class="figure-container">
           <img src="images/xvla_cross_embedding.png" alt="X-VLA Overview">
           <figcaption>Figure 8: Different Paradigms for VLAs to handle different action spaces.
@@ -653,7 +647,7 @@
           </li>
         </ul>
 
-        <h2 id="other">9. Other Interesting Papers</h2>
+        <h3 id="other">9. Other Interesting Papers</h3>
         <p>
           There are several other interesting papers that don’t fit neatly into the categories above but are worth mentioning.
           They explore varied aspects of VLA design, from the choice of VLM backbone to adding memory modules into the policy.
@@ -695,7 +689,7 @@
           </li>
         </ul>
           
-        <h2 id="frontier-gap">10. The Hidden Gap Between Frontier and Research VLAs</h2>
+        <h2 id="frontier-gap">The Hidden Gap Between Frontier and Research VLAs</h2>
         <figure class="figure-container">
           <img src="images/closed_vs_open_VLAs.png" alt="VLAs Overview">
           <figcaption>Figure 9: Overview of closed-weight vs open-weight VLAs.</a>.</figcaption>
@@ -752,7 +746,7 @@
       </p>
 
         
-        <h2 id="summary-outlook">11. Summary and Outlook</h2>
+        <h2 id="summary-outlook">Summary and Outlook</h2>
 
         <p>
           Overall, I am very positive about the current state of VLA research and the progress being made in this field.
