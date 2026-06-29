@@ -7,7 +7,7 @@
   <title>Moritz Reuss — Robotics & VLA Research</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="author" content="Moritz Reuss" />
-  <meta name="description" content="Moritz Reuss — PhD at KIT IRL. Vision-Language-Action (VLA) models, diffusion/flow policies, efficient generalist robot learning. Publications, projects, and writing." />
+  <meta name="description" content="Moritz Reuss — Researcher at NVIDIA Seattle Robotics Lab. Efficient generalist robot foundation models — Vision-Language-Action (VLA) models and World-Action Models (WAMs), diffusion/flow policies. Publications, projects, and writing." />
 
   <!-- Canonical -->
   <link rel="canonical" href="https://mbreuss.github.io/" />
@@ -17,10 +17,34 @@
 
   <!-- Styles -->
   <link rel="stylesheet" type="text/css" href="stylesheet.css" />
+  <style>
+    body { background: #fffefb; }
+    #trajectory-scene {
+      position: fixed;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 0;
+      opacity: 0.72;
+    }
+    table[role="main"] { position: relative; z-index: 1; }
+    .perspectives { border-left: 4px solid #7fa891; padding-left: 16px; }
+    .perspective { margin: 14px 0 18px; }
+    .perspective p { margin: 4px 0 0; color: #4b5563; }
+    .perspective-meta { color: #4b5563; font-size: 0.92em; }
+    .selected-paper { padding: 16px 0; border-top: 1px solid #e5e7eb; }
+    .selected-paper:first-of-type { border-top: 0; }
+    .selected-paper p { margin: 5px 0; color: #374151; }
+    .selected-paper .links { font-size: 0.92em; }
+    .selected-note { color: #4b5563; font-size: 0.92em; margin-top: 4px; }
+    @media (max-width: 680px) { #trajectory-scene { display: none; } }
+    @media (prefers-reduced-motion: reduce) { #trajectory-scene { display: none; } }
+  </style>
 
   <!-- Open Graph -->
   <meta property="og:title" content="Moritz Reuss — Robotics & VLA Research" />
-  <meta property="og:description" content="Vision-Language-Action (VLA) models, diffusion/flow policies, efficient generalist robot learning. Publications, projects, and writing." />
+  <meta property="og:description" content="Efficient generalist robot foundation models — Vision-Language-Action (VLA) models and World-Action Models (WAMs), diffusion/flow policies. Publications, projects, and writing." />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://mbreuss.github.io/" />
   <meta property="og:image" content="https://mbreuss.github.io/images/Moritz_circle.jpeg" />
@@ -29,7 +53,7 @@
   <!-- Twitter -->
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Moritz Reuss — Robotics & VLA Research" />
-  <meta name="twitter:description" content="Vision-Language-Action (VLA) models, diffusion/flow policies, efficient generalist robot learning. Publications, projects, and writing." />
+  <meta name="twitter:description" content="Efficient generalist robot foundation models — Vision-Language-Action (VLA) models and World-Action Models (WAMs), diffusion/flow policies. Publications, projects, and writing." />
   <meta name="twitter:image" content="https://mbreuss.github.io/images/Moritz_circle.jpeg" />
 
   <!-- JSON-LD: Person -->
@@ -40,10 +64,10 @@
     "name": "Moritz Reuss",
     "url": "https://mbreuss.github.io/",
     "image": "https://mbreuss.github.io/images/Moritz_circle.jpeg",
-    "jobTitle": "PhD Researcher",
+    "jobTitle": "Researcher",
     "affiliation": {
       "@type": "Organization",
-      "name": "Karlsruhe Institute of Technology (KIT) — Intuitive Robots Lab"
+      "name": "NVIDIA — Seattle Robotics Lab"
     },
     "sameAs": [
       "mailto:reussmoritz@gmail.com",
@@ -66,6 +90,7 @@
 </head>
 
 <body>
+  <canvas id="trajectory-scene" aria-hidden="true"></canvas>
   <!-- Outer container (kept table structure for your CSS) -->
   <table role="main" style="width:100%;max-width:800px;border:0;border-spacing:0;border-collapse:separate;margin:0 auto;">
     <tbody>
@@ -82,19 +107,18 @@
                   </p>
 
                   <p>
-                    I am a fourth-year PhD student in the
-                    <a href="https://irl.anthropomatik.kit.edu/" target="_blank" rel="noopener noreferrer">Intuitive Robots Lab</a> (IRL)
-                    at the Karlsruhe Institute of Technology (KIT), Germany.
-                    My research focuses on developing machine learning methods to teach robots new behaviors from uncurated, multimodal human demonstrations,
+                    I am a researcher at NVIDIA's
+                    <a href="https://research.nvidia.com/labs/srl/" target="_blank" rel="noopener noreferrer">Seattle Robotics Lab</a>,
+                    based in Zürich, building efficient and versatile robot foundation models for manipulation.
+                  </p>
+                  <p>
+                    I recently completed my PhD with distinction (<em>summa cum laude</em>) at KIT's
+                    <a href="https://irl.anthropomatik.kit.edu/" target="_blank" rel="noopener noreferrer">Intuitive Robots Lab</a>,
                     supervised by <a href="http://rudolf.intuitive-robots.net/" target="_blank" rel="noopener noreferrer">Rudolf Lioutikov</a>.
-                    I am grateful for the
-                    <a href="https://machinelearning.apple.com/updates/apple-scholars-aiml-2025/" target="_blank" rel="noopener noreferrer">Apple PhD Fellowship 2025</a>
-                    for supporting my research. I was an intern at Apple DMLI, working on robotics with
-                    <a href="https://peidehuang.github.io/" target="_blank" rel="noopener noreferrer">Peide Huang</a> and
-                    <a href="https://www.linkedin.com/in/jianzhangpurdue" target="_blank" rel="noopener noreferrer">Jian Zhang</a>.
-                    Previously, I obtained my Master's degree in Mechanical Engineering at KIT, where I wrote my thesis at Bosch Research,
-                    supervised by <a href="https://alr.anthropomatik.kit.edu/21_65.php" target="_blank" rel="noopener noreferrer">Gerhard Neumann</a>.
-                    During my studies I interned at Audi AG, IPG Automotive, and the Research Center for Informatics (FZI).
+                  </p>
+                  <p>
+                    My goal is to make capable generalist robot foundation models efficient enough to train outside frontier labs
+                    and practical enough to run on local hardware.
                   </p>
 
                   <p style="text-align:center">
@@ -103,7 +127,7 @@
                     <a href="https://scholar.google.com/citations?user=NLuzkPIAAAAJ&hl=de" target="_blank" rel="noopener noreferrer">Google Scholar</a> &nbsp;/&nbsp;
                     <a href="https://github.com/mbreuss/" target="_blank" rel="noopener noreferrer">GitHub</a> &nbsp;/&nbsp;
                     <a href="https://www.linkedin.com/in/moritzreuss/?locale=en_US" target="_blank" rel="noopener noreferrer">LinkedIn</a> &nbsp;/&nbsp;
-                    <a href="https://mbreuss.github.io/blog_post_iclr_26_vla.html">Blog</a>
+                    <a href="#perspectives">Perspectives</a>
                   </p>
                 </td>
 
@@ -122,47 +146,54 @@
             </tbody>
           </table>
 
-          <!-- Research (now first) -->
+          <!-- Research perspectives -->
           <table style="width:100%;border:0;border-spacing:0;border-collapse:separate;margin:0 auto;">
             <tbody>
               <tr>
                 <td style="padding:20px;width:100%;vertical-align:middle">
-                  <heading>Research</heading>
-                  <p>
-                    My primary research goal is to build intelligent embodied agents that assist people in their everyday lives and
-                    communicate intuitively. I focus on language-conditioned multitask imitation learning from robot play data.
-                    My work explores efficient Vision-Language-Action (VLA) policies and novel policy representations
-                    that can learn from uncurated, multimodal human demonstrations without rewards.
-                    I have worked on score/flow-based diffusion policies and developed generalist VLA models that achieve strong performance with
-                    minimal computational requirements. Representative papers are <span class="highlight">highlighted</span>.
-                  </p>
-
-                  <!-- Short, precise sub-topics -->
-                  <ul style="margin-top:8px;">
-                  <li><strong>Efficient VLAs:</strong> Compact flow/diffusion-based vision-language-action models (e.g., <em>FLOWER</em>, <em>MoDE</em>) and novel efficient action tokenization methods (e.g., <em>BEAST</em>) that achieve strong performance with minimal computational requirements.</li>
-                  
-                  <li><strong>Expressive Policy Representations:</strong> Diffusion and flow-based policies that capture multimodal action distributions and handle diverse goal specifications including language, images, and waypoints (e.g., <em>BESO</em>, <em>MDT</em>), with benchmarks for evaluating behavior diversity (e.g., <em>D3IL</em>).</li>
-                  
-                  <li><strong>Learning from Uncurated Data:</strong> Zero-shot dataset labeling with vision-language foundation models (e.g., <em>NILS</em>) to enable scalable learning from robot play data without manual annotation, and methods for handling multimodal observations (RGB + 3D inputs).</li>
-                </ul>
+                  <div id="perspectives" class="perspectives">
+                    <heading>Research Perspectives</heading>
+                    <div class="selected-paper">
+                      <a href="https://developer.nvidia.com/blog/pretrained-to-imagine-fine-tuned-to-act-the-rise-of-world-action-models/" target="_blank" rel="noopener noreferrer">
+                        Pretrained to Imagine, Fine-Tuned to Act: The Rise of World-Action Models
+                      </a>
+                      <span class="perspective-meta">— NVIDIA Technical Blog, Jun 2026</span>
+                      <p>A map of the World-Action Model landscape, why the approach has become relevant now, and some personal takes on where it may go next.</p>
+                    </div>
+                    <div class="selected-paper">
+                      <a href="https://mbreuss.github.io/blog_post_iclr_26_vla.html">
+                        State of Vision-Language-Action Research at ICLR 2026
+                      </a>
+                      <span class="perspective-meta">— Oct 2025</span>
+                      <p>A comprehensive overview of VLA research in October 2025: the main ideas, current trends, open questions, and some personal takes.</p>
+                    </div>
+                  </div>
                 </td>
               </tr>
             </tbody>
           </table>
 
-          <!-- Writing (moved below Research) -->
+          <!-- Selected papers -->
           <table style="width:100%;border:0;border-spacing:0;border-collapse:separate;margin:0 auto;">
             <tbody>
               <tr>
                 <td style="padding:20px;width:100%;vertical-align:middle">
-                  <div style="margin:0; padding:12px 16px; background:#f8fafc; border-left:4px solid #4CAF50;">
-                    <heading>Writing</heading>
-                    <p style="margin-top:6px; margin-bottom:0;">
-                      <a href="https://mbreuss.github.io/blog_post_iclr_26_vla.html">
-                        State of Vision-Language-Action (VLA) Research at ICLR 2026
-                      </a>
-                      <span style="color:#4b5563;">(Oct 2025)</span>
-                    </p>
+                  <heading>Selected Papers</heading>
+                  <div class="selected-paper">
+                    <a href="https://intuitive-robots.github.io/flower_vla/" target="_blank" rel="noopener noreferrer"><papertitle>FLOWER: Democratizing Generalist Robot Policies with Efficient Vision-Language-Action Flow Policies</papertitle></a> — CoRL 2025
+                    <p>A 950M-parameter VLA that reaches strong generalist performance while using about 1% of the pretraining compute of much larger models.</p>
+                  </div>
+                  <div class="selected-paper">
+                    <a href="https://mbreuss.github.io/MoDE_Diffusion_Policy/" target="_blank" rel="noopener noreferrer"><papertitle>Efficient Diffusion Transformer Policies with Mixture of Expert Denoisers for Multitask Learning</papertitle></a> — ICLR 2025
+                    <p>A mixture-of-experts diffusion policy that improves multitask robot learning while reducing compute, parameters, and inference cost.</p>
+                  </div>
+                  <div class="selected-paper">
+                    <a href="https://intuitive-robots.github.io/mdt_policy/" target="_blank" rel="noopener noreferrer"><papertitle>Multimodal Diffusion Transformer: Learning Versatile Behavior from Multimodal Goals</papertitle></a> — RSS 2024
+                    <p>A diffusion policy that learns long-horizon behavior from language and image goals in uncurated, reward-free offline data.</p>
+                  </div>
+                  <div class="selected-paper">
+                    <a href="https://intuitive-robots.github.io/beso-website" target="_blank" rel="noopener noreferrer"><papertitle>Goal-Conditioned Imitation Learning using Score-based Diffusion Policies</papertitle></a> — RSS 2023
+                    <p>A goal-conditioned diffusion policy that learns diverse behaviors from offline demonstrations with as few as three denoising steps.</p>
                   </div>
                 </td>
               </tr>
@@ -177,13 +208,13 @@
                <!-- Heading row -->
               <tr>
                 <td style="padding:12px 20px 0 20px;width:100%;vertical-align:middle">
-                  <heading>Research Papers</heading>
+                  <heading>Full Publication List</heading>
                   <div style="height:1px;background:#e5e7eb;margin-top:6px;"></div>
                 </td>
               </tr>
 
               <!-- FLOWER (highlighted) -->
-              <tr style="background-color:#ffffd0;">
+              <tr>
                 <td style="padding:20px;width:100%;vertical-align:middle">
                   <div style="display:flex;">
                     <div style="flex:0 0 25%;max-width:25%;">
@@ -203,8 +234,8 @@
                       <br /><br />
                       <em>CoRL</em>, 2025
                       <br />
-                      <a href="https://github.com/intuitive-robots/flower_vla_calvin/tree/main" target="_blank" rel="noopener noreferrer">Project Page</a> /
-                      <a href="https://intuitive-robots.github.io/flower_vla/" target="_blank" rel="noopener noreferrer">Code</a> /
+                      <a href="https://intuitive-robots.github.io/flower_vla/" target="_blank" rel="noopener noreferrer">Project Page</a> /
+                      <a href="https://github.com/intuitive-robots/flower_vla_calvin/tree/main" target="_blank" rel="noopener noreferrer">Code</a> /
                       <a href="https://www.arxiv.org/pdf/2509.04996" target="_blank" rel="noopener noreferrer">arXiv</a>
                       <p></p>
                       <p>
@@ -348,7 +379,7 @@
               </tr>
 
               <!-- MoDE (highlighted) -->
-              <tr style="background-color:#ffffd0;">
+              <tr>
                 <td style="padding:20px;width:100%;vertical-align:middle">
                   <div style="display:flex;">
                     <div style="flex:0 0 25%;max-width:25%;">
@@ -418,7 +449,7 @@
               </tr>
 
               <!-- MDT (highlighted) -->
-              <tr style="background-color:#ffffd0;">
+              <tr>
                 <td style="padding:20px;width:100%;vertical-align:middle">
                   <div style="display:flex;">
                     <div style="flex:0 0 25%;max-width:25%;">
@@ -486,7 +517,7 @@
               </tr>
 
               <!-- BESO (highlighted) -->
-              <tr style="background-color:#ffffd0;">
+              <tr>
                 <td style="padding:20px;width:100%;vertical-align:middle">
                   <div style="display:flex;">
                     <div style="flex:0 0 25%;max-width:25%;">
@@ -552,7 +583,7 @@
               </tr>
 
               <!-- Hybrid Inverse Dynamics (highlighted) -->
-              <tr style="background-color:#ffffd0;">
+              <tr>
                 <td style="padding:20px;width:100%;vertical-align:middle">
                   <div style="display:flex;">
                     <div style="flex:0 0 25%;max-width:25%;">
@@ -608,5 +639,68 @@
       </tr>
     </tbody>
   </table>
+  <script>
+    (() => {
+      const canvas = document.getElementById('trajectory-scene');
+      const context = canvas.getContext('2d');
+      const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+      const colors = ['#5f8fc4', '#78a993', '#df8a73', '#cf7790', '#d7b45d'];
+      const paths = [
+        { x: 0.72, y: 0.12, dx: 0.23, dy: 0.11, color: colors[1], phase: 0.0 },
+        { x: 0.70, y: 0.44, dx: 0.27, dy: -0.10, color: colors[0], phase: 0.9 },
+        { x: 0.73, y: 0.74, dx: 0.22, dy: 0.09, color: colors[2], phase: 1.8 }
+      ];
+      let width = 0;
+      let height = 0;
+      let frame = null;
+
+      const resize = () => {
+        const scale = Math.min(window.devicePixelRatio || 1, 2);
+        width = window.innerWidth;
+        height = window.innerHeight;
+        canvas.width = Math.round(width * scale);
+        canvas.height = Math.round(height * scale);
+        context.setTransform(scale, 0, 0, scale, 0, 0);
+      };
+
+      const position = (path, progress) => {
+        const x = path.x * width + path.dx * width * progress;
+        const y = path.y * height + Math.sin(progress * Math.PI) * path.dy * height;
+        return { x, y };
+      };
+
+      const draw = (time) => {
+        context.clearRect(0, 0, width, height);
+        paths.forEach((path) => {
+          const points = Array.from({ length: 3 }, (_, index) => position(path, index / 2));
+          points.forEach((point, index) => {
+            context.beginPath();
+            context.arc(point.x, point.y, index === 1 ? 3 : 2.25, 0, Math.PI * 2);
+            context.fillStyle = colors[(index + Math.floor(path.phase * 2)) % colors.length];
+            context.globalAlpha = 0.34;
+            context.fill();
+          });
+
+          const progress = (Math.sin(time * 0.00035 + path.phase) + 1) / 2;
+          const moving = position(path, progress);
+          context.beginPath();
+          context.arc(moving.x, moving.y, 3.5, 0, Math.PI * 2);
+          context.fillStyle = path.color;
+          context.globalAlpha = 0.62;
+          context.fill();
+        });
+        context.globalAlpha = 1;
+        frame = window.requestAnimationFrame(draw);
+      };
+
+      resize();
+      window.addEventListener('resize', resize);
+      if (!reducedMotion.matches) frame = window.requestAnimationFrame(draw);
+      reducedMotion.addEventListener('change', (event) => {
+        if (event.matches && frame) window.cancelAnimationFrame(frame);
+        if (!event.matches && !frame) frame = window.requestAnimationFrame(draw);
+      });
+    })();
+  </script>
 </body>
 </html>
