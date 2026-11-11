@@ -1,140 +1,69 @@
 <!DOCTYPE HTML>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+  <!-- SEO Meta Tags -->
+  <title>State of Vision-Language-Action (VLA) Research at ICLR 2026 – Moritz Reuss</title>
+  <meta name="description" content="Comprehensive analysis of 164 Vision-Language-Action (VLA) model submissions at ICLR 2026. Discover trends in discrete diffusion VLAs, reasoning models, benchmarks (LIBERO, CALVIN, SIMPLER), and the gap between frontier and academic research.">
+  <meta name="keywords" content="VLA models, Vision-Language-Action, ICLR 2026, robot learning, embodied AI, discrete diffusion VLA, VLA benchmarks, LIBERO, CALVIN, SIMPLER, robotics research">
+  <meta name="author" content="Moritz Reuss">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://mbreuss.github.io/blog_post_iclr_26_vla.html">
+  
+  <!-- Open Graph / Social Media Meta Tags -->
+  <meta property="og:title" content="State of VLA Research at ICLR 2026">
+  <meta property="og:description" content="Analysis of 164 Vision-Language-Action model submissions at ICLR 2026. Learn about discrete diffusion VLAs, reasoning models, and current benchmark trends.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://mbreuss.github.io/blog_post_iclr_26_vla.html">
+  <meta property="og:image" content="https://mbreuss.github.io/images/blog_header.png">
+  <meta property="article:published_time" content="2025-10-10">
+  <meta property="article:author" content="Moritz Reuss">
+  
+  <!-- Twitter Card Meta Tags -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="State of VLA Research at ICLR 2026">
+  <meta name="twitter:description" content="Comprehensive analysis of Vision-Language-Action models at ICLR 2026 - discrete diffusion, reasoning VLAs, and benchmark insights.">
+  <meta name="twitter:image" content="https://mbreuss.github.io/images/blog_header.png">
+  
+  <!-- Schema.org Structured Data -->
+  <script type="application/ld+json">
+    {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "headline": "State of Vision-Language-Action (VLA) Research at ICLR 2026",
+    "author": { "@type": "Person", "name": "Moritz Reuss" },
+    "publisher": {
+      "@type": "Organization",
+      "name": "Moritz Reuss",
+      "logo": { "@type": "ImageObject", "url": "https://mbreuss.github.io/images/logo.png" }
+    },
+    "mainEntityOfPage": { "@type": "WebPage", "@id": "https://mbreuss.github.io/blog_post_iclr_26_vla.html" },
+    "datePublished": "2025-10-10",
+    "dateModified": "2025-10-10",
+    "description": "...",
+    "image": "https://mbreuss.github.io/images/blog_header.png",
+    "articleSection": "Robotics, Embodied AI",
+    "keywords": "Vision-Language-Action, Robotics, ICLR 2026"
+  }
 
-  <title>Moritz Reuss — Robotics & VLA Research</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="author" content="Moritz Reuss" />
-  <meta name="description" content="Moritz Reuss — Researcher at NVIDIA Seattle Robotics Lab. Efficient generalist robot foundation models — Vision-Language-Action (VLA) models and World-Action Models (WAMs), diffusion/flow policies. Publications, projects, and writing." />
-
-  <!-- Canonical -->
-  <link rel="canonical" href="https://mbreuss.github.io/" />
-
-  <!-- Favicon -->
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🌐</text></svg>">
-
-  <!-- Styles -->
-  <link rel="stylesheet" type="text/css" href="stylesheet.css" />
+  </script>
+  
+  <link rel="stylesheet" type="text/css" href="stylesheet.css">
+  
   <style>
-    body { background: #fffefb; }
-    #trajectory-scene {
-      position: fixed;
-      inset: 0;
+    .figure-container {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    .figure-container img {
       width: 100%;
-      height: 100%;
-      pointer-events: none;
-      z-index: 0;
-      opacity: 0.72;
+      height: auto;
     }
-    table[role="main"] { position: relative; z-index: 1; }
-    .perspectives { border-left: 4px solid #7fa891; padding-left: 16px; }
-    .perspective { margin: 14px 0 18px; }
-    .perspective p { margin: 4px 0 0; color: #4b5563; }
-    .perspective-meta { color: #4b5563; font-size: 0.92em; }
-    .selected-paper { padding: 16px 0; border-top: 1px solid #e5e7eb; }
-    .selected-paper:first-of-type { border-top: 0; }
-    .selected-paper p { margin: 5px 0; color: #374151; }
-    .selected-paper .links { font-size: 0.92em; }
-    .selected-note { color: #4b5563; font-size: 0.92em; margin-top: 4px; }
-
-    /* Categorized publication list */
-    .cat-nav { margin: 8px 0 4px; font-size: 0.92em; line-height: 1.9; }
-    .cat-nav a {
-      display: inline-block;
-      padding: 1px 10px;
-      margin: 0 4px 4px 0;
-      border: 1px solid #d1d5db;
-      border-radius: 999px;
-      text-decoration: none;
-      color: #374151;
-      background: #fff;
-    }
-    .cat-nav a:hover { border-color: #7fa891; color: #1f2937; }
-    .pub-category { margin-top: 26px; scroll-margin-top: 16px; }
-    .pub-category h3 {
-      margin: 0 0 2px;
-      font-size: 1.08em;
-      font-weight: 600;
-      color: #1f2937;
-      border-left: 4px solid #7fa891;
-      padding-left: 10px;
-    }
-    .cat-desc { margin: 2px 0 6px 14px; color: #4b5563; font-size: 0.92em; }
-    .pub { padding: 10px 0 10px 14px; border-top: 1px solid #f0f0f0; }
-    .pub:first-of-type { border-top: 0; }
-    .pub .authors { color: #374151; font-size: 0.95em; }
-    .pub .meta { font-size: 0.92em; margin-top: 2px; }
-    .venue {
-      display: inline-block;
-      font-size: 0.85em;
-      font-weight: 600;
-      padding: 0 7px;
-      border-radius: 4px;
-      background: #eef4f0;
-      color: #35624a;
-      margin-right: 4px;
-    }
-    .venue.preprint { background: #f3f4f6; color: #4b5563; }
-    .badge-new {
-      font-size: 0.72em;
-      font-weight: 700;
-      letter-spacing: 0.03em;
-      padding: 0 6px;
-      border-radius: 4px;
-      background: #df8a73;
-      color: #fff;
-      vertical-align: middle;
-      margin-left: 4px;
-    }
-    .award { color: #b91c1c; font-weight: 600; font-size: 0.92em; }
-    .pub details { display: inline; }
-    .pub summary { display: inline; cursor: pointer; color: #5f8fc4; list-style: none; }
-    .pub summary::-webkit-details-marker { display: none; }
-    .pub details[open] p { margin: 6px 0 2px; color: #4b5563; font-size: 0.93em; }
-
-    @media (max-width: 680px) { #trajectory-scene { display: none; } }
-    @media (prefers-reduced-motion: reduce) { #trajectory-scene { display: none; } }
   </style>
 
-  <!-- Open Graph -->
-  <meta property="og:title" content="Moritz Reuss — Robotics & VLA Research" />
-  <meta property="og:description" content="Efficient generalist robot foundation models — Vision-Language-Action (VLA) models and World-Action Models (WAMs), diffusion/flow policies. Publications, projects, and writing." />
-  <meta property="og:type" content="website" />
-  <meta property="og:url" content="https://mbreuss.github.io/" />
-  <meta property="og:image" content="https://mbreuss.github.io/images/Moritz_circle.jpeg" />
-  <meta property="og:site_name" content="Moritz Reuss" />
-
-  <!-- Twitter -->
-  <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="Moritz Reuss — Robotics & VLA Research" />
-  <meta name="twitter:description" content="Efficient generalist robot foundation models — Vision-Language-Action (VLA) models and World-Action Models (WAMs), diffusion/flow policies. Publications, projects, and writing." />
-  <meta name="twitter:image" content="https://mbreuss.github.io/images/Moritz_circle.jpeg" />
-
-  <!-- JSON-LD: Person -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "Person",
-    "name": "Moritz Reuss",
-    "url": "https://mbreuss.github.io/",
-    "image": "https://mbreuss.github.io/images/Moritz_circle.jpeg",
-    "jobTitle": "Researcher",
-    "affiliation": {
-      "@type": "Organization",
-      "name": "NVIDIA — Seattle Robotics Lab"
-    },
-    "sameAs": [
-      "mailto:reussmoritz@gmail.com",
-      "https://scholar.google.com/citations?user=NLuzkPIAAAAJ",
-      "https://github.com/mbreuss/",
-      "https://www.linkedin.com/in/moritzreuss/?locale=en_US"
-    ]
-  }
-  </script>
-
-  <!-- Google tag (gtag.js) -->
+  <!-- Google Analytics -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-ETMW7BYE0C"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
@@ -142,730 +71,732 @@
     gtag('js', new Date());
     gtag('config', 'G-ETMW7BYE0C');
   </script>
-  <!-- End Google Analytics -->
 </head>
 
 <body>
-  <canvas id="trajectory-scene" aria-hidden="true"></canvas>
-  <!-- Outer container (kept table structure for your CSS) -->
-  <table role="main" style="width:100%;max-width:800px;border:0;border-spacing:0;border-collapse:separate;margin:0 auto;">
-    <tbody>
-      <tr>
-        <td>
+  <table style="width:100%; max-width:800px; margin:auto;">
+    <tr>
+      <td>
 
-          <!-- Header / Bio -->
-          <table style="width:100%;border:0;border-spacing:0;border-collapse:separate;margin:0 auto;">
-            <tbody>
-              <tr>
-                <td style="padding:2.5%;width:63%;vertical-align:middle">
-                  <p style="text-align:center">
-                    <name>Moritz Reuss</name>
-                  </p>
+        <h1 style="text-align:center;">State of VLA Research at ICLR 2026</h1>
+        <p style="text-align:center; color:gray;">October 2025 • by Moritz Reuss</p>
+        <hr>
+        <figure class="figure-container">
+          <img src="images/blog_header.png" alt="Vision-Language-Action (VLA) models research overview and trends at ICLR 2026">
+        </figure>
+        <p>
+          ICLR’s open submission policy gives a rare, real-time view of what the community is actually building. 
+          This post distills the state of <strong>Vision-Language-Action (VLA) Models</strong> research slice of ICLR 2026: what ‘counts’ as a VLA (and why that definition matters), what people are working on in the VLA field (discrete diffusion, embodied reasoning, new tokenizers), how to read benchmark results in VLA research, and the not-so-invisible frontier gap that sim leaderboards hide.
+        </p>
 
-                  <p>
-                    I am a researcher at NVIDIA's
-                    <a href="https://research.nvidia.com/labs/srl/" target="_blank" rel="noopener noreferrer">Seattle Robotics Lab</a>,
-                    based in Zürich, building efficient and versatile robot foundation models for manipulation.
-                  </p>
-                  <p>
-                    I recently completed my PhD with distinction (<em>summa cum laude</em>) at KIT's
-                    <a href="https://irl.anthropomatik.kit.edu/" target="_blank" rel="noopener noreferrer">Intuitive Robots Lab</a>,
-                    supervised by <a href="http://rudolf.intuitive-robots.net/" target="_blank" rel="noopener noreferrer">Rudolf Lioutikov</a>.
-                  </p>
-                  <p>
-                    My goal is to make capable generalist robot foundation models efficient enough to train outside frontier labs
-                    and practical enough to run on local hardware.
-                  </p>
+        <p>
+          Each autumn, the ICLR publicly releases all anonymous submissions a few weeks after the deadline, 
+          providing a unique real-time snapshot of ongoing research around the world without the typical six-month delay of other top ML conferences.  
+          Given my personal research interests, I wanted to analyze <strong>Vision-Language-Action (VLA) Models</strong> research and share insights from this year's submissions.<br><br>
 
-                  <p style="text-align:center">
-                    <a href="mailto:reussmoritz@gmail.com">Email</a> &nbsp;/&nbsp;
-                    <a href="data/CV_Moritz_Reuss.pdf" target="_blank" rel="noopener noreferrer">CV</a> &nbsp;/&nbsp;
-                    <a href="https://scholar.google.com/citations?user=NLuzkPIAAAAJ&hl=de" target="_blank" rel="noopener noreferrer">Google Scholar</a> &nbsp;/&nbsp;
-                    <a href="https://github.com/mbreuss/" target="_blank" rel="noopener noreferrer">GitHub</a> &nbsp;/&nbsp;
-                    <a href="https://www.linkedin.com/in/moritzreuss/?locale=en_US" target="_blank" rel="noopener noreferrer">LinkedIn</a> &nbsp;/&nbsp;
-                    <a href="#perspectives">Perspectives</a> &nbsp;/&nbsp;
-                    <a href="#publications">Publications</a>
-                  </p>
-                </td>
+          In this blog post, I briefly explain what VLAs are, share my findings about current trends and challenges in VLA research, highlighting some interesting papers submitted to ICLR 2026.
+          To help researchers and practitioners better understand the current state of VLA research, I've also included a practical guide on how to interpret benchmark results in VLA papers.
+          Finally, there is a discussion about the hidden gap between frontier labs and academic research labs in the VLA field—a gap that isn't visible from reading papers alone.<br><br>
 
-                <td style="padding:2.5%;width:40%;max-width:40%">
-                  <a href="images/Moritz_circle.jpeg">
-                    <img
-                      src="images/Moritz_circle.jpeg"
-                      alt="Portrait of Moritz Reuss"
-                      style="width:100%;max-width:100%"
-                      class="hoverZoomLink"
-                      loading="lazy"
-                    />
-                  </a>
-                </td>
-              </tr>
-            </tbody>
-          </table>
+          Below is a summary of general research trends with highlighted papers for each category that I found interesting from this year's submissions.
+          Please note that this represents only my personal selection and opinion of papers and research, and I may have missed other excellent work.
+          If you know of noteworthy papers that I missed, please let me know.<br><br>
+          </p>
 
-          <!-- Research perspectives -->
-          <table style="width:100%;border:0;border-spacing:0;border-collapse:separate;margin:0 auto;">
-            <tbody>
-              <tr>
-                <td style="padding:20px;width:100%;vertical-align:middle">
-                  <div id="perspectives" class="perspectives">
-                    <heading>Research Perspectives</heading>
-                    <div class="selected-paper">
-                      <a href="https://developer.nvidia.com/blog/pretrained-to-imagine-fine-tuned-to-act-the-rise-of-world-action-models/" target="_blank" rel="noopener noreferrer">
-                        Pretrained to Imagine, Fine-Tuned to Act: The Rise of World-Action Models
-                      </a>
-                      <span class="perspective-meta">— NVIDIA Technical Blog, Jun 2026</span>
-                      <p>A map of the World-Action Model landscape, why the approach has become relevant now, and some personal takes on where it may go next.</p>
-                    </div>
-                    <div class="selected-paper">
-                      <a href="https://mbreuss.github.io/blog_post_iclr_26_vla.html">
-                        State of Vision-Language-Action Research at ICLR 2026
-                      </a>
-                      <span class="perspective-meta">— Oct 2025</span>
-                      <p>A comprehensive overview of VLA research in October 2025: the main ideas, current trends, open questions, and some personal takes.</p>
-                    </div>
-                  </div>
-                </td>
-              </tr>
-            </tbody>
-          </table>
+           <h2>Table of Contents</h2>
+          <nav style="background: #f8f9fa; padding: 20px; border-left: 4px solid #4CAF50; margin: 20px 0;">
+            <ol style="line-height: 1.8;">
+              <li><a href="#definition-vla">What is a Vision-Language-Action Model?</a></li>
+              <li><a href="#growth-vla">The Explosive Growth of VLA Research</a></li>
+              <li><a href="#practitioners-guide">Practitioner's Guide to Understanding Benchmark Results</a></li>
+              <li><a href="#research-trends">ICLR 2026 VLA Research Trends</a>
+                <ol style="margin-left: 20px; margin-top: 8px;">
+                  <li><a href="#discrete-diffusion">Discrete Diffusion VLAs</a></li>
+                  <li><a href="#embodied-cot">Reasoning VLAs and Embodied Chain-of-Thought (ECoT)</a></li>
+                  <li><a href="#tokenizers">New Discrete Tokenizers</a></li>
+                  <li><a href="#efficient-vla">Efficient VLAs</a></li>
+                  <li><a href="#RL-vla">RL for VLAs</a></li>
+                  <li><a href="#vla-video">VLA + Video Prediction</a></li>
+                  <li><a href="#evaluation">Evaluation and Benchmarking of VLAs</a></li>
+                  <li><a href="#cross-action-space">Cross-Action-Space Learning</a></li>
+                  <li><a href="#other">Other Interesting Papers</a></li>
+                </ol>
+              </li>
+              <li><a href="#frontier-gap">The Hidden Gap Between Frontier and Research VLAs</a></li>
+              <li><a href="#summary-outlook">Summary and Outlook</a></li>
+            </ol>
+          </nav>
 
-          <!-- Selected papers -->
-          <table style="width:100%;border:0;border-spacing:0;border-collapse:separate;margin:0 auto;">
-            <tbody>
-              <tr>
-                <td style="padding:20px;width:100%;vertical-align:middle">
-                  <heading>Selected Papers</heading>
-                  <div class="selected-paper">
-                    <a href="https://intuitive-robots.github.io/flower_vla/" target="_blank" rel="noopener noreferrer"><papertitle>FLOWER: Democratizing Generalist Robot Policies with Efficient Vision-Language-Action Flow Policies</papertitle></a> — CoRL 2025
-                    <p>A 950M-parameter VLA that reaches strong generalist performance while using about 1% of the pretraining compute of much larger models.</p>
-                  </div>
-                  <div class="selected-paper">
-                    <a href="https://mbreuss.github.io/MoDE_Diffusion_Policy/" target="_blank" rel="noopener noreferrer"><papertitle>Efficient Diffusion Transformer Policies with Mixture of Expert Denoisers for Multitask Learning</papertitle></a> — ICLR 2025
-                    <p>A mixture-of-experts diffusion policy that improves multitask robot learning while reducing compute, parameters, and inference cost.</p>
-                  </div>
-                  <div class="selected-paper">
-                    <a href="https://intuitive-robots.github.io/mdt_policy/" target="_blank" rel="noopener noreferrer"><papertitle>Multimodal Diffusion Transformer: Learning Versatile Behavior from Multimodal Goals</papertitle></a> — RSS 2024
-                    <p>A diffusion policy that learns long-horizon behavior from language and image goals in uncurated, reward-free offline data.</p>
-                    <p class="selected-note"><strong>An early step toward World-Action Models:</strong> MDT's Masked Generative Foresight objective trains the policy to predict future visual states alongside its actions, the core idea behind today's WAMs.</p>
-                  </div>
-                  <div class="selected-paper">
-                    <a href="https://intuitive-robots.github.io/beso-website" target="_blank" rel="noopener noreferrer"><papertitle>Goal-Conditioned Imitation Learning using Score-based Diffusion Policies</papertitle></a> — RSS 2023
-                    <p>A goal-conditioned diffusion policy that learns diverse behaviors from offline demonstrations with as few as three denoising steps.</p>
-                  </div>
-                </td>
-              </tr>
-            </tbody>
-          </table>
+        <hr>
+
+        <h2 id="definition-vla">What is a Vision-Language-Action Model?</h2>
+      <figure class="figure-container">
+        <img src="images/vla_or_not_chart.png" alt="Flowchart for determining if your model is a VLA">
+        <figcaption>Figure 1: Decision flowchart to determine if your model qualifies as a VLA based on my vision-language internet-scale pretraining criteria.</figcaption>
+      </figure>
+      <p>
+        The definition of VLAs is surprisingly contentious, with no clear consensus in the community.
+        A <a href="https://arxiv.org/pdf/2510.07077" target="_blank">recent survey paper</a> defines it broadly: 
+        "A Vision-Language-Action (VLA) model is a system that takes visual observations and natural language instructions as required inputs and may incorporate additional sensory modalities. 
+        It produces robot actions by directly generating control commands."
+      </p>
+
+      <p>
+        While this is a valid definition, in my personal opinion it misses what I consider the crucial distinguishing feature compared to other multimodal policies: <strong>internet-scale pretraining on some type of vision-language data</strong>.
+      </p>
+
+      <p>
+        <strong>My personal definition:</strong> A VLA is a model that uses a pretrained backbone, which was trained on large-scale vision-language data and is subsequently trained with generating control commands.
+        This control commands can be robot joints, end-effector poses, steering angle for a car, latent actions or mouse and keyboard commands for a virtual agent.
+        This definition also includes Video-Action Policies that use pretrained video-generation models as their backbone. 
+        Without internet-scale pretraining, I refer to these as <strong>multimodal policies</strong> rather than VLAs.
+        Where it becomes a bit fuzzy is when a model uses a pretrained text encoder like CLIP-text or T5 and a separately pretrained vision encoder like DINOv2 or SigLIP-Vision.
+        In my personal opinion, I like to group these as multimodal policies and not VLAs since they are lacking the joint vision-language pretraining.
+        For reference I also included a flowchart (Figure 1) to help you determine if your model is a VLA or not based on my definition.
+      </p>
+
+      <p>
+        This distinction matters because internet-scale pretraining is what theoretically gives VLAs their moat: stronger language-instruction following and better generalization across tasks and environments.
+        That's the promise, at least.
+        The reality? Most current VLAs still struggle with zero-shot generalization and complex tasks, making them better described as "less dumb multi-modal policies" rather than truly general robot brains.
+        But the potential is there and it has many exciting open problems for researchers to tackle.
+      </p>
+
+      <figure class="figure-container">
+        <img src="images/lbm_flow_chart.png" alt="Taxonomy diagram to determine if your model is a LBM">
+        <figcaption>Figure 2: Visual taxonomy showing if your policy is a LBM or not.</figcaption>
+      </figure>
+
+      <p>
+        <strong>Related and complementary:</strong> Large Behavior Models (LBMs), a term from Toyota Research Institute (TRI) defined in their <a href="https://arxiv.org/pdf/2507.05331" target="_blank">recent paper</a>, represent another category.
+        LBMs are robot policies trained on large-scale multitask robotic demonstration data, but they don't require internet-scale vision-language pretraining or a VLM backbone.
+        Think of it this way: all VLAs trained on large-scale robotic data are also LBMs, but not all LBMs are VLAs. 
+        Together these two terms cover all types of robot foundation policies. 
+        I also included a flowchart (Figure 2) to help you determine if your model is a LBM or not based on my understanding
+      </p>
+
+      <p>
+        What's your personal definition of a VLA? Do you agree with my take on internet-scale pretraining as the key differentiator?  Let me know your thoughts!
+      </p>
 
 
-          <!-- Publications by research area -->
-          <table style="width:100%;border:0;border-spacing:0;border-collapse:separate;margin:0 auto;">
-            <tbody>
-              <tr>
-                <td style="padding:20px;width:100%;vertical-align:middle">
-                  <div id="publications">
-                    <heading>Publications by Research Area</heading>
-                    <div class="cat-nav">
-                      <a href="#vla">Robot Foundation Models: VLAs &amp; WAMs</a>
-                      <a href="#policies">Diffusion &amp; Flow Policies</a>
-                      <a href="#world-models">World Models &amp; Latent Planning</a>
-                      <a href="#data">Data, Annotation &amp; Benchmarks</a>
-                      <a href="#control">Robot Control</a>
-                    </div>
-                  </div>
+        <h2 id="growth-vla">The Explosive Growth of VLA Research</h2>
+
+        <div style="display: flex; gap: 20px; align-items: flex-start; margin: 20px 0; flex-wrap: wrap;">
+          <div style="flex: 1; min-width: 350px;">
+        </div>
+        <p>
+          The Vision-Language-Action field has experienced remarkable growth over the past two years. 
+          Based on keyword searches on OpenReview, the numbers tell an interesting story based on ICLR submissions openreview keyword search for "Vision-Language-Action":
+        </p>
+        
+        <ul>
+          <li><strong>ICLR 2024:</strong> Only 1 rejected submission with "Vision-Language-Action" keyword</li>
+          <li><strong>ICLR 2025:</strong> 6 accepted papers and 3 rejected submissions with the same keyword</li>
+          <li><strong>ICLR 2026:</strong> 164 submissions with the same keyword—an 18x increase in just one year!</li>
+        </ul>
+
+        <p>
+          This exponential growth trajectory shows that Vision-Language-Action models are rapidly gaining popularity with many new people from other domains like Vision coming into the exciting field of robot learning. 
+          Given this trend, I'm both excited and a bit terrified to review the projected 2,100+ VLA submissions at ICLR 2027, though I suspect the growth rate may stabilize as the field matures. 
+        </p>
+
+        <!-- Growth Visualization -->
+          <div style="flex: 0 0 320px; min-width: 280px; max-width: 350px;">
+            <svg viewBox="0 0 450 350" style="width: 100%; max-width: 350px; height: auto; background: #f8f9fa; border-radius: 8px; padding: 15px; box-sizing: border-box;">
+              <!-- Title -->
+              <text x="225" y="25" text-anchor="middle" style="font-size: 16px; font-weight: bold; fill: #333;">
+                VLA Submissions Growth at ICLR
+              </text>
+              
+              <!-- Y-axis -->
+              <line x1="60" y1="40" x2="60" y2="300" stroke="#666" stroke-width="2"/>
+              <!-- X-axis -->
+              <line x1="60" y1="300" x2="410" y2="300" stroke="#666" stroke-width="2"/>
+              
+              <!-- Y-axis labels -->
+              <text x="45" y="305" text-anchor="end" style="font-size: 11px; fill: #666;">0</text>
+              <text x="45" y="255" text-anchor="end" style="font-size: 11px; fill: #666;">250</text>
+              <text x="45" y="205" text-anchor="end" style="font-size: 11px; fill: #666;">500</text>
+              <text x="45" y="155" text-anchor="end" style="font-size: 11px; fill: #666;">750</text>
+              <text x="45" y="105" text-anchor="end" style="font-size: 11px; fill: #666;">1000</text>
+              <text x="45" y="55" text-anchor="end" style="font-size: 11px; fill: #666;">1250</text>
+              
+              <!-- Grid lines -->
+              <line x1="60" y1="250" x2="410" y2="250" stroke="#ddd" stroke-width="1" stroke-dasharray="4"/>
+              <line x1="60" y1="200" x2="410" y2="200" stroke="#ddd" stroke-width="1" stroke-dasharray="4"/>
+              <line x1="60" y1="150" x2="410" y2="150" stroke="#ddd" stroke-width="1" stroke-dasharray="4"/>
+              <line x1="60" y1="100" x2="410" y2="100" stroke="#ddd" stroke-width="1" stroke-dasharray="4"/>
+              
+              <!-- Bars -->
+              <!-- 2024: 1 submission (barely visible) -->
+              <rect x="80" y="299" width="50" height="1" fill="#4CAF50" opacity="0.8"/>
+              <text x="105" y="315" text-anchor="middle" style="font-size: 12px; font-weight: bold; fill: #333;">2024</text>
+              <text x="105" y="290" text-anchor="middle" style="font-size: 14px; font-weight: bold; fill: #4CAF50;">1</text>
+              
+              <!-- 2025: 9 submissions -->
+              <rect x="160" y="295.4" width="50" height="4.6" fill="#4CAF50" opacity="0.8"/>
+              <text x="185" y="315" text-anchor="middle" style="font-size: 12px; font-weight: bold; fill: #333;">2025</text>
+              <text x="185" y="287" text-anchor="middle" style="font-size: 14px; font-weight: bold; fill: #4CAF50;">9</text>
+              
+              <!-- 2026: 164 submissions -->
+              <rect x="240" y="216.8" width="50" height="83.2" fill="#2E7D32" opacity="0.9"/>
+              <text x="265" y="315" text-anchor="middle" style="font-size: 12px; font-weight: bold; fill: #333;">2026</text>
+              <text x="265" y="205" text-anchor="middle" style="font-size: 16px; font-weight: bold; fill: #2E7D32;">164</text>
+              
+              <!-- 2027: ~1000 submissions (dashed outline bar going way up!) -->
+              <rect x="320" y="94" width="50" height="206" fill="none" stroke="#999" stroke-width="2" stroke-dasharray="5,5" opacity="0.6"/>
+              
+              <!-- Arrow pointing up indicating it goes off-chart -->
+              <path d="M 345 94 L 345 50" stroke="#999" stroke-width="2" stroke-dasharray="5,5" opacity="0.4"/>
+              <polygon points="345,45 350,55 340,55" fill="#999" opacity="0.4"/>
+              
+              <text x="345" y="315" text-anchor="middle" style="font-size: 12px; font-weight: bold; fill: #333;">2027</text>
+              <text x="345" y="82" text-anchor="middle" style="font-size: 18px; font-weight: bold; fill: #999;">1000+?</text>
+              <text x="345" y="330" text-anchor="middle" style="font-size: 10px; fill: #999; font-style: italic;">projected</text>
+              
+              <!-- Growth arrow from 2025 to 2026 -->
+              <path d="M 210 295 Q 220 270, 240 230" stroke="#FF6B6B" stroke-width="2" fill="none" stroke-dasharray="5,3"/>
+              <polygon points="240,225 245,235 235,235" fill="#FF6B6B"/>
+              
+              <!-- 18x growth annotation (between 2025 and 2026) -->
+              <text x="225" y="265" text-anchor="middle" style="font-size: 11px; fill: #FF6B6B; font-style: italic;">
+                18x growth!
+              </text>
+              
+              <!-- Future growth arrow (dotted) - dramatic upward curve from 2026 to 2027 -->
+              <path d="M 290 230 Q 310 180, 320 120" stroke="#FF6B6B" stroke-width="2" fill="none" stroke-dasharray="2,4" opacity="0.5"/>
+              <polygon points="320,115 325,125 315,125" fill="#FF6B6B" opacity="0.5"/>
+              
+              <!-- Future growth annotation -->
+              <text x="310" y="160" text-anchor="middle" style="font-size: 10px; fill: #FF6B6B; font-style: italic;">
+                exponential?
+              </text>
+            </svg>
+          </div>
+        </div>
+
+        <h2 id="practitioners-guide">Practitioner's Guide to Understanding Benchmark Results in VLA Research</h2>
+        <figure class="figure-container">
+          <img src="images/vla_sim_setups.png" alt="VLA Simulation Setups Overview">
+          <figcaption>Figure 3: Overview of the most popular VLA simulation benchmarks: <a href="https://arxiv.org/abs/2306.03310" target="_blank">LIBERO</a>, <a href="https://openreview.net/pdf?id=LZh48DTg71" target="_blank">SIMPLER</a> and <a href="https://arxiv.org/abs/2112.03227" target="_blank">CALVIN</a> 
+          </figcaption>
+        </figure>
+
+        <p>
+          I want to provide a quick guide for practitioners on how to interpret benchmark results in VLA papers.
+          So you are reading a new VLA paper and want to understand if the claimed results are actually good or not?
+          In order to better understand the VLA results, it is important to have some context on the current state of popular VLA benchmarks and what good performance looks like.<br><br>
+
+          Given the current benchmarks, there is no clear statement possible to say which model is the best, as most papers only compare against each other on the usual simulation benchmarks.
+          90% of papers mentioned in this post all test in either <a href="https://arxiv.org/abs/2306.03310" target="_blank">LIBERO</a>, <a href="https://openreview.net/pdf?id=LZh48DTg71" target="_blank">SIMPLER</a> or <a href="https://arxiv.org/abs/2112.03227" target="_blank">CALVIN</a>.<br><br>
+          LIBERO is basically solved and showing 99% vs 98% is not very helpful and you don't need VLAs and large-scale pretraining to get competitive results.
+          E.g. all mentioned concurrent discrete diffusion policies below test on LIBERO and all achieve between 95-98% average over the 4 versions (Goal, Spatial, Long, Object).
+          It's also funny to note that LIBERO was designed as a life-long learning benchmark but 99% of models reporting results on it just train on the full dataset and don't do any continual learning.
+          Based on these results it is impossible to say which model is better, as they are all very close to the ceiling anyways and you don't need internet scale pretraining to solve these.<br><br>
+
+          Rule of thumb for getting a impression a VLA is decent or near sota levels on these: LIBERO: >95% is expected for Spatial, Goal and Object, 90-95% is required for Long and 90, lower than 90% is only fine for static-camera-only or few-shot stuff.
+          A properly tuned Diffusion Policy can get you there without VLAs although the most cited DP baselines is showing worse results. 
+          CALVIN is also almost saturated by current sota models like <a href="https://arxiv.org/pdf/2509.04996">FLOWER</a>.
+          The benchmark has 3 main version: D (train on setup D and test on setup D), ABC (train on A,B,C and test on D) and ABCD (train on A,B,C, D and test on D).
+          ABC is the most relevant one, as it tests generalization to unseen setups, ABCD test how well methods benefit from more diverse data and D tests fine-tuning.
+          For CALVIN higher than 4 score for ABC is standard now and above 4.5 is sota regime. 
+          For the D version 3.75 is standard and above 4 is very good. 
+          For the ABCD version results above 4.5 are relevant.<br><br>
+
+          SIMPLER is hard to interpret across setups; success spans 40–99% on Bridge, making cross-paper comparison noisy.
+          For the Google Robot version current sota models achieve around 70%-80% success rate. 
+          Somehow, <a href="https://arxiv.org/abs/1909.12271" target="_blank">RLBench</a> (the most popular 3d policy benchmark) has gained more popularity in VLA benchmarking, but all VLAs are still far away from 3D SOTA methods like <a href="https://arxiv.org/abs/2402.10885" target="_blank">3DDA</a>. 
+          Most VLA policies try to avoid comparing against all relevant 3D baselines for some reason. 
+          Any real world results are very important and more is better, as sim-only is hard to trust especially with VLA papers that use models with 7B+ parameters and are very good in overfitting successfully on these benchmarks.<br><br>
+        </p>
+
+        <hr>
+
+        <h2 id="research-trends">ICLR 2026 VLA Research Trends</h2>
+        <p>
+          After scanning most ICLR 2026 submissions with the VLA keyword, I identified the following key trends in VLA research. 
+          There is significant overlap between these categories, as many papers combine multiple ideas—for example, discrete diffusion with embodied reasoning, or efficient architectures with new tokenizers. 
+          Below, I highlight some notable papers in each category along with brief comments.
+          Please note that this is not an exhaustive list, and I may have missed many excellent works.
+        </p>
+
+        <h3 id="discrete-diffusion">1. Discrete Diffusion VLAs</h3>
+        <figure class="figure-container">
+          <img src="images/discrete_diff_comp.png" alt="Discrete Diffusion VLA Architecture">
+          <figcaption>Figure 4: Overview of discrete diffusion paradigm for action generation. Image from <a href="https://openreview.net/attachment?id=YWeNCMxdhM&name=pdf">DISCRETE DIFFUSION VLA</a></figcaption>
+        </figure>
+        <p>
+          Given the success of discrete diffusion models in other domains like text (e.g. <a href="https://proceedings.neurips.cc/paper_files/paper/2024/file/eb0b13cc515724ab8015bc978fdde0ad-Paper-Conference.pdf">(MDLM</a>) and VLMs (e.g. <a href="https://arxiv.org/pdf/2505.16933">LLaDA-V</a>), it is no surprise that this trend is also making its way into VLA research. 
+          Why discrete diffusion? Compared to autoregressive models, diffusion models can generate sequences in parallel, which is a big advantage for discrete action token generation. 
+          Instead of having to run your policy 100 times, you can generate long action sequences in a few forward passes. 
+          In addition, you can combine it with ideas from Embodied Chain-of-Thought (see next section) to generate sub-goals and reasoning together with actions in parallel. 
+          This tackles some of the biggest limitations of ECoT from prior work, which was extremely slow due to the autoregressive nature of the VLM models.
+          Current attempts for discrete Diffusion either finetune an autoregressive VLM with discrete diffusion because the variety of discrete diffusion VLMs is very limited.
+          Other work uses LLaDA-V as a pretrained backbone with good success. 
+          Below are 4 concurrent papers that all propose different discrete diffusion VLAs with promising results on LIBERO and SIMPLER.
+        </p>
+
+        <p><strong>Notable papers:</strong></p>
+        <ul>
+          <li>
+            <a href="https://openreview.net/attachment?id=YWeNCMxdhM&name=pdf">
+              DISCRETE DIFFUSION VLA: BRINGING DISCRETE DIFFUSION TO ACTION DECODING IN VISION-LANGUAGE-ACTION POLICIES
+            </a><br>
+            <em>TL;DR:</em> Take OpenVLA and apply Discrete Diffusion Action Prediction for fast action chunk-based generation of discrete action tokens. Also proposes adaptive decoding for inference.
+            Strong results on LIBERO + SIMPLER.
+          </li>
+          <li>
+            <a href="https://openreview.net/attachment?id=2rxgospB5s&name=pdf">
+              dVLA: DIFFUSION VISION-LANGUAGE-ACTION MODEL WITH MULTIMODAL CHAIN-OF-THOUGHT
+            </a><br>
+            <em>TL;DR:</em> Another Discrete Diffusion VLA using Co-Generation for Future Frames and text + actions given the advantage of fast parallel sampling of Discrete Diffusion over AR models. 
+            Basically ECoT + Discrete Diffusion done well. 
+            Also good results in LIBERO + real world experiments.
+          </li>
+          <li>
+            <a href="https://openreview.net/attachment?id=mNya9d1DA2&name=pdf">
+              DIVA: DISCRETE DIFFUSION VISION-LANGUAGE-ACTION MODELS FOR PARALLELIZED ACTION GENERATION
+            </a><br>
+            <em>TL;DR:</em> Another discrete Diffusion VLA that also focuses on how to substitute tokens during inference for better performance.
+          </li>
+          <li>
+            <a href="https://openreview.net/attachment?id=UvQOcw2oCD&name=pdf">
+              UNIFIED DIFFUSION VLA: VISION-LANGUAGE-ACTION MODEL VIA JOINT DISCRETE DENOISING DIFFUSION PROCESS
+            </a><br>
+            <em>TL;DR:</em> Generates future frames and discrete actions together with block-wise causal masking. Results on CALVIN, LIBERO and SIMPLER are good.
+          </li>
+        </ul>
+
+        <h3 id="embodied-cot">2. Reasoning VLAs and Embodied Chain-of-Thought (ECoT)</h3>
+        <p>
+          Reasoning holds strong promise for improving the generalization and performance of VLAs, which still struggle with complex tasks and out-of-distribution scenarios.
+          Inspired by the success of Chain-of-Thought prompting in LLMs, there is growing interest in applying similar ideas to VLAs.
+          The core idea is to bridge action generation with intermediate visual and textual reasoning steps that help the VLA better ground and understand the task and environment.
+          These reasoning traces are also more interpretable and can be used for debugging and understanding a VLA’s behavior.
+        </p>
+
+        <p>
+          Since <a href="https://arxiv.org/abs/2407.08693" target="_blank">the first ECoT paper</a> (CoRL 2024), interest has grown in combining spatially grounded reasoning with action prediction to improve VLAs.
+          By combining subtasks, bounding-box predictions for task-relevant objects, and 2D motion trajectories, VLMs learn better representations for embodied tasks and show improved performance on generalization benchmarks.
+          Prior analyses of <a href="https://arxiv.org/abs/2505.08243" target="_blank">ECoT training</a> indicate that these objectives help bridge the representation gap between VLM static pretraining and robotics tasks.
+          However, a key limitation of prior ECoT work is the autoregressive nature of VLAs and the increased token count, which results in slower training and inference.
+        </p>
+
+        <p>
+          Overall, it remains an open question how to best implement grounded reasoning for VLAs.
+          Recent work has explored additional modalities like depth prediction in <a href="https://arxiv.org/pdf/2508.07917" target="_blank">MolmoAct</a>.
+          A major bottleneck is the limited availability of diverse training data: many ECoT studies still rely on the same BRIDGE and LIBERO labeled datasets.
+          More diverse datasets with more complex tasks and environments are needed to push this direction further; however, labeling large-scale sources like DROID is tough.
+
+        </p>
+
+        <p><strong>Notable papers:</strong></p>
+        <ul>
+          <li>
+            <a href="https://openreview.net/attachment?id=sFO9d6XSlf&name=pdf">
+              ACTIONS AS LANGUAGE: FINE-TUNING VLMS INTO VLAS WITHOUT CATASTROPHIC FORGETTING
+            </a><br>
+            <em>TL;DR:</em> Instead of directly fine-tuning VLMs with discrete action tokens to become VLAs, which results in catastrophic forgetting, they relabel robot datasets with subtasks, actions as text and intermediate motion-planning like "move left".
+            This training method is able to bridge the domain gap of VLMs without reducing performance on other VQA benchmarks from pretraining. 
+            Finally cheap LORA finetuning is enough to get strong results for action prediction while maintaining VLM reasoning capabilities.
+          </li>
+          <li>
+            <a href="https://openreview.net/attachment?id=tsxwloasw5&name=pdf">
+              VISION-LANGUAGE-ACTION INSTRUCTION TUNING: FROM UNDERSTANDING TO MANIPULATION
+            </a><br>
+            <em>TL;DR:</em> InstructVLA proposes a two-stage Vision-Language-Action Instruction Tuning pipeline that tries to preserves a pretrained VLM’s multimodal reasoning while adding precise manipulation: (1) pretrain an action expert and latent action interface, then (2) instruction-tune a MoE-adapted VLM to switch between textual reasoning and latent action generation.
+                   It puts emphasis on decoupling multimodal reasoning and action generation to avoid catastrophic forgetting with an action expert, and introduces an instructed-based SIMPLER benchmark to test instruction-following VLAs.
+          
+          <li>
+            <a href="https://openreview.net/attachment?id=i5wlozMFsQ&name=pdf">EMBODIED-R1: REINFORCED EMBODIED REASONING FOR GENERAL ROBOTIC MANIPULATION</a><br>
+            <em>TL;DR:</em> R1 is a pointing VLM for embodied reasoning: it trains Qwen2.5-VL base with a two-stage Reinforced Fine-Tuning (RFT) curriculum on the new Embodied-Points-200K dataset.
+            It uses an embodiment-agnostic intermediate REG (point to the referred object), RRG (point to a relation-defined place), OFG (point to a functional part, e.g., a handle), VTG (output a sequence of points as a visual trace/trajectory).
+            Strong performance on embodied benchmarks and pointing ones with good generalization to SIMPLER as planner with intermediate waypoints.
+          </li>
+
+          <li>
+            <a href="https://openreview.net/attachment?id=IBJtOltTbx&name=pdf">
+              HYBRID TRAINING FOR VISION-LANGUAGE-ACTION MODELS
+            </a><br>
+            <em>TL;DR:</em> Decomposes ECoT pretraining in several subtasks of think act and follow, that enable to maintain the performance benefits with fast inference. 
+            Similar findings, that Co-Training with ECoT stuff results in better representations for action prediction.
+          </li>
+        </ul>
+
+        <h3 id="tokenizers">3. New Tokenizers</h3>
+        <figure class="figure-container">
+          <img src="images/faster_tokenizer.png" alt="FASTer Tokenizer Overview">
+          <figcaption>Figure 5: FASTer Tokenizer Overview. The tokenizer combines RVQ quantization with frequency and time domain losses. Image from <a href="https://openreview.net/attachment?id=k6nTUFoqeT&name=pdf">FASTer</a>.</figcaption>
+        </figure>
+        <p>
+          We command robots with high-frequency, continuous control values (e.g., joint angles, gripper state). Vision-Language models, however, operate most effectively on discrete tokens. Naively fine-tuning a VLM to regress continuous actions tends to underperform and often induces catastrophic forgetting, because the new objective misaligns with the model’s pretrained representations.
+        </p>
+        
+        <p></p>
+          The core idea of these tokenizers is to convert continuous action sequences into compact discrete tokens that a VLM can predict—retaining accuracy and smoothness while minimizing compute and integration overhead. 
+          An ideal action tokenizer is fast, achieves a high compression ratio for long action-chunks, produces smooth long-horizon outputs, and drops into existing VLM architectures without modification.
+        </p>
+
+        <p>
+          Prior work used discrete binning (e.g., <a href="https://arxiv.org/pdf/2212.06817" target="_blank">RT-1</a>) and <a href="https://arxiv.org/pdf/2403.03181" target="_blank">VQ-VAE</a> codebooks, but both struggle with either coarse precision or long-sequence efficiency. 
+          <a href="https://arxiv.org/abs/2501.09747" target="_blank">FAST</a> introduced action-chunk tokenizers tailored for VLA prediction, demonstrating that discrete tokens can replace more complex diffusion/flow experts for integration. 
+          Building on this, newer tokenizers submitted to ICLR combine Residual Vector Quantization (RVQ) (e.g., <a href="https://arxiv.org/abs/2107.03312" target="_blank">SoundStream</a>) for higher compression, spline-based parameterizations inspired by <a href="https://arxiv.org/pdf/2506.06072" target="_blank">BEAST tokenizer</a> for smooth, long trajectories, and DCT-style objectives (as in <a href="https://arxiv.org/abs/2501.09747" target="_blank">FAST</a>) to bias toward low-frequency, physically plausible motion. 
+          I’m excited to test these tokenizers myself when they release.
+        </p>
 
 
-                  <!-- ================= VLA ================= -->
-                  <div class="pub-category" id="vla">
-                    <h3>Robot Foundation Models: VLAs &amp; WAMs</h3>
-                    <p class="cat-desc">Efficient generalist models that turn vision and language into robot actions, as Vision-Language-Action models and World-Action Models.</p>
+        <p><strong>Notable papers:</strong></p>
+        <ul>
+          <li>
+            <a href="https://openreview.net/attachment?id=k6nTUFoqeT&name=pdf">
+              FASTER: TOWARD POWERFUL AND EFFICIENT AUTOREGRESSIVE VISION–LANGUAGE–ACTION MODELS WITH LEARNABLE ACTION TOKENIZER AND BLOCK-WISE DECODING
+            </a><br>
+            <em>TL;DR:</em> Introduces a novel discrete action tokenizer called FASTer, that combines Residual Vector Quantification (RVQ) with a frequency L1 loss using DCT and time domain L1 loss for improved performance. 
+            Also patchifies action tokens along the temporal axis and grouped action dimension axis (e.g. base motion, arm joints). It has a higher compression ratio than <a href="https://arxiv.org/abs/2501.09747" target="_blank">FAST</a> and results on SIMPLER and LIBERO are strong.
+          </li>
+          <li>
+            <a href="https://openreview.net/attachment?id=CuzTXLB7Jz&name=pdf">
+              OMNISAT: COMPACT ACTION TOKEN, FASTER AUTOREGRESSION FOR VISION-LANGUAGE-ACTION MODELS
+            </a><br>
+            <em>TL;DR:</em> Another tokenizer for VLAs that uses our <a href="https://arxiv.org/pdf/2506.06072" target="_blank">BEAST</a> paper idea of B-Splines for compact representation of continuous action chunks.
+            It uses a two stage encoding process: First, aligning the different action chunk lengths of different embodiments into a normalized, fixed-length representation.
+            Next, it uses a B-Spline based encoder to get a compact representation of the normalized action chunk. Finally, a VQ-VAE is used to get discrete tokens.
+            Results on LIBERO and SIMPLER are good and across all benchmarks improves upon both <a href="https://arxiv.org/abs/2501.09747" target="_blank">FAST</a> and <a href="https://arxiv.org/pdf/2506.06072" target="_blank">BEAST</a>.
+          </li>
+        </ul>
+      
 
-                    <div class="pub" id="pub-arc">
-                      <a href="https://arxiv.org/abs/2610.12386" target="_blank" rel="noopener noreferrer"><papertitle>ARC: A Reasoning Recipe for Robot Foundation Models</papertitle></a><span class="badge-new">NEW</span>
-                      <div class="authors">Gokul Puthumanaillam, Tao Sun, Elie Aljalbout, <strong>Moritz Reuss</strong>, Zhaoshuo Li, Fabio Ramos, Ankit Goyal, Jenai Xuning Yang</div>
-                      <div class="meta">
-                        <span class="venue preprint">arXiv 2026</span>
-                        <a href="https://arc-robot-reasoning.github.io/" target="_blank" rel="noopener noreferrer">Project Page</a> /
-                        <a href="https://arxiv.org/abs/2610.12386" target="_blank" rel="noopener noreferrer">arXiv</a> /
-                        <details><summary>Abstract</summary>
-                          <p>We show that the right reasoning recipe can substantially improve the zero-shot performance of existing robot foundation models
-                          without new robot data or foundation-scale training. ARC combines action-grounded reasoning traces that explain why an action is taken
-                          and what it should cause, a pipeline that generates such traces automatically from existing demonstrations (ARC-Trace-DROID), and
-                          model-specific adaptation for both VLAs such as π<sub>0.5</sub> and WAMs such as Cosmos3-Nano-Policy. The adapted models set a new
-                          state of the art on RoboLab-120 and MolmoSpaces, and ARC raises π<sub>0.5</sub>'s real-robot success by over 80 percentage points.</p>
-                        </details>
-                      </div>
-                    </div>
+        <h3 id="efficient-vla">4. Efficient VLAs</h3>
+        <p>As someone working on this topic myself, I understand the pain of trying to train and run larger VLAs on limited compute setups. 
+          Thus, efficient VLAs are always relevant. Especially since this gives labs with limited compute access the chance to work on VLAs too.
+          There are several interesting papers this year that try to tackle this problem with different approaches.
+          Generally, one can divide them into two categories: try to make training and models more efficient by making smaller VLAs or better tokenizers etc. 
+          Otherwise, a lot of papers focus on making inference more efficient by using better quantization, distillation or similar ideas. 
+        </p>
 
-                    <div class="pub">
-                      <a href="https://arxiv.org/abs/2609.13812" target="_blank" rel="noopener noreferrer"><papertitle>GeomVLA: Unifying Scene, Motion, and Action in 3D</papertitle></a><span class="badge-new">NEW</span>
-                      <div class="authors">Ziyin Xiong, Nikolaos Gkanatsios, <strong>Moritz Reuss</strong>, Katerina Fragkiadaki</div>
-                      <div class="meta">
-                        <span class="venue">CoRL 2026</span>
-                        <a href="https://arxiv.org/abs/2609.13812" target="_blank" rel="noopener noreferrer">arXiv</a> /
-                        <details><summary>Abstract</summary>
-                          <p>GeomVLA is a Vision-Language-Action model that keeps perception, scene-motion prediction, and action generation in one shared
-                          robot-centric 3D frame. It lifts pretrained VLM features into 3D scene tokens and uses a 3D Scene Trajectory Denoiser whose
-                          intermediate motion tokens condition a geometry-aware, flow-based action denoiser. GeomVLA achieves state-of-the-art results on
-                          CALVIN, is competitive on LIBERO and RoboTwin2.0, and outperforms strong baselines on real robots without robot-action pretraining.</p>
-                        </details>
-                      </div>
-                    </div>
+        <p><strong>Notable papers:</strong></p>
+        <ul>
+          <li>
+            <a href="https://openreview.net/attachment?id=bsXkBTZjgY&name=pdf">
+              HYPERVLA: EFFICIENT INFERENCE IN VISION- LANGUAGE-ACTION MODELS VIA HYPERNETWORKS
+            </a><br>
+            <em>TL;DR:</em> HyperVLA uses hypernetworks to generate small task-specific policies conditioned on language instructions and initial images, dramatically reducing inference cost while maintaining performance by only activating the compact generated policy during execution instead of a big VLA model.
+          </li>
 
-                    <div class="pub">
-                      <a href="https://arxiv.org/abs/2606.12105" target="_blank" rel="noopener noreferrer"><papertitle>DAM-VLA: Decoupled Asynchronous Multimodal Vision Language Action Model</papertitle></a><span class="badge-new">NEW</span>
-                      <div class="authors">Pankhuri Vanjani, Zhuoyue Li, Jakub Suliga, <strong>Moritz Reuss</strong>, Gianluca Geraci, Xinkai Jiang, <a href="http://rudolf.intuitive-robots.net/" target="_blank" rel="noopener noreferrer">Rudolf Lioutikov</a></div>
-                      <div class="meta">
-                        <span class="venue">CoRL 2026</span>
-                        <a href="https://intuitive-robots.github.io/DAM-VLA/" target="_blank" rel="noopener noreferrer">Project Page</a> /
-                        <a href="https://arxiv.org/abs/2606.12105" target="_blank" rel="noopener noreferrer">arXiv</a> /
-                        <details><summary>Abstract</summary>
-                          <p>Standard VLAs process every input on a single synchronous clock, which oversamples slow modalities and caps control at the slowest
-                          effective rate. DAM-VLA decouples temporal processing per modality with latent buffers refreshed at each sensor's rate, and adds
-                          high-frequency modalities through gated cross-attention that leaves the pretrained backbone intact. On seven contact-rich real-world
-                          tasks, it more than doubles the success rate of the strongest synchronous baseline while sustaining smooth 100&nbsp;Hz control.</p>
-                        </details>
-                      </div>
-                    </div>
+          <li>
+            <a href="https://openreview.net/attachment?id=TpL2nXanru&name=pdf">
+              AUTOQVLA: NOT ALL CHANNELS ARE EQUAL IN VISION-LANGUAGE-ACTION MODEL’S QUANTIZATION
+            </a><br>
+            <em>TL;DR:</em> Analysis quantization of OpenVLA and proposes improved quantization method for maintaining performance with only 30% of the original VRAM requirements.
+          </li>
+        </ul>
 
-                    <div class="pub">
-                      <a href="https://www.arxiv.org/pdf/2509.04996" target="_blank" rel="noopener noreferrer"><papertitle>FLOWER: Democratizing Generalist Robot Policies with Efficient Vision-Language-Action Flow Policies</papertitle></a>
-                      <div class="authors"><strong>Moritz Reuss</strong>, Hongyi Zhou, Marcel Rühle, Ömer Erdinç Yağmurlu, Fabian Otto, <a href="http://rudolf.intuitive-robots.net/" target="_blank" rel="noopener noreferrer">Rudolf Lioutikov</a></div>
-                      <div class="meta">
-                        <span class="venue">CoRL 2025</span>
-                        <a href="https://intuitive-robots.github.io/flower_vla/" target="_blank" rel="noopener noreferrer">Project Page</a> /
-                        <a href="https://github.com/intuitive-robots/flower_vla_calvin/tree/main" target="_blank" rel="noopener noreferrer">Code</a> /
-                        <a href="https://www.arxiv.org/pdf/2509.04996" target="_blank" rel="noopener noreferrer">arXiv</a> /
-                        <details><summary>Abstract</summary>
-                          <p>We systematically analyze VLA design decisions for small and efficient VLAs. Our findings lead us to introduce FLOWER, a 950M-parameter
-                          Vision-Language-Action (VLA) policy that achieves state-of-the-art performance across 190 tasks in 10 benchmarks while requiring only
-                          ~1% of the pretraining compute of models like OpenVLA. FLOWER introduces intermediate-modality fusion and action-specific Global-AdaLN
-                          conditioning to achieve strong performance with improved efficiency. Our approach democratizes VLA development by making high-performance
-                          robotic foundation models accessible with commodity hardware, requiring significantly less GPU memory to run.</p>
-                        </details>
-                      </div>
-                    </div>
+        <h3 id="RL-vla">5. RL for VLAs</h3>
+        <p>Finetuning VLAs to go from 70-80% success rate in the real world to 99% is still an open problem.  
+          There is a lot of hope for RL Finetuning to close this gap. 
+          While a lot of attempts have been made before, no method has established itself as the go-to method yet.
+          This year there are several interesting papers that try to tackle this problem with different approaches.
+        </p>
 
-                    <div class="pub">
-                      <a href="https://arxiv.org/pdf/2506.06072" target="_blank" rel="noopener noreferrer"><papertitle>BEAST: An Efficient Action Tokenizer with B-Splines</papertitle></a>
-                      <div class="authors">Hongyi Zhou, Weiran Liao, Xi Huang, Yucheng Tang, Fabian Otto, Xiaogang Jia, Xinkai Jiang, Simon Hilber, Ge Li, Qian Wang, Ömer Erdinç Yağmurlu, Nils Blank, <strong>Moritz Reuss</strong>, <a href="http://rudolf.intuitive-robots.net/" target="_blank" rel="noopener noreferrer">Rudolf Lioutikov</a></div>
-                      <div class="meta">
-                        <span class="venue">NeurIPS 2025</span>
-                        <a href="https://beast-tokenizer.github.io/" target="_blank" rel="noopener noreferrer">Project Page</a> /
-                        <a href="https://github.com/intuitive-robots/beast_calvin" target="_blank" rel="noopener noreferrer">Code</a> /
-                        <a href="https://arxiv.org/pdf/2506.06072" target="_blank" rel="noopener noreferrer">arXiv</a> /
-                        <details><summary>Abstract</summary>
-                          <p>We introduce BEAST, a B-spline–based action tokenizer that efficiently represents continuous robot actions for generalist policies
-                          while maintaining smooth trajectories essential for robot control. BEAST enables efficient action representation and improved performance
-                          in VLA models by leveraging the mathematical properties of B-splines for smooth, continuous control. It flexibly supports continuous tokens
-                          and discrete tokenization. Experiments across various benchmarks verify good compression with strong performance and smooth behavior
-                          without additional temporal aggregation.</p>
-                        </details>
-                      </div>
-                    </div>
-                  </div>
+        <p><strong>Notable papers:</strong></p>
+        <ul>
+          <li>
+            <a href="https://openreview.net/attachment?id=eUGoqrZ6Ea&name=pdf">
+              SELF-IMPROVING VISION-LANGUAGE-ACTION MODELS WITH DATA GENERATION VIA RESIDUAL RL
+            </a><br>
+            <em>TL;DR:</em> Residual RL method that collects more data with frozen VLA and small residual policy. The residual interventions are used to get more high quality data with recovery behavior.
+            Finally the VLA is finetuned using SFT. Results on LIBERO achieve 99%.
+            </li>
 
-                  <!-- ================= Policies ================= -->
-                  <div class="pub-category" id="policies">
-                    <h3>Diffusion &amp; Flow Policies</h3>
-                    <p class="cat-desc">Generative policies that learn versatile, multimodal behavior from offline demonstrations.</p>
+          <li>
+            <a href="https://openreview.net/attachment?id=qBcgyxDeMM&name=pdf">
+              PROGRESSIVE STAGE-AWARE REINFORCEMENT FOR FINE-TUNING VISION-LANGUAGE-ACTION MODELS
+            </a><br>
+            <em>TL;DR:</em> The method breaks robot tasks into semantic stages (Reach→Grasp→Transport→Place) and assigns rewards to each stage instead of the whole trajectory. It uses STA-TPO for offline preference learning and STA-PPO for online reinforcement learning, both operating at the stage level.
+            Results on Bridge SIMPLER of 98%. 
+          </li>
+        </ul>
 
-                    <div class="pub">
-                      <a href="https://arxiv.org/abs/2609.35200" target="_blank" rel="noopener noreferrer"><papertitle>ReCAT: Remember, Count, and Time: Structured Recurrent Memory for Robot Manipulation</papertitle></a><span class="badge-new">NEW</span>
-                      <div class="authors">Pankhuri Vanjani, Mostafa Hatab, Can Mizrakli, Vaisakh Shaj, Zhuoyue Li, <strong>Moritz Reuss</strong>, <a href="http://rudolf.intuitive-robots.net/" target="_blank" rel="noopener noreferrer">Rudolf Lioutikov</a></div>
-                      <div class="meta">
-                        <span class="venue preprint">arXiv 2026</span>
-                        <a href="https://intuitive-robots.github.io/ReCAT" target="_blank" rel="noopener noreferrer">Project Page</a> /
-                        <a href="https://arxiv.org/abs/2609.35200" target="_blank" rel="noopener noreferrer">arXiv</a> /
-                        <details><summary>Abstract</summary>
-                          <p>We present ReCAT, a language-conditioned policy with structured recurrent memory for tasks that require recalling earlier cues,
-                          counting repeated events, or tracking elapsed time. A Mamba-2–based memory with a causal attention layer summarizes the observation
-                          stream, and a flow-matching Transformer decoder attends to current and historical features in every block. ReCAT reaches 95.3% on
-                          LIBERO, leads on most RMBench tasks, and clearly outperforms short-history baselines on real-robot recall, counting, and timing tasks.</p>
-                        </details>
-                      </div>
-                    </div>
+        <h3 id="vla-video">6. VLA + Video Prediction</h3>
+        <figure class="figure-container">
+          <img src="images/video_policy_header.png" alt="Video Pretraining for VLAs">
+          <figcaption>Figure 6: Example Pretraining Paradigm from <a href="https://openreview.net/attachment?id=DdrsHWobR1&name=pdf">DISENTANGLED ROBOT LEARNING Paper</a><br>
+          </figcaption>
+        </figure>
+        <p>
+          Video generation models learn rich representations of temporal dynamics and physical interactions, which may provide useful priors for robotic control.
+          Following strong results from the <a href="https://arxiv.org/pdf/2312.13139" target="_blank">GR-1 paper</a> at ICLR 2024, which demonstrated the potential of video-based policies, interest in this subfield has grown.
+          These policies generally fall into two categories: (1) starting with a VLM that has optionally been pretrained on image/video generation, then continuing training with future frame and action prediction; or (2) starting from a Video Foundation Model and modifying it to also generate actions.
+        </p>
 
-                    <div class="pub">
-                      <a href="https://openreview.net/pdf?id=ZR2mdBrhJX" target="_blank" rel="noopener noreferrer"><papertitle>PointMapPolicy: Structured Point Cloud Processing for Multi-Modal Imitation Learning</papertitle></a>
-                      <div class="authors">Xiaogang Jia, Qian Wang, Anrui Wang, Han A. Wang, Balázs Gyenes, Emiliyan Gospodinov, Xinkai Jiang, Ge Li, Hongyi Zhou, Weiran Liao, Xi Huang, Maximilian Beck, <strong>Moritz Reuss</strong>, <a href="http://rudolf.intuitive-robots.net/" target="_blank" rel="noopener noreferrer">Rudolf Lioutikov</a>, Gerhard Neumann</div>
-                      <div class="meta">
-                        <span class="venue">NeurIPS 2025</span>
-                        <a href="https://point-map.github.io/Point-Map/" target="_blank" rel="noopener noreferrer">Project Page</a> /
-                        <a href="https://openreview.net/pdf?id=ZR2mdBrhJX" target="_blank" rel="noopener noreferrer">Paper</a> /
-                        <details><summary>Abstract</summary>
-                          <p>We present PointMapPolicy, a multi-modal imitation learning method that conditions diffusion policies on structured grids of points
-                          without downsampling. Our approach fuses point maps with RGB using an xLSTM backbone, enabling direct application of computer vision
-                          techniques to 3D data while preserving fine-grained geometric details. On RoboCasa and CALVIN, plus real-robot evaluations, we achieve
-                          state-of-the-art performance across diverse manipulation tasks.</p>
-                        </details>
-                      </div>
-                    </div>
+        <p>
+          Since most state-of-the-art video foundation models are diffusion/flow-based, these policies typically struggle with slow inference speed.
+          Overall, results demonstrate that video generation—and the physics understanding and language grounding it requires—provides a valuable prior for robot learning.
+          Compared to VLAs initialized from VLMs, this subfield is far less popular, and I hope to see more research in this direction.
+          What holds back progress is the high computational requirements for finetuning state-of-the-art video models like Wan, which exceed even those of VLM-based VLA finetuning.
+        </p>
 
-                    <div class="pub">
-                      <a href="https://openreview.net/pdf?id=nDmwloEl3N" target="_blank" rel="noopener noreferrer"><papertitle>Efficient Diffusion Transformer Policies with Mixture of Expert Denoisers for Multitask Learning</papertitle></a>
-                      <div class="authors"><strong>Moritz Reuss*</strong>, Jyothish Pari*, <a href="https://people.csail.mit.edu/pulkitag/" target="_blank" rel="noopener noreferrer">Pulkit Agrawal</a>, <a href="http://rudolf.intuitive-robots.net/" target="_blank" rel="noopener noreferrer">Rudolf Lioutikov</a></div>
-                      <div class="meta">
-                        <span class="venue">ICLR 2025</span>
-                        <a href="https://mbreuss.github.io/MoDE_Diffusion_Policy/" target="_blank" rel="noopener noreferrer">Project Page</a> /
-                        <a href="https://github.com/intuitive-robots/MoDE_Diffusion_Policy" target="_blank" rel="noopener noreferrer">Code</a> /
-                        <a href="https://arxiv.org/pdf/2412.12953" target="_blank" rel="noopener noreferrer">arXiv</a> /
-                        <details><summary>Abstract</summary>
-                          <p>We propose Mixture-of-Denoising Experts (MoDE), a generalist policy for guided behavior generation that outperforms dense transformer-based
-                          diffusion policies in accuracy, parameter count, and efficiency. Our routing strategy conditions expert selection on the current noise level
-                          of the diffusion process. On four imitation learning benchmarks (including CALVIN and LIBERO), MoDE consistently exceeds dense transformer
-                          baselines. We pretrain MoDE on a subset of OXE for just 3 days on 6 GPUs and surpass OpenVLA and Octo on SIMPLER. MoDE achieves higher average
-                          performance with ~90% fewer FLOPs, ~20% faster inference, and ~40% fewer parameters compared to dense transformer diffusion policies.</p>
-                        </details>
-                      </div>
-                    </div>
+        <p><strong>Notable papers:</strong></p>
+        <ul>
+          <li>
+            <a href="https://openreview.net/attachment?id=DdrsHWobR1&name=pdf">
+              DISENTANGLED ROBOT LEARNING VIA SEPARATE FORWARD AND INVERSE DYNAMICS PRETRAINING
+            </a><br>
+            <em>TL;DR:</em> Introduces a novel approach to robot learning by pretraining separate forward and inverse dynamics models pretraining.
+            In the second stage they are combined again for a coupled finetuning of the policy. Results on CALVIN are good on SIMPLER decent.
+          </li>
+          
+          <li>
+            <a href="https://openreview.net/attachment?id=PklMD8PwUy&name=pdf">UNIFIED VISION–LANGUAGE–ACTION MODEL</a><br>
+            <em>TL;DR:</em> Models vision, language, and actions as a single interleaved stream of discrete tokens (VQ image tokens + FAST/DCT action tokens) and trains one autoregressive 8.5B VLA.
+            UniVLA has two training stages for converting the VLM into a VLA: First post-train VLM with text and images to predict future frames, next is the fine-tuning stage with vision and action token prediction. 
+            Main emphasis on the post-training stage to better align VLM representations with robot tasks. 
+            Results on CALVIN, LIBERO, and SimplerEnv-Bridge are strong. 
+          </li>
 
-                    <div class="pub" id="pub-mdt">
-                      <a href="https://intuitive-robots.github.io/mdt_policy/" target="_blank" rel="noopener noreferrer"><papertitle>Multimodal Diffusion Transformer: Learning Versatile Behavior from Multimodal Goals</papertitle></a>
-                      <div class="authors"><strong>Moritz Reuss</strong>, Ömer Erdinç Yağmurlu, Fabian Wenzel, <a href="http://rudolf.intuitive-robots.net/" target="_blank" rel="noopener noreferrer">Rudolf Lioutikov</a></div>
-                      <div class="meta">
-                        <span class="venue">RSS 2024</span>
-                        <span class="award">Oral @ LangRob Workshop, CoRL 2023</span> ·
-                        <a href="https://intuitive-robots.github.io/mdt_policy/" target="_blank" rel="noopener noreferrer">Project Page</a> /
-                        <a href="https://github.com/intuitive-robots/mdt_policy" target="_blank" rel="noopener noreferrer">Code</a> /
-                        <a href="https://arxiv.org/pdf/2407.05996" target="_blank" rel="noopener noreferrer">arXiv</a> /
-                        <details><summary>Abstract</summary>
-                          <p>We present a diffusion policy for learning from uncurated, reward-free offline data with sparse language labels.
-                          Multimodal Diffusion Transformer (MDT) learns complex, long-horizon behaviors and sets a new state of the art on CALVIN.
-                          MDT leverages pre-trained vision and language foundation models and aligns multimodal goal specifications in the transformer encoder’s latent space,
-                          using two self-supervised auxiliary objectives to better follow goals specified in language and images.</p>
-                        </details>
-                      </div>
-                    </div>
+          <li>
+            <a href="https://openreview.net/attachment?id=wPEIStHxYH&name=pdf">
+              COSMOS POLICY: FINE-TUNING VIDEO MODELS FOR VISUOMOTOR CONTROL AND PLANNING
+            </a><br>
+            <em>TL;DR:</em> Finetunes the Cosmos Video Foundation Model from NVIDIA for action prediction. 
+            Core idea is to inject additional modalities like future action chunks or value function estimations into latent token sequence. 
+            Results on LIBERO are good and they also have real world comparisons against <a href="https://www.physicalintelligence.company/download/pi0.pdf" target="_blank">Pi0</a>.5.
+          </li>
+        </ul>
 
-                    <div class="pub">
-                      <a href="https://intuitive-robots.github.io/beso-website" target="_blank" rel="noopener noreferrer"><papertitle>Goal-Conditioned Imitation Learning using Score-based Diffusion Policies</papertitle></a>
-                      <div class="authors"><strong>Moritz Reuss</strong>, Maximilian Li, Xiaogang Jia, <a href="http://rudolf.intuitive-robots.net/" target="_blank" rel="noopener noreferrer">Rudolf Lioutikov</a></div>
-                      <div class="meta">
-                        <span class="venue">RSS 2023</span>
-                        <span class="award">Best Paper Award @ L-DOD Workshop, ICRA 2023</span> ·
-                        <a href="https://intuitive-robots.github.io/beso-website" target="_blank" rel="noopener noreferrer">Project Page</a> /
-                        <a href="https://github.com/intuitive-robots/beso" target="_blank" rel="noopener noreferrer">Code</a> /
-                        <a href="https://arxiv.org/pdf/2304.02532" target="_blank" rel="noopener noreferrer">arXiv</a> /
-                        <details><summary>Abstract</summary>
-                          <p>We present BESO, a policy representation for goal-conditioned imitation learning using score-based diffusion models.
-                          BESO effectively learns goal-directed, multimodal behavior from uncurated, reward-free offline data and achieves state of the art
-                          with as few as three denoising steps.</p>
-                        </details>
-                      </div>
-                    </div>
+        <h3 id="evaluation">7. Evaluation and Benchmarking of VLAs</h3>
+        <figure class="figure-container">
+          <img src="images/roboarena_real2sim.png" alt="ROBOTARENA Overview">
+          <figcaption>Figure 7: Overview of real2sim ROBOTARENA benchmark. 
+            Image from <a href="https://openreview.net/attachment?id=OutljIofvS&name=pdf">ROBOTARENA ∞</a>.</figcaption>
+        </figure>
+        <p>
+          As mentioned above, the current state of VLA benchmarks is quite saturated and it is hard to judge which model is actually better given the limited number of benchmarks and the fact that most papers only compare against a few other baselines.
+          Luckily, there are several submission that try to bridge this gap by introducing new benchmarks for VLAs.
+          Other ideas include real2sim world models to test policies in generative environments. 
+          While I don't think these ideas are on a good enough level yet to be used as real alternatives yet, it's a very exciting research area that I hope to see more progress in the future.
+        </p>
 
-                    <div class="pub">
-                      <a href="https://arxiv.org/pdf/2303.15349" target="_blank" rel="noopener noreferrer"><papertitle>Information Maximizing Curriculum: A Curriculum-Based Approach for Learning Versatile Skills</papertitle></a>
-                      <div class="authors">Denis Blessing, Onur Celik, Xiaogang Jia, <strong>Moritz Reuss</strong>, Maximilian Xiling Li, <a href="http://rudolf.intuitive-robots.net/" target="_blank" rel="noopener noreferrer">Rudolf Lioutikov</a>, Gerhard Neumann</div>
-                      <div class="meta">
-                        <span class="venue">NeurIPS 2023</span>
-                        <a href="https://arxiv.org/pdf/2303.15349" target="_blank" rel="noopener noreferrer">arXiv</a> /
-                        <details><summary>Abstract</summary>
-                          <p>We introduce the Information Maximizing Curriculum to address mode-averaging in imitation learning by enabling specialization
-                          on representable data. A mixture-of-experts policy focuses on different data subsets, with a maximum-entropy objective for full dataset coverage.</p>
-                        </details>
-                      </div>
-                    </div>
-                  </div>
+        <p><strong>Notable papers:</strong></p>
+        <ul>
+          <li>
+            <a href="https://openreview.net/attachment?id=OutljIofvS&name=pdf">
+              ROBOTARENA ∞: UNLIMITED ROBOT BENCHMARKING VIA REAL-TO-SIM TRANSLATION
+            </a><br>
+            <em>TL;DR: </em> Introduces a new benchmarking framework for real2sim setup that has similar rating system to the <a href="https://robo-arena.github.io/" target="_blank">RoboArena</a>. 
+            It provides automatic environment construction and evaluation using physics engine, real-2-sim translation and human feedback. 
+            They use real2sim translation pipeline with a bunch of foundation models and differentiable rendering and VLM-based task progression scores.
+            Seems very interesting on first glance and I am excited to try it out myself. 
+          </li>
 
-                  <!-- ================= World models ================= -->
-                  <div class="pub-category" id="world-models">
-                    <h3>World Models &amp; Latent Planning</h3>
-                    <p class="cat-desc">Predicting how the world changes under robot actions, and planning with those predictions.</p>
+          <li>
+            <a href="https://openreview.net/attachment?id=tQJYKwc3n4&name=pdf">
+              ROBOCASA365: A LARGE-SCALE SIMULATION FRAMEWORK FOR TRAINING AND BENCHMARKING GENERALIST ROBOTS
+            </a><br>
+            <em>TL;DR:</em> Extends the initial RoboCasa sim and benchmark setup with a very diverse setup of 365 tasks across 2k+ kitchen scenes and more than 2k hours of teleop data. 
+            The task setups look great and the data scale is also promising I just wish they tested more baseline policies than just 3. 
+          </li>
 
-                    <div class="pub">
-                      <a href="https://arxiv.org/abs/2609.10506" target="_blank" rel="noopener noreferrer"><papertitle>DUET-DINO: Simultaneous Cross-View World Modeling for Latent Planning in Robot Manipulation</papertitle></a><span class="badge-new">NEW</span>
-                      <div class="authors">Nisarga Nilavadi, Ralf Römer, <strong>Moritz Reuss</strong>, Michael Krawez, Tobias Jülg, Angela P. Schoellig, <a href="http://rudolf.intuitive-robots.net/" target="_blank" rel="noopener noreferrer">Rudolf Lioutikov</a>, Wolfram Burgard</div>
-                      <div class="meta">
-                        <span class="venue preprint">arXiv 2026</span>
-                        <a href="https://utn-air.github.io/DUET-DINO" target="_blank" rel="noopener noreferrer">Project Page</a> /
-                        <a href="https://arxiv.org/abs/2609.10506" target="_blank" rel="noopener noreferrer">arXiv</a> /
-                        <details><summary>Abstract</summary>
-                          <p>DUET-DINO is a latent world model that jointly predicts future side- and wrist-camera representations through cross-view
-                          conditioning, enabling latent planning over the full 7-DoF end-effector action space. Trained from scratch on DROID and RoboArena,
-                          it outperforms single-view and independent dual-view baselines on reach, angled-reach, and grasp-and-lift tasks. We also find that
-                          DINOv3 features capture fine-grained action effects in the wrist view better than V-JEPA 2.</p>
-                        </details>
-                      </div>
-                    </div>
+          <li>
+            <a href="https://openreview.net/attachment?id=hidBHy1CAw&name=pdf">
+              WORLDGYM: WORLD MODEL AS AN ENVIRONMENT FOR POLICY EVALUATION
+            </a><br>
+            <em>TL;DR:</em> WorldGym proposes using an action-conditioned video generation model (world model) as an environment for evaluating robot policies, where policies are rolled out in the generated world and evaluated by a vision-language model that provides rewards. 
+          </li>
+        </ul>
 
-                    <p class="cat-desc" style="margin-top:8px;">
-                      Also related:
-                      <a href="#pub-arc">ARC</a> (reasoning recipe for both VLAs and WAMs) ·
-                      <a href="#pub-mdt">MDT</a> (an early WAM-style policy that learns to predict future visual states alongside actions)
-                    </p>
-                  </div>
+        <h3 id="cross-action-space">8. Cross-Action-Space Learning</h3>
+        <figure class="figure-container">
+          <img src="images/xvla_cross_embedding.png" alt="X-VLA Overview">
+          <figcaption>Figure 8: Different Paradigms for VLAs to handle different action spaces.
+            Image from <a href="https://openreview.net/attachment?id=kt51kZH4aG&name=pdf">X-VLA</a>.</figcaption>
+        </figure>
 
-                  <!-- ================= Data & benchmarks ================= -->
-                  <div class="pub-category" id="data">
-                    <h3>Data, Annotation &amp; Benchmarks</h3>
-                    <p class="cat-desc">Scaling and labeling robot data automatically, and measuring what policies and VLMs can actually do.</p>
+        <p>
+          Most VLAs still avoid pretraining on diverse action spaces, given the difficulties of getting any positive transfer results.
+          Thus, it is a very exciting research area for current VLAs to improve. 
+          In addition, there is a growing interesting in using human egocentric videos with action labels for pretraining VLAs. 
+          Datasets like <a href="https://arxiv.org/pdf/2505.11709" target="_blank">EgoDex</a> released earlier this year now enable more research in this direction. 
+          Several interesting papers are submitted this year that try to tackle this problem with different approaches.
+          They either focus on architecture details of VLAs to better handle heterogeneous action spaces or use additional abstractions like motion in image-space to get better transfer.
+          It's noteworthy that the recent <a href="https://arxiv.org/pdf/2510.03342" target="_blank">Gemini Robotics 1.5</a> release from DeepMind indicates that a unreleased technique called motion transfer works for them to get positive zero-shot task transfer inbetween action spaces.
+          So maybe this is just a data and model scale question. 
+          Nevertheless, more research is needed to better understand and tackle these issues.
+        </p>
 
-                    <div class="pub">
-                      <a href="https://arxiv.org/abs/2606.13497" target="_blank" rel="noopener noreferrer"><papertitle>SPARC: Reliable Spatial Annotations from Robot Demonstrations at Scale</papertitle></a><span class="badge-new">NEW</span>
-                      <div class="authors">Nils Blank, Paul Mattes, Maximilian Xiling Li, Jakub Suliga, Thomas Roth, <strong>Moritz Reuss</strong>, Pankhuri Vanjani, <a href="http://rudolf.intuitive-robots.net/" target="_blank" rel="noopener noreferrer">Rudolf Lioutikov</a></div>
-                      <div class="meta">
-                        <span class="venue">CoRL 2026</span>
-                        <a href="https://intuitive-robots.github.io/sparc-labeling" target="_blank" rel="noopener noreferrer">Project Page</a> /
-                        <a href="https://arxiv.org/abs/2606.13497" target="_blank" rel="noopener noreferrer">arXiv</a> /
-                        <details><summary>Abstract</summary>
-                          <p>SPARC automatically labels robot demonstrations with structured spatial annotations (bounding boxes, object trajectories, and
-                          manipulation phases) and attaches a calibrated reliability score to each label by exploiting the spatio-temporal structure of
-                          robot tasks. On our new IA-Bench, SPARC outperforms detection-only baselines while retaining three times more samples at high
-                          precision. Models finetuned on SPARC annotations reach state-of-the-art grounding and pointing results among similarly sized models,
-                          and policies trained on them perform better in cluttered real-world scenes.</p>
-                        </details>
-                      </div>
-                    </div>
+        <p><strong>Notable papers:</strong></p>
+        <ul>
+          <li>
+            <a href="https://openreview.net/attachment?id=kt51kZH4aG&name=pdf">
+              X-VLA: SOFT-PROMPTED TRANSFORMER AS SCALABLE CROSS-EMBODIMENT VISION-LANGUAGE-ACTION MODEL
+            </a><br>
+            <em>TL;DR:</em> Tackles cross-action-space learning using soft-prompting tokens for different datasets. 
+            These soft-prompt tokens are learnable readout-tokens for the VLA. 
+            Results on LIBERO, CALVIN and SIMPLER RoboTwin and VLABench are all very good. Also very insightful scaling analysis.
+          </li>
+          <li>
+            <a href="https://openreview.net/attachment?id=wPEIStHxYH&name=pdf">
+              XR-1: TOWARDS VERSATILE VISION-LANGUAGE-ACTION MODELS VIA LEARNING UNIFIED VISION-MOTION REPRESENTATIONS
+            </a><br>
+            <em>TL;DR:</em>XR-1 introduces Unified Vision-Motion Codes (UVMC), a discrete latent representation that jointly encodes both visual dynamics and robotic motion using a dual-branch VQ-VAE with a shared codebook. This enables better co-pretraining from human and robot demonstrations.
+            Tested on real world experiments against Groot-N.1.5 and <a href="https://www.physicalintelligence.company/download/pi0.pdf" target="_blank">Pi0</a> with good results.
+          </li>
+          <li>
+            <a href="https://openreview.net/attachment?id=TX3oGD99CJ&name=pdf">
+              HIMOE-VLA: HIERARCHICAL MIXTURE-OF-EXPERTS FOR GENERALIST VISION–LANGUAGE–ACTION POLICIES
+            </a><br>
+            <em>TL;DR:</em> Substitutes Pi-Style Action Expert with Hierarchical Mixture-of-Experts Transformer to better adapt to new embodiments.
+            It interleaves standard blocks with two types of MoE Blocks: Action-Space MoEs and Heterogeneity Balancing MoEs to better handle different action spaces.
+            Improves upon <a href="https://www.physicalintelligence.company/download/pi0.pdf" target="_blank">Pi0</a> across a range of experiments. 
+          </li>
+        </ul>
 
-                    <div class="pub">
-                      <a href="https://arxiv.org/abs/2510.26909" target="_blank" rel="noopener noreferrer"><papertitle>NaviTrace: Evaluating Embodied Navigation of Vision-Language Models</papertitle></a>
-                      <div class="authors">Tim Windecker, <a href="https://manthan99.github.io/" target="_blank" rel="noopener noreferrer">Manthan Patel</a>, <strong>Moritz Reuss</strong>, Richard Schwarzkopf, Cesar Cadena, <a href="http://rudolf.intuitive-robots.net/" target="_blank" rel="noopener noreferrer">Rudolf Lioutikov</a>, Marco Hutter, <a href="https://jonasfrey96.github.io/" target="_blank" rel="noopener noreferrer">Jonas Frey</a></div>
-                      <div class="meta">
-                        <span class="venue preprint">arXiv 2025</span>
-                        <a href="https://leggedrobotics.github.io/navitrace_webpage/" target="_blank" rel="noopener noreferrer">Project Page</a> /
-                        <a href="https://github.com/leggedrobotics/navitrace_evaluation" target="_blank" rel="noopener noreferrer">Code</a> /
-                        <a href="https://huggingface.co/datasets/leggedrobotics/navitrace" target="_blank" rel="noopener noreferrer">Dataset</a> /
-                        <a href="https://huggingface.co/spaces/leggedrobotics/navitrace_leaderboard" target="_blank" rel="noopener noreferrer">Leaderboard</a> /
-                        <a href="https://arxiv.org/abs/2510.26909" target="_blank" rel="noopener noreferrer">arXiv</a> /
-                        <details><summary>Abstract</summary>
-                          <p>We introduce NaviTrace, a comprehensive benchmark for evaluating embodied navigation capabilities of Vision-Language Models.
-                          NaviTrace provides a standardized evaluation framework across diverse navigation tasks, enabling systematic assessment of VLMs'
-                          spatial reasoning and instruction-following abilities in diverse real-world robotic navigation scenarios.</p>
-                        </details>
-                      </div>
-                    </div>
+        <h3 id="other">9. Other Interesting Papers</h3>
+        <p>
+          There are several other interesting papers that don’t fit neatly into the categories above but are worth mentioning.
+          They explore varied aspects of VLA design, from the choice of VLM backbone to adding memory modules into the policy.
+          I’m especially interested in memory: most VLAs encode only the current image and ignore prior timesteps, which is a major limitation for many tasks.
+        </p>
+        <p>
+          Naively feeding long histories into VLAs often backfires: models overfit to demonstrator-specific trajectories, and during rollouts the agent rarely encounters the same state sequences, leading to large performance drops.
+          By contrast, memory modules that aggregate and compress past context (rather than memorizing it) look promising.
+          Hopefully this makes learned policies more robust to distribution shift while preserving the temporal cues needed for long-horizon control.
+        </p>
 
-                    <div class="pub">
-                      <a href="https://robottasklabeling.github.io/" target="_blank" rel="noopener noreferrer"><papertitle>Scaling Robot Policy Learning via Zero-Shot Labeling with Foundation Models</papertitle></a>
-                      <div class="authors">Nils Blank, <strong>Moritz Reuss</strong>, Marcel Rühle, Ömer Erdinç Yağmurlu, Fabian Wenzel, <a href="https://www.oiermees.com/" target="_blank" rel="noopener noreferrer">Oier Mees</a>, <a href="http://rudolf.intuitive-robots.net/" target="_blank" rel="noopener noreferrer">Rudolf Lioutikov</a></div>
-                      <div class="meta">
-                        <span class="venue">CoRL 2024</span>
-                        <span class="award">Oral @ MoMa Workshop, ICRA 2024</span> ·
-                        <a href="https://openreview.net/pdf?id=EdVNB2kHv1" target="_blank" rel="noopener noreferrer">Paper</a> /
-                        <details><summary>Abstract</summary>
-                          <p>We introduce a method to automatically label uncurated, long-horizon robot teleoperation data at scale in a zero-shot manner without human intervention.
-                          We combine pre-trained vision-language foundation models to detect objects, propose tasks, segment tasks in large unlabeled interaction datasets,
-                          and train language-conditioned policies on the relabeled data. Initial experiments show that our method enables policies that match those trained
-                          with oracle human annotations.</p>
-                        </details>
-                      </div>
-                    </div>
+        <p>
+          Another cool work I wanted to highlight is the challenge of composing multiple policies at test time to improve performance.
+          Diffusion and flow-based VLAs are required for this, since their energy-based formulation allows combining multiple models by summing their scores.
+          This is a promising direction to improve performance without training, and I hope to see more. 
+        </p>
 
-                    <div class="pub">
-                      <a href="https://openreview.net/pdf?id=6pPYRXKPpw" target="_blank" rel="noopener noreferrer"><papertitle>Towards Diverse Behaviors: A Benchmark for Imitation Learning with Human Demonstrations</papertitle></a>
-                      <div class="authors">Xiaogang Jia, Denis Blessing, Xinkai Jiang, <strong>Moritz Reuss</strong>, Atalay Donat, <a href="http://rudolf.intuitive-robots.net/" target="_blank" rel="noopener noreferrer">Rudolf Lioutikov</a>, Gerhard Neumann</div>
-                      <div class="meta">
-                        <span class="venue">ICLR 2024</span>
-                        <a href="https://openreview.net/pdf?id=6pPYRXKPpw" target="_blank" rel="noopener noreferrer">OpenReview</a> /
-                        <details><summary>Abstract</summary>
-                          <p>D3IL introduces simulation benchmark environments and datasets tailored for imitation learning, designed to evaluate a model’s ability to learn
-                          and replicate diverse, multimodal human behaviors. Environments encompass multiple sub-tasks and object manipulations, providing rich diversity
-                          often lacking in other datasets. We also propose practical metrics to quantify behavioral diversity and benchmark state-of-the-art methods.</p>
-                        </details>
-                      </div>
-                    </div>
-                  </div>
+        <p><strong>Notable papers:</strong></p>
+        <ul>
+          <li>
+            <a href="https://openreview.net/attachment?id=KcJ9U0x6kO&name=pdf">
+              HAMLET: SWITCH YOUR VISION-LANGUAGE-ACTION MODEL INTO A HISTORY-AWARE POLICY
+            </a><br>
+            <em>TL;DR:</em> Introduces a plug-and-play style memory module with moment tokens to capture temporal stuff from prior timesteps. A proposed memory module aggregates tokens over time to enable history-conditioned prediction.
+          </li>
+          <li>
+            <a href="https://openreview.net/attachment?id=TnLFRhLuZ6&name=pdf">
+              COMPOSE YOUR POLICIES! IMPROVING DIFFUSION-BASED OR FLOW-BASED ROBOT POLICIES VIA TEST-TIME DISTRIBUTION-LEVEL COMPOSITION
+            </a><br>
+            <em>TL;DR:</em> Introduces a method to compose flow/diffusion-based VLA policies at test time to improve performance over individual policies.
+            The authors use convex optimization and test-time search to compose scores from multiple policies to improve performance.
+          </li>
+          <li>
+            <a href="https://openreview.net/attachment?id=tc2UsBeODW&name=pdf">
+              VLM4VLA: REVISITING VISION-LANGUAGE-MODELS IN VISION-LANGUAGE-ACTION MODELS
+            </a><br>
+            <em>TL;DR:</em> Compares a lot of VLMs as backbone choice for VLAs and finds that downstream performance has no correlation with VLM performance on standard benchmarks.
+            This confirms my own experience in experimenting with various VLM backbones. However, the paper is still limited to benchmark setups only and does not test real robot results.
+          </li>
+        </ul>
+          
+        <h2 id="frontier-gap">The Hidden Gap Between Frontier and Research VLAs</h2>
+        <figure class="figure-container">
+          <img src="images/closed_vs_open_VLAs.png" alt="VLAs Overview">
+          <figcaption>Figure 9: Overview of closed-weight vs open-weight VLAs.</a>.</figcaption>
+        </figure>
+        <p>
+          On paper (pun intended:)), the gap seems small: on simulation setups (LIBERO, CALVIN) open-source VLAs surpass popular frontier baselines like Pi0.5. 
+          In practice, there is still a bigger gap that only shows up precisely where current papers rarely evaluate: <em>zero-shot, open-world behavior after pretraining</em>. 
+          Two weeks ago at CoRL, the Gemini-Robotics VLA demo attempted a wide range of novel tasks with arbitrary objects and paraphrased language. 
+          My own VLA <a href="https://arxiv.org/pdf/2509.04996">FLOWER</a> is state-of-the-art on all CALVIN benchmarks, but nowhere close to that level of zero-shot robustness. 
+          Simulation benchmarks hide this delta and current simulation setups don't optimize for this objective.<br><br>
+          
+          This gap is not unique to VLAs, the same is true for LLMs and VLMs.
+          For VLAs, fully open-weight models (that share training recipe, data, code and weights) still lag significantly behind closed-weight models like Gemini-Robotics and Pi0.5 on zero-shot tasks.
+          (although there seem to be some promising signs that this gap is closing with <a href="https://arxiv.org/abs/2508.21112">EO-1</a> but I haven't tried them myself yet).
+          This is not to say that open-weight VLAs are useless. 
+          They are very useful for research and have strong performance in a lot of scenarios.
+          But I wanted to highlight this gap, as I believe it is a significant issue for our community that needs to be addressed in the future.<br><br>
+        </p>
+      <p><strong>Why the gap exists (based on what’s visible from papers, discussion with peers and personal experience):</strong></p>
+      <ul>
+        <li><em>Benchmark progress saturation masks real progress.</em> When scores cluster near the ceiling, “+0.5%” is not evidence of real improvements.</li>
+        <li><em>High quality Data Gap</em> The current available open-source data is limited in diversity and scale, which limits the training of more general models.</li>
+        <li><em>Understanding of High Quality Data</em>It's not only the data scale, it's also about the missing knowledge gap of understanding high quality demonstration data.</li>
+        <li><em>Evaluation scope is narrow.</em> Most papers report sim-only or small, locally finetuned setups. 
+          Free-form zero-shot language following and unseen objects/rooms are very rare. 
+          However, it's important to highlight that proper large-scale evals are only doable by companies.</li>
+        <li><em>Operational constraints.</em> Research groups lack the manpower/time to run large, diverse real-world trials necessary for rapid iteration. 
+          Frontier labs operate at a different scale of manpower, funding, and robot fleet size.
+        Thus, many PhDs, including myself, iterate on simulation benchmarks to test and try out their ideas.</li>
+        <li><em>Missing Peer Review Incentives.</em> Reviewers at most major conferences expect head-to-head comparison against open-weight but closed-source trained VLAs on standard sims and strong local finetuning numbers. 
+          These benchmarks are good for paper acceptance, but weakly correlated with open-world performance.</li>
+      </ul>
+      <p><strong>Counterarguments against this thesis:</strong></p>
+      <ul>
+        <li><em>Research Findings are not equal to performance gains.</em>
+          Many great papers I discussed here have general interesting findings useful for the community and research. 
+          Zero-shot Performance is only one aspect of VLA Performance.</li>
+      </ul>
+      If you have good arguments for or against this thesis, please reach out to me, very happy to hear other opinions.<br><br>
+      <figure class="figure-container">
+        <img src="images/roboarena_leaderboard.png" alt="Zero-Shot Gap Illustration">
+        <figcaption>Figure 10: Overview of the current <a href="https://robo-arena.github.io/" target="_blank">RoboArena</a> Leaderboard. There is only one non-Pi model that is near to being competitive in zero-shot tasks.</figcaption>
+      </figure>
+      <p><strong>What would help to bridge this gap without blowing the compute and human manpower budget:</strong></p>
+      <ul>
+        <li><em>Usage of public zero-shot fair benchmarks.</em> Track progress on setups like <a href="https://robo-arena.github.io/" target="_blank">RoboArena</a> that test post-pretraining generalization by independent operators. 
+          Today, non-Pi models are scarcely represented and far behind. However, the training code for the higher ranked policies are all fully open-sourced by PI in this <a href="https://github.com/Physical-Intelligence/openpi" target="_blank">codebase</a> to facilitate further research.</li> 
+          Another new interesting attempt to tackle this is <a href="https://manipulation-net.org/" target="_blank">ManipulationNet</a>. I hope the community is able to adopt some of these for better evaluation. 
+          <li><em>Better Pretraining Recipes.”</em> I've seen only very few papers like <a href="https://openreview.net/attachment?id=kt51kZH4aG&name=pdf">X-VLA</a> that properly ablate all their pretraining design decisions to understand the impact of these for performance. 
+        We need more papers like this that share full pretraining recipes and also discuss failed ideas that did not work during pretraining.</li>
+        </ul>
+      <p>
+        I want to clearly highlight, that I don't think simulation or local finetuning are useless for research in contrast they are very important for many parts of robot learning. 
+        Only that they are a poor proxy for the thing for the main argument of VLA: <em>robust zero-shot behavior in messy, new environments</em>. 
+      </p>
 
-                  <!-- ================= Control ================= -->
-                  <div class="pub-category" id="control">
-                    <h3>Robot Control</h3>
-                    <p class="cat-desc">Learned dynamics models for precise, compliant low-level control.</p>
+        
+        <h2 id="summary-outlook">Summary and Outlook</h2>
 
-                    <div class="pub">
-                      <a href="https://arxiv.org/pdf/2205.13804" target="_blank" rel="noopener noreferrer"><papertitle>End-to-End Learning of Hybrid Inverse Dynamics Models for Precise and Compliant Impedance Control</papertitle></a>
-                      <div class="authors"><strong>Moritz Reuss</strong>, Niels van Duijkeren, Robert Krug, Philipp Becker, Vaisakh Shaj, Gerhard Neumann</div>
-                      <div class="meta">
-                        <span class="venue">RSS 2022</span>
-                        <a href="https://arxiv.org/pdf/2205.13804" target="_blank" rel="noopener noreferrer">arXiv</a> /
-                        <details><summary>Abstract</summary>
-                          <p>We present a hybrid model combining a differentiable rigid-body model with a recurrent LSTM to accurately model the inverse dynamics
-                          of a robot manipulator. A differentiable formulation of barycentric parameters enables end-to-end training jointly with the residual network
-                          while preserving physical consistency. On a Franka Emika Panda, the model enables precise and compliant motion tracking.</p>
-                        </details>
-                      </div>
-                    </div>
-                  </div>
+        <p>
+          Overall, I am very positive about the current state of VLA research and the progress being made in this field.
+          The trends above show strong interest and contributions across VLA models—from architecture design to training strategies and evaluation methods.
+          However, there are also a few disappointing aspects aside from the zero-shot performance gap of the current state of VLA research that are worth highlighting.
+        </p>
 
-                </td>
-              </tr>
-            </tbody>
-          </table>
+        <p><strong>Two Underrepresented Problems in Current VLA Research:</strong></p>
 
-          <!-- Footer -->
-          <table style="width:100%;border:0;border-spacing:0;border-collapse:separate;margin:0 auto;">
-            <tbody>
-              <tr>
-                <td style="padding:0; vertical-align: middle;">
-                  <br />
-                  <p style="text-align:right;font-size:small;color:#4b5563;">
-                    The website is based on the
-                    <a href="https://github.com/jonbarron/jonbarron_website" target="_blank" rel="noopener noreferrer">source code</a>.
-                    &nbsp;|&nbsp;
-                    <a href="https://mbreuss.github.io/blog_post_iclr_26_vla.html">Blog</a>
-                  </p>
-                </td>
-              </tr>
-            </tbody>
-          </table>
+        <ul>
+          <li><strong>Data quality:</strong> Despite being critical for VLA performance, surprisingly few ICLR 2026 submissions focused on data collection and curation. 
+            It's an open secret that OXE is mostly low-quality data, yet we still lack good methods to quantify data quality in imitation learning. 
+            Data-centric research is hard, but understanding how to curate high-quality datasets remains one of the most crucial unsolved problems in VLA research.</li>
+          
+          <li><strong>In-context learning:</strong> Given the success of in-context learning for LLMs and VLMs, I expected more VLA work in this direction but found almost none. 
+            Language alone provides limited context for complex physical tasks—in-context learning could be key to enabling better prompting and zero-shot task generalization for VLAs. 
+            There have been some good attempts, but it's still unclear how to best implement this for VLAs in a way that captures the rich contextual information needed to solve complex manipulation tasks.</li>
+        </ul>
 
-        </td>
-      </tr>
-    </tbody>
+        <p>
+          Despite these gaps, I remain optimistic that the field will continue to grow and evolve rapidly. 
+          The explosive growth in submissions and the convergence on promising directions like discrete diffusion and embodied reasoning suggest that VLA research is maturing quickly. 
+          As we address these fundamental challenges around data quality and contextual learning, we'll move closer to VLAs that can truly generalize in the messy, unstructured environments where robots need to operate.
+        </p>
+        
+        <h2 id="cite">Cite this post</h2>
+        <p>If you’d like to cite this article, use the BibTeX below:</p>
+        <pre><code>@misc{reuss2025state-vla-iclr26,
+          title        = {State of VLA Research at ICLR 2026},
+          author       = {Reuss, Moritz},
+          year         = {2025},
+          month        = {October},
+          howpublished = {\url{https://mbreuss.github.io/blog_post_iclr_26_vla.html}},
+          note         = {Blog post},
+        }</code></pre>
+
+        
+        <hr>
+        <p style="text-align:center;">
+          <a href="index.html">← Back to main page</a>
+        </p>
+
+      </td>
+    </tr>
   </table>
-  <!-- ===== Background A3: goal-conditioned reaching =====
-       A column-mounted 2-link arm reaches for the cursor. Motion runs in action chunks
-       (receding horizon): while one chunk executes, the next chunk is denoised from
-       Gaussian noise toward the current cursor position (coral = noisy, blue = clean).
-       The next chunk follows the cursor during the first part of its denoising, then
-       commits, so the arm never jerks. Chunks join with matching position and velocity.
-       Without a cursor (mouse away, touch devices) the arm reaches for idle goals. -->
-  <script>
-    (() => {
-      const canvas = document.getElementById('trajectory-scene');
-      const ctx = canvas.getContext('2d');
-      const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
-
-      const C_NOISE = [223, 138, 115], C_CLEAN = [95, 143, 196];
-      const C_EXEC = '#78a993', C_ARM = '#8b94a3', C_TABLE = '#c3c7ce', C_GOAL = '#6b7280';
-      const CHUNK_T = 2.2;            // seconds per action chunk
-      const PER_CHUNK = 18;           // particles per chunk
-      const MIN_WIDTH = 1200;         // the scene needs a wide right margin
-      const V_MAX = 0.8;              // U/s, cruising speed toward the goal
-      const STEP_MAX = 1.4;           // U, farthest a single chunk travels
-      const BEND = 0.18;              // U, sample-specific curvature of each generated chunk
-      const HOVER = 0.28;             // U, radius of the idle hover around a reached goal
-      const LIVE = 0.45;              // fraction of a chunk during which the NEXT chunk still follows the cursor
-
-      // Geometry in units of U: x relative to scene center, y relative to the table (negative = up)
-      const BASE_X = 1.55, SHOULDER_Y = -2.6, LINK = 1.85;
-      const GOAL_BOX = { x0: -1.35, x1: 1.0, y0: -2.2, y1: -0.35 };   // all reachable, elbow stays clear
-
-      let W = 0, H = 0, frame = null, G = {}, mouse = null;
-
-      const clamp01 = (v) => Math.max(0, Math.min(1, v));
-      const smooth = (a, b, v) => { const t = clamp01((v - a) / (b - a)); return t * t * (3 - 2 * t); };
-      const easeInOut = (t) => (t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2);
-      const mix = (a, b, t) => `rgb(${a.map((v, i) => Math.round(v + (b[i] - v) * t)).join(',')})`;
-      const rng = (seed) => {
-        let a = seed >>> 0;
-        return () => { a = (a + 0x6D2B79F5) | 0; let t = Math.imul(a ^ (a >>> 15), 1 | a); t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t; return ((t ^ (t >>> 14)) >>> 0) / 4294967296; };
-      };
-      const gaussFrom = (r) => { let u = 0; while (!u) u = r(); return Math.sqrt(-2 * Math.log(u)) * Math.cos(2 * Math.PI * r()); };
-      const M_IN = 0.2;                  // goals sit inside the safety box, so curves rarely touch its edge
-      const clampGoal = (g) => ({ x: Math.max(GOAL_BOX.x0 + M_IN, Math.min(GOAL_BOX.x1 - M_IN, g.x)), y: Math.max(GOAL_BOX.y0 + M_IN, Math.min(GOAL_BOX.y1 - M_IN, g.y)) });
-
-      // ---------- Goals: cursor snapshots per chunk, idle goals otherwise ----------
-      const snaps = new Map();            // chunk index -> clamped cursor goal (task units) or null
-      const idleGoal = (j) => {
-        const r = rng(Math.floor(j / 3) * 31 + 7);
-        return { x: -1.15 + r() * 2.0, y: -2.0 + r() * 1.5 };
-      };
-      const goalFor = (j) => snaps.get(j) || idleGoal(j);
-
-      // ---------- Chunks: cubic Hermite segments, C1-continuous across chunk boundaries ----------
-      const chunks = new Map();           // chunk index -> { p0, v0, p1, v1, n, bend, g }
-      const HOME = { x: 0.2, y: -1.4 };
-      const chunk = (j) => {
-        if (chunks.has(j)) return chunks.get(j);
-        const prev = j <= 0 ? null : chunk(j - 1);
-        const p0 = prev ? prev.p1 : HOME, v0 = prev ? prev.v1 : { x: 0, y: 0 };
-        const g = goalFor(j);
-        const dx = g.x - p0.x, dy = g.y - p0.y, dist = Math.hypot(dx, dy);
-        let p1, v1;
-        if (dist <= STEP_MAX) {                  // arrived: hover around the goal, like a stochastic policy would
-          const rh = rng(j * 7727 + 11), ang = rh() * Math.PI * 2, rad = HOVER * (0.5 + 0.5 * rh());
-          p1 = clampGoal({ x: g.x + Math.cos(ang) * rad, y: g.y + Math.sin(ang) * rad });
-          v1 = { x: 0, y: 0 };
-        }
-        else {
-          const ux = dx / dist, uy = dy / dist;
-          p1 = { x: p0.x + ux * STEP_MAX, y: p0.y + uy * STEP_MAX };
-          v1 = { x: ux * V_MAX, y: uy * V_MAX };                                          // keep cruising
-        }
-        const span = Math.hypot(p1.x - p0.x, p1.y - p0.y);
-        const r = rng(j * 104729 + 3);
-        const n = span > 1e-6 ? { x: -(p1.y - p0.y) / span, y: (p1.x - p0.x) / span } : { x: 0, y: 0 };
-        const c = { p0, v0, p1, v1, n, bend: (r() * 2 - 1) * BEND * Math.min(1, span), g };
-        chunks.set(j, c);
-        return c;
-      };
-      const invalidateFrom = (j) => { for (const key of [...chunks.keys()]) if (key >= j) chunks.delete(key); };
-
-      const eeAt = (t) => {                       // gripper center, task units
-        t = Math.max(0, t);
-        const j = Math.floor(t / CHUNK_T), s = t / CHUNK_T - j, c = chunk(j), T = CHUNK_T;
-        const s2 = s * s, s3 = s2 * s;
-        const h00 = 2 * s3 - 3 * s2 + 1, h10 = s3 - 2 * s2 + s, h01 = -2 * s3 + 3 * s2, h11 = s3 - s2;
-        const bump = 16 * s2 * (1 - s) * (1 - s);                 // zero value and slope at both ends: keeps C1
-        let x = h00 * c.p0.x + h10 * T * c.v0.x + h01 * c.p1.x + h11 * T * c.v1.x + bump * c.bend * c.n.x;
-        let y = h00 * c.p0.y + h10 * T * c.v0.y + h01 * c.p1.y + h11 * T * c.v1.y + bump * c.bend * c.n.y;
-        // continuous safety bounds: above the table, below the shoulder region, off the column
-        x = Math.max(GOAL_BOX.x0 - 0.1, Math.min(GOAL_BOX.x1 + 0.05, x));
-        y = Math.max(GOAL_BOX.y0 - 0.05, Math.min(GOAL_BOX.y1 + 0.05, y));
-        return { x, y };
-      };
-
-      const px = (p) => ({ x: G.cx + p.x * G.U, y: G.ty + p.y * G.U });
-      const toTask = (q) => ({ x: (q.x - G.cx) / G.U, y: (q.y - G.ty) / G.U });
-
-      const resize = () => {
-        const scale = Math.min(window.devicePixelRatio || 1, 2);
-        W = window.innerWidth; H = window.innerHeight;
-        canvas.width = Math.round(W * scale); canvas.height = Math.round(H * scale);
-        ctx.setTransform(scale, 0, 0, scale, 0, 0);
-        const U = Math.min(0.072 * W, 0.14 * H);
-        const cx = W - (BASE_X + 0.45) * U - 16, ty = 0.62 * H;
-        G = { U, cx, ty, bx: cx + BASE_X * U, sy: ty + SHOULDER_Y * U, L: LINK * U };
-      };
-
-      // 2-link IK to the wrist on one fixed elbow branch (continuous everywhere inside the reach)
-      const elbowFor = (wx, wy) => {
-        const dx = wx - G.bx, dy = wy - G.sy, L = G.L;
-        const d = Math.max(1e-6, Math.min(Math.hypot(dx, dy), 2 * L * 0.999));
-        const q2 = Math.acos(Math.max(-1, Math.min(1, (d * d - 2 * L * L) / (2 * L * L))));
-        const a = Math.atan2(dy, dx) + Math.atan2(L * Math.sin(q2), L + L * Math.cos(q2));
-        return { x: G.bx + L * Math.cos(a), y: G.sy + L * Math.sin(a) };
-      };
-
-      const strokePath = (t0, t1, n) => {
-        ctx.beginPath();
-        for (let j = 0; j <= n; j++) {
-          const q = px(eeAt(t0 + (t1 - t0) * (j / n)));
-          if (j === 0) ctx.moveTo(q.x, q.y); else ctx.lineTo(q.x, q.y);
-        }
-      };
-
-      const drawArm = (ee) => {
-        const U = G.U;
-        const wrist = { x: ee.x, y: ee.y - 0.42 * U }, palmY = ee.y - 0.3 * U, h = 0.32 * U;
-        const el = elbowFor(wrist.x, wrist.y);
-        ctx.lineCap = 'round';
-        ctx.fillStyle = C_ARM; ctx.globalAlpha = 0.16;
-        ctx.fillRect(G.bx - 0.09 * U, G.sy, 0.18 * U, G.ty - G.sy);
-        ctx.globalAlpha = 0.25;
-        ctx.fillRect(G.bx - 0.22 * U, G.ty - 0.1 * U, 0.44 * U, 0.1 * U);
-        ctx.strokeStyle = C_ARM; ctx.lineWidth = 5; ctx.globalAlpha = 0.2;
-        ctx.beginPath(); ctx.moveTo(G.bx, G.sy); ctx.lineTo(el.x, el.y); ctx.lineTo(wrist.x, wrist.y); ctx.stroke();
-        ctx.lineWidth = 3; ctx.globalAlpha = 0.3;
-        ctx.beginPath(); ctx.moveTo(wrist.x, wrist.y); ctx.lineTo(wrist.x, palmY); ctx.stroke();
-        ctx.lineWidth = 2.4; ctx.globalAlpha = 0.55;
-        ctx.beginPath();
-        ctx.moveTo(ee.x - h, palmY); ctx.lineTo(ee.x + h, palmY);
-        ctx.moveTo(ee.x - h, palmY); ctx.lineTo(ee.x - h, ee.y + 0.1 * U);
-        ctx.moveTo(ee.x + h, palmY); ctx.lineTo(ee.x + h, ee.y + 0.1 * U);
-        ctx.stroke();
-        ctx.lineWidth = 1.5;
-        [{ x: G.bx, y: G.sy, r: 5 }, { x: el.x, y: el.y, r: 5 }, { x: wrist.x, y: wrist.y, r: 3.5 }].forEach((j) => {
-          ctx.beginPath(); ctx.arc(j.x, j.y, j.r, 0, Math.PI * 2);
-          ctx.globalAlpha = 0.9; ctx.fillStyle = '#fffefb'; ctx.fill();
-          ctx.globalAlpha = 0.5; ctx.strokeStyle = C_ARM; ctx.stroke();
-        });
-      };
-
-      const drawGoal = (g, alpha) => {            // small crosshair target
-        const q = px(g), r = 0.16 * G.U;
-        ctx.strokeStyle = C_GOAL; ctx.lineWidth = 1.2; ctx.globalAlpha = alpha;
-        ctx.beginPath(); ctx.arc(q.x, q.y, r, 0, Math.PI * 2); ctx.stroke();
-        ctx.beginPath();
-        ctx.moveTo(q.x - r * 1.7, q.y); ctx.lineTo(q.x - r * 0.5, q.y);
-        ctx.moveTo(q.x + r * 0.5, q.y); ctx.lineTo(q.x + r * 1.7, q.y);
-        ctx.moveTo(q.x, q.y - r * 1.7); ctx.lineTo(q.x, q.y - r * 0.5);
-        ctx.moveTo(q.x, q.y + r * 0.5); ctx.lineTo(q.x, q.y + r * 1.7);
-        ctx.stroke();
-      };
-
-      const draw = (time) => {
-        ctx.clearRect(0, 0, W, H);
-        if (W >= MIN_WIDTH) {
-          const t = time / 1000, U = G.U;
-          const k = Math.floor(t / CHUNK_T), phase = t / CHUNK_T - k;
-
-          // goal snapshots: chunk k is executing (committed); chunk k+1 is being denoised and follows
-          // the cursor until LIVE, then commits.
-          const cur = mouse ? clampGoal(toTask(mouse)) : null;
-          if (!snaps.has(k)) snaps.set(k, cur);
-          if (!snaps.has(k + 1) || phase < LIVE) {
-            const old = snaps.get(k + 1);
-            const same = (a, b) => (!a && !b) || (a && b && Math.abs(a.x - b.x) < 1e-4 && Math.abs(a.y - b.y) < 1e-4);
-            if (!snaps.has(k + 1) || !same(old, cur)) { snaps.set(k + 1, cur); invalidateFrom(k + 1); }
-          }
-          for (const key of [...snaps.keys()]) if (key < k - 3) snaps.delete(key);
-          for (const key of [...chunks.keys()]) if (key < k - 3) chunks.delete(key);
-
-          // table
-          ctx.strokeStyle = C_TABLE; ctx.lineWidth = 1.5; ctx.globalAlpha = 0.7;
-          ctx.beginPath(); ctx.moveTo(Math.max(G.cx - 1.5 * U, (W + 800) / 2 + 8), G.ty); ctx.lineTo(G.bx + 0.4 * U, G.ty); ctx.stroke();   // table stops at the 800px content column
-
-          // goal the next chunk is heading for
-          drawGoal(goalFor(k + 1), mouse ? 0.5 : 0.25);
-
-          // executed path (fading tail)
-          const tail = Math.min(3.5, t), pieces = 24;
-          ctx.strokeStyle = C_EXEC; ctx.lineWidth = 2; ctx.lineCap = 'round';
-          for (let j = 0; j < pieces; j++) {
-            strokePath(t - tail + (tail * j) / pieces, t - tail + (tail * (j + 1)) / pieces, 2);
-            ctx.globalAlpha = 0.5 * ((j + 1) / pieces); ctx.stroke();
-          }
-
-          // rest of the current chunk: the committed plan being executed
-          ctx.strokeStyle = mix(C_CLEAN, C_CLEAN, 0); ctx.lineWidth = 1.5;
-          strokePath(t, (k + 1) * CHUNK_T, 20);
-          ctx.globalAlpha = 0.4; ctx.stroke();
-
-          // next chunk: denoised from noise toward the goal while the current chunk executes
-          const level = 1 - easeInOut(clamp01((phase - 0.06) / 0.62));
-          const appear = smooth(0, 0.1, phase), vanish = 1 - smooth(0.82, 1.0, phase);
-          const lineIn = smooth(0.64, 0.8, phase);
-          if (lineIn > 0) {
-            strokePath((k + 1) * CHUNK_T, (k + 2) * CHUNK_T, 20);
-            ctx.strokeStyle = mix(C_CLEAN, C_CLEAN, 0); ctx.lineWidth = 1.5;
-            ctx.globalAlpha = 0.4 * lineIn; ctx.stroke();
-          }
-          const r = rng((k + 1) * 7919 + 13), sigma = 0.32 * U;
-          const moving = level > 0.001 && level < 0.999;
-          for (let j = 0; j < PER_CHUNK; j++) {
-            const nx = gaussFrom(r), ny = gaussFrom(r), phi = (r() * 2 - 1) * 1.8;
-            const tgt = px(eeAt((k + 1) * CHUNK_T + (CHUNK_T * j) / (PER_CHUNK - 1)));
-            const at = (lv) => {
-              const th = phi * (1 - lv), c = Math.cos(th), sn = Math.sin(th);
-              return { x: tgt.x + lv * sigma * (nx * c - ny * sn), y: tgt.y + lv * sigma * (nx * sn + ny * c) };
-            };
-            const col = mix(C_NOISE, C_CLEAN, 1 - level);
-            if (moving) {
-              ctx.beginPath();
-              for (let m = 0; m <= 5; m++) {
-                const q = at(Math.min(1, level + m * 0.025));
-                if (m === 0) ctx.moveTo(q.x, q.y); else ctx.lineTo(q.x, q.y);
-              }
-              ctx.strokeStyle = col; ctx.lineWidth = 0.8; ctx.globalAlpha = 0.25 * appear; ctx.stroke();
-            }
-            const q = at(level);
-            ctx.beginPath(); ctx.arc(q.x, q.y, 1.4 + (1 - level) * 0.5, 0, Math.PI * 2);
-            ctx.fillStyle = col; ctx.globalAlpha = (0.42 + 0.33 * (1 - level)) * appear * vanish; ctx.fill();
-          }
-
-          drawArm(px(eeAt(t)));
-        }
-        ctx.globalAlpha = 1;
-        frame = window.requestAnimationFrame(draw);
-      };
-
-      if (window.matchMedia('(hover: hover)').matches) {
-        window.addEventListener('mousemove', (e) => { mouse = { x: e.clientX, y: e.clientY }; });
-        document.addEventListener('mouseleave', () => { mouse = null; });
-      }
-
-      resize();
-      window.addEventListener('resize', resize);
-      if (!reducedMotion.matches) frame = window.requestAnimationFrame(draw);
-      reducedMotion.addEventListener('change', (event) => {
-        if (event.matches && frame) { window.cancelAnimationFrame(frame); frame = null; }
-        if (!event.matches && !frame) frame = window.requestAnimationFrame(draw);
-      });
-    })();
-  </script>
 </body>
 </html>
