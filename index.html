@@ -38,6 +38,62 @@
     .selected-paper p { margin: 5px 0; color: #374151; }
     .selected-paper .links { font-size: 0.92em; }
     .selected-note { color: #4b5563; font-size: 0.92em; margin-top: 4px; }
+
+    /* Categorized publication list */
+    .cat-nav { margin: 8px 0 4px; font-size: 0.92em; line-height: 1.9; }
+    .cat-nav a {
+      display: inline-block;
+      padding: 1px 10px;
+      margin: 0 4px 4px 0;
+      border: 1px solid #d1d5db;
+      border-radius: 999px;
+      text-decoration: none;
+      color: #374151;
+      background: #fff;
+    }
+    .cat-nav a:hover { border-color: #7fa891; color: #1f2937; }
+    .pub-category { margin-top: 26px; scroll-margin-top: 16px; }
+    .pub-category h3 {
+      margin: 0 0 2px;
+      font-size: 1.08em;
+      font-weight: 600;
+      color: #1f2937;
+      border-left: 4px solid #7fa891;
+      padding-left: 10px;
+    }
+    .cat-desc { margin: 2px 0 6px 14px; color: #4b5563; font-size: 0.92em; }
+    .pub { padding: 10px 0 10px 14px; border-top: 1px solid #f0f0f0; }
+    .pub:first-of-type { border-top: 0; }
+    .pub .authors { color: #374151; font-size: 0.95em; }
+    .pub .meta { font-size: 0.92em; margin-top: 2px; }
+    .venue {
+      display: inline-block;
+      font-size: 0.85em;
+      font-weight: 600;
+      padding: 0 7px;
+      border-radius: 4px;
+      background: #eef4f0;
+      color: #35624a;
+      margin-right: 4px;
+    }
+    .venue.preprint { background: #f3f4f6; color: #4b5563; }
+    .badge-new {
+      font-size: 0.72em;
+      font-weight: 700;
+      letter-spacing: 0.03em;
+      padding: 0 6px;
+      border-radius: 4px;
+      background: #df8a73;
+      color: #fff;
+      vertical-align: middle;
+      margin-left: 4px;
+    }
+    .award { color: #b91c1c; font-weight: 600; font-size: 0.92em; }
+    .pub details { display: inline; }
+    .pub summary { display: inline; cursor: pointer; color: #5f8fc4; list-style: none; }
+    .pub summary::-webkit-details-marker { display: none; }
+    .pub details[open] p { margin: 6px 0 2px; color: #4b5563; font-size: 0.93em; }
+
     @media (max-width: 680px) { #trajectory-scene { display: none; } }
     @media (prefers-reduced-motion: reduce) { #trajectory-scene { display: none; } }
   </style>
@@ -127,7 +183,8 @@
                     <a href="https://scholar.google.com/citations?user=NLuzkPIAAAAJ&hl=de" target="_blank" rel="noopener noreferrer">Google Scholar</a> &nbsp;/&nbsp;
                     <a href="https://github.com/mbreuss/" target="_blank" rel="noopener noreferrer">GitHub</a> &nbsp;/&nbsp;
                     <a href="https://www.linkedin.com/in/moritzreuss/?locale=en_US" target="_blank" rel="noopener noreferrer">LinkedIn</a> &nbsp;/&nbsp;
-                    <a href="#perspectives">Perspectives</a>
+                    <a href="#perspectives">Perspectives</a> &nbsp;/&nbsp;
+                    <a href="#publications">Publications</a>
                   </p>
                 </td>
 
@@ -190,6 +247,7 @@
                   <div class="selected-paper">
                     <a href="https://intuitive-robots.github.io/mdt_policy/" target="_blank" rel="noopener noreferrer"><papertitle>Multimodal Diffusion Transformer: Learning Versatile Behavior from Multimodal Goals</papertitle></a> — RSS 2024
                     <p>A diffusion policy that learns long-horizon behavior from language and image goals in uncurated, reward-free offline data.</p>
+                    <p class="selected-note"><strong>An early step toward World-Action Models:</strong> MDT's Masked Generative Foresight objective trains the policy to predict future visual states alongside its actions, the core idea behind today's WAMs.</p>
                   </div>
                   <div class="selected-paper">
                     <a href="https://intuitive-robots.github.io/beso-website" target="_blank" rel="noopener noreferrer"><papertitle>Goal-Conditioned Imitation Learning using Score-based Diffusion Policies</papertitle></a> — RSS 2023
@@ -201,420 +259,338 @@
           </table>
 
 
-          <!-- Papers list -->
+          <!-- Publications by research area -->
           <table style="width:100%;border:0;border-spacing:0;border-collapse:separate;margin:0 auto;">
             <tbody>
-
-               <!-- Heading row -->
-              <tr>
-                <td style="padding:12px 20px 0 20px;width:100%;vertical-align:middle">
-                  <heading>Full Publication List</heading>
-                  <div style="height:1px;background:#e5e7eb;margin-top:6px;"></div>
-                </td>
-              </tr>
-
-              <!-- FLOWER (highlighted) -->
               <tr>
                 <td style="padding:20px;width:100%;vertical-align:middle">
-                  <div style="display:flex;">
-                    <div style="flex:0 0 25%;max-width:25%;">
-                      <img src="images/flower_overview.png" alt="FLOWER VLA overview diagram" style="width:100%;max-width:100%;" loading="lazy" />
-                    </div>
-                    <div style="flex:0 0 75%;max-width:75%;padding-left:20px;">
-                      <a href="https://www.arxiv.org/pdf/2509.04996" target="_blank" rel="noopener noreferrer">
-                        <papertitle>FLOWER: Democratizing Generalist Robot Policies with Efficient Vision-Language-Action Flow Policies</papertitle>
-                      </a>
-                      <br />
-                      <strong>Moritz Reuss</strong>,
-                      Hongyi Zhou,
-                      Marcel Rühle,
-                      Ömer Erdinç Yağmurlu,
-                      Fabian Otto,
-                      <a href="http://rudolf.intuitive-robots.net/" target="_blank" rel="noopener noreferrer">Rudolf Lioutikov</a>
-                      <br /><br />
-                      <em>CoRL</em>, 2025
-                      <br />
-                      <a href="https://intuitive-robots.github.io/flower_vla/" target="_blank" rel="noopener noreferrer">Project Page</a> /
-                      <a href="https://github.com/intuitive-robots/flower_vla_calvin/tree/main" target="_blank" rel="noopener noreferrer">Code</a> /
-                      <a href="https://www.arxiv.org/pdf/2509.04996" target="_blank" rel="noopener noreferrer">arXiv</a>
-                      <p></p>
-                      <p>
-                        We systematically analyze VLA design decisions for small and efficient VLAs. Our findings lead us to introduce FLOWER, a 950M-parameter
-                        Vision-Language-Action (VLA) policy that achieves state-of-the-art performance across 190 tasks in 10 benchmarks while requiring only
-                        ~1% of the pretraining compute of models like OpenVLA. FLOWER introduces intermediate-modality fusion and action-specific Global-AdaLN
-                        conditioning to achieve strong performance with improved efficiency. Our approach democratizes VLA development by making high-performance
-                        robotic foundation models accessible with commodity hardware, requiring significantly less GPU memory to run.
-                      </p>
+                  <div id="publications">
+                    <heading>Publications by Research Area</heading>
+                    <div class="cat-nav">
+                      <a href="#vla">Robot Foundation Models: VLAs &amp; WAMs</a>
+                      <a href="#policies">Diffusion &amp; Flow Policies</a>
+                      <a href="#world-models">World Models &amp; Latent Planning</a>
+                      <a href="#data">Data, Annotation &amp; Benchmarks</a>
+                      <a href="#control">Robot Control</a>
                     </div>
                   </div>
-                </td>
-              </tr>
 
-              <!-- NaviTrace -->
-              <tr>
-                <td style="padding:20px;width:100%;vertical-align:middle">
-                  <div style="display:flex;">
-                    <div style="flex:0 0 25%;max-width:25%;">
-                      <img src="images/navitrace_overview.png" alt="NaviTrace overview diagram" style="width:100%;max-width:100%;" loading="lazy" />
+
+                  <!-- ================= VLA ================= -->
+                  <div class="pub-category" id="vla">
+                    <h3>Robot Foundation Models: VLAs &amp; WAMs</h3>
+                    <p class="cat-desc">Efficient generalist models that turn vision and language into robot actions, as Vision-Language-Action models and World-Action Models.</p>
+
+                    <div class="pub" id="pub-arc">
+                      <a href="https://arxiv.org/abs/2610.12386" target="_blank" rel="noopener noreferrer"><papertitle>ARC: A Reasoning Recipe for Robot Foundation Models</papertitle></a><span class="badge-new">NEW</span>
+                      <div class="authors">Gokul Puthumanaillam, Tao Sun, Elie Aljalbout, <strong>Moritz Reuss</strong>, Zhaoshuo Li, Fabio Ramos, Ankit Goyal, Jenai Xuning Yang</div>
+                      <div class="meta">
+                        <span class="venue preprint">arXiv 2026</span>
+                        <a href="https://arc-robot-reasoning.github.io/" target="_blank" rel="noopener noreferrer">Project Page</a> /
+                        <a href="https://arxiv.org/abs/2610.12386" target="_blank" rel="noopener noreferrer">arXiv</a> /
+                        <details><summary>Abstract</summary>
+                          <p>We show that the right reasoning recipe can substantially improve the zero-shot performance of existing robot foundation models
+                          without new robot data or foundation-scale training. ARC combines action-grounded reasoning traces that explain why an action is taken
+                          and what it should cause, a pipeline that generates such traces automatically from existing demonstrations (ARC-Trace-DROID), and
+                          model-specific adaptation for both VLAs such as π<sub>0.5</sub> and WAMs such as Cosmos3-Nano-Policy. The adapted models set a new
+                          state of the art on RoboLab-120 and MolmoSpaces, and ARC raises π<sub>0.5</sub>'s real-robot success by over 80 percentage points.</p>
+                        </details>
+                      </div>
                     </div>
-                    <div style="flex:0 0 75%;max-width:75%;padding-left:20px;">
-                      <a href="https://arxiv.org/abs/2510.26909" target="_blank" rel="noopener noreferrer">
-                        <papertitle>NaviTrace: Evaluating Embodied Navigation of Vision-Language Models</papertitle>
-                      </a>
-                      <br />
-                      Tim Windecker,
-                      <a href="https://manthan99.github.io/" target="_blank" rel="noopener noreferrer">Manthan Patel</a>,
-                      <strong>Moritz Reuss</strong>,
-                      Richard Schwarzkopf,
-                      Cesar Cadena,
-                      <a href="http://rudolf.intuitive-robots.net/" target="_blank" rel="noopener noreferrer">Rudolf Lioutikov</a>,
-                      Marco Hutter,
-                      <a href="https://jonasfrey96.github.io/" target="_blank" rel="noopener noreferrer">Jonas Frey</a>
-                      <br /><br />
-                      <em>arXiv Preprint</em>, 2025
-                      <br />
-                      <a href="https://leggedrobotics.github.io/navitrace_webpage/" target="_blank" rel="noopener noreferrer">Project Page</a> /
-                      <a href="https://github.com/leggedrobotics/navitrace_evaluation" target="_blank" rel="noopener noreferrer">Code</a> /
-                      <a href="https://huggingface.co/datasets/leggedrobotics/navitrace" target="_blank" rel="noopener noreferrer">Dataset</a> /
-                      <a href="https://huggingface.co/spaces/leggedrobotics/navitrace_leaderboard" target="_blank" rel="noopener noreferrer">Leaderboard</a> /
-                      <a href="https://arxiv.org/abs/2510.26909" target="_blank" rel="noopener noreferrer">arXiv</a>
-                      <p></p>
-                      <p>
-                        We introduce NaviTrace, a comprehensive benchmark for evaluating embodied navigation capabilities of Vision-Language Models. 
-                        NaviTrace provides a standardized evaluation framework across diverse navigation tasks, enabling systematic assessment of VLMs' 
-                        spatial reasoning and instruction-following abilities in diverse real-world robotic navigation scenarios. 
-                      </p>
+
+                    <div class="pub">
+                      <a href="https://arxiv.org/abs/2609.13812" target="_blank" rel="noopener noreferrer"><papertitle>GeomVLA: Unifying Scene, Motion, and Action in 3D</papertitle></a><span class="badge-new">NEW</span>
+                      <div class="authors">Ziyin Xiong, Nikolaos Gkanatsios, <strong>Moritz Reuss</strong>, Katerina Fragkiadaki</div>
+                      <div class="meta">
+                        <span class="venue">CoRL 2026</span>
+                        <a href="https://arxiv.org/abs/2609.13812" target="_blank" rel="noopener noreferrer">arXiv</a> /
+                        <details><summary>Abstract</summary>
+                          <p>GeomVLA is a Vision-Language-Action model that keeps perception, scene-motion prediction, and action generation in one shared
+                          robot-centric 3D frame. It lifts pretrained VLM features into 3D scene tokens and uses a 3D Scene Trajectory Denoiser whose
+                          intermediate motion tokens condition a geometry-aware, flow-based action denoiser. GeomVLA achieves state-of-the-art results on
+                          CALVIN, is competitive on LIBERO and RoboTwin2.0, and outperforms strong baselines on real robots without robot-action pretraining.</p>
+                        </details>
+                      </div>
+                    </div>
+
+                    <div class="pub">
+                      <a href="https://arxiv.org/abs/2606.12105" target="_blank" rel="noopener noreferrer"><papertitle>DAM-VLA: Decoupled Asynchronous Multimodal Vision Language Action Model</papertitle></a><span class="badge-new">NEW</span>
+                      <div class="authors">Pankhuri Vanjani, Zhuoyue Li, Jakub Suliga, <strong>Moritz Reuss</strong>, Gianluca Geraci, Xinkai Jiang, <a href="http://rudolf.intuitive-robots.net/" target="_blank" rel="noopener noreferrer">Rudolf Lioutikov</a></div>
+                      <div class="meta">
+                        <span class="venue">CoRL 2026</span>
+                        <a href="https://intuitive-robots.github.io/DAM-VLA/" target="_blank" rel="noopener noreferrer">Project Page</a> /
+                        <a href="https://arxiv.org/abs/2606.12105" target="_blank" rel="noopener noreferrer">arXiv</a> /
+                        <details><summary>Abstract</summary>
+                          <p>Standard VLAs process every input on a single synchronous clock, which oversamples slow modalities and caps control at the slowest
+                          effective rate. DAM-VLA decouples temporal processing per modality with latent buffers refreshed at each sensor's rate, and adds
+                          high-frequency modalities through gated cross-attention that leaves the pretrained backbone intact. On seven contact-rich real-world
+                          tasks, it more than doubles the success rate of the strongest synchronous baseline while sustaining smooth 100&nbsp;Hz control.</p>
+                        </details>
+                      </div>
+                    </div>
+
+                    <div class="pub">
+                      <a href="https://www.arxiv.org/pdf/2509.04996" target="_blank" rel="noopener noreferrer"><papertitle>FLOWER: Democratizing Generalist Robot Policies with Efficient Vision-Language-Action Flow Policies</papertitle></a>
+                      <div class="authors"><strong>Moritz Reuss</strong>, Hongyi Zhou, Marcel Rühle, Ömer Erdinç Yağmurlu, Fabian Otto, <a href="http://rudolf.intuitive-robots.net/" target="_blank" rel="noopener noreferrer">Rudolf Lioutikov</a></div>
+                      <div class="meta">
+                        <span class="venue">CoRL 2025</span>
+                        <a href="https://intuitive-robots.github.io/flower_vla/" target="_blank" rel="noopener noreferrer">Project Page</a> /
+                        <a href="https://github.com/intuitive-robots/flower_vla_calvin/tree/main" target="_blank" rel="noopener noreferrer">Code</a> /
+                        <a href="https://www.arxiv.org/pdf/2509.04996" target="_blank" rel="noopener noreferrer">arXiv</a> /
+                        <details><summary>Abstract</summary>
+                          <p>We systematically analyze VLA design decisions for small and efficient VLAs. Our findings lead us to introduce FLOWER, a 950M-parameter
+                          Vision-Language-Action (VLA) policy that achieves state-of-the-art performance across 190 tasks in 10 benchmarks while requiring only
+                          ~1% of the pretraining compute of models like OpenVLA. FLOWER introduces intermediate-modality fusion and action-specific Global-AdaLN
+                          conditioning to achieve strong performance with improved efficiency. Our approach democratizes VLA development by making high-performance
+                          robotic foundation models accessible with commodity hardware, requiring significantly less GPU memory to run.</p>
+                        </details>
+                      </div>
+                    </div>
+
+                    <div class="pub">
+                      <a href="https://arxiv.org/pdf/2506.06072" target="_blank" rel="noopener noreferrer"><papertitle>BEAST: An Efficient Action Tokenizer with B-Splines</papertitle></a>
+                      <div class="authors">Hongyi Zhou, Weiran Liao, Xi Huang, Yucheng Tang, Fabian Otto, Xiaogang Jia, Xinkai Jiang, Simon Hilber, Ge Li, Qian Wang, Ömer Erdinç Yağmurlu, Nils Blank, <strong>Moritz Reuss</strong>, <a href="http://rudolf.intuitive-robots.net/" target="_blank" rel="noopener noreferrer">Rudolf Lioutikov</a></div>
+                      <div class="meta">
+                        <span class="venue">NeurIPS 2025</span>
+                        <a href="https://beast-tokenizer.github.io/" target="_blank" rel="noopener noreferrer">Project Page</a> /
+                        <a href="https://github.com/intuitive-robots/beast_calvin" target="_blank" rel="noopener noreferrer">Code</a> /
+                        <a href="https://arxiv.org/pdf/2506.06072" target="_blank" rel="noopener noreferrer">arXiv</a> /
+                        <details><summary>Abstract</summary>
+                          <p>We introduce BEAST, a B-spline–based action tokenizer that efficiently represents continuous robot actions for generalist policies
+                          while maintaining smooth trajectories essential for robot control. BEAST enables efficient action representation and improved performance
+                          in VLA models by leveraging the mathematical properties of B-splines for smooth, continuous control. It flexibly supports continuous tokens
+                          and discrete tokenization. Experiments across various benchmarks verify good compression with strong performance and smooth behavior
+                          without additional temporal aggregation.</p>
+                        </details>
+                      </div>
                     </div>
                   </div>
-                </td>
-              </tr>
 
-              <!-- BEAST -->
-              <tr>
-                <td style="padding:20px;width:100%;vertical-align:middle">
-                  <div style="display:flex;">
-                    <div style="flex:0 0 25%;max-width:25%;">
-                      <img src="images/beast_overview.png" alt="BEAST B-spline action tokenizer overview" style="width:100%;max-width:100%;" loading="lazy" />
+                  <!-- ================= Policies ================= -->
+                  <div class="pub-category" id="policies">
+                    <h3>Diffusion &amp; Flow Policies</h3>
+                    <p class="cat-desc">Generative policies that learn versatile, multimodal behavior from offline demonstrations.</p>
+
+                    <div class="pub">
+                      <a href="https://arxiv.org/abs/2609.35200" target="_blank" rel="noopener noreferrer"><papertitle>ReCAT: Remember, Count, and Time: Structured Recurrent Memory for Robot Manipulation</papertitle></a><span class="badge-new">NEW</span>
+                      <div class="authors">Pankhuri Vanjani, Mostafa Hatab, Can Mizrakli, Vaisakh Shaj, Zhuoyue Li, <strong>Moritz Reuss</strong>, <a href="http://rudolf.intuitive-robots.net/" target="_blank" rel="noopener noreferrer">Rudolf Lioutikov</a></div>
+                      <div class="meta">
+                        <span class="venue preprint">arXiv 2026</span>
+                        <a href="https://intuitive-robots.github.io/ReCAT" target="_blank" rel="noopener noreferrer">Project Page</a> /
+                        <a href="https://arxiv.org/abs/2609.35200" target="_blank" rel="noopener noreferrer">arXiv</a> /
+                        <details><summary>Abstract</summary>
+                          <p>We present ReCAT, a language-conditioned policy with structured recurrent memory for tasks that require recalling earlier cues,
+                          counting repeated events, or tracking elapsed time. A Mamba-2–based memory with a causal attention layer summarizes the observation
+                          stream, and a flow-matching Transformer decoder attends to current and historical features in every block. ReCAT reaches 95.3% on
+                          LIBERO, leads on most RMBench tasks, and clearly outperforms short-history baselines on real-robot recall, counting, and timing tasks.</p>
+                        </details>
+                      </div>
                     </div>
-                    <div style="flex:0 0 75%;max-width:75%;padding-left:20px;">
-                      <a href="https://arxiv.org/pdf/2506.06072" target="_blank" rel="noopener noreferrer">
-                        <papertitle>BEAST: An Efficient Action Tokenizer with B-Splines</papertitle>
-                      </a>
-                      <br />
-                      Hongyi Zhou,
-                      Weiran Liao,
-                      Xi Huang,
-                      Yucheng Tang,
-                      Fabian Otto,
-                      <a href="https://irl.anthropomatik.kit.edu/21_78.php" target="_blank" rel="noopener noreferrer">Xiaogang Jia</a>,
-                      Xinkai Jiang,
-                      Simon Hilber,
-                      Ge Li,
-                      Qian Wang,
-                      Ömer Erdinç Yağmurlu,
-                      Nils Blank,
-                      <strong>Moritz Reuss</strong>,
-                      <a href="http://rudolf.intuitive-robots.net/" target="_blank" rel="noopener noreferrer">Rudolf Lioutikov</a>
-                      <br /><br />
-                      <em>NeurIPS</em>, 2025
-                      <br />
-                      <a href="https://beast-tokenizer.github.io/" target="_blank" rel="noopener noreferrer">Project Page</a> /
-                      <a href="https://github.com/intuitive-robots/beast_calvin" target="_blank" rel="noopener noreferrer">Code</a> /
-                      <a href="https://arxiv.org/pdf/2506.06072" target="_blank" rel="noopener noreferrer">arXiv</a>
-                      <p></p>
-                      <p>
-                        We introduce BEAST, a B-spline–based action tokenizer that efficiently represents continuous robot actions for generalist policies
-                        while maintaining smooth trajectories essential for robot control. BEAST enables efficient action representation and improved performance
-                        in VLA models by leveraging the mathematical properties of B-splines for smooth, continuous control. It flexibly supports continuous tokens
-                        and discrete tokenization. Experiments across various benchmarks verify good compression with strong performance and smooth behavior
-                        without additional temporal aggregation.
-                      </p>
+
+                    <div class="pub">
+                      <a href="https://openreview.net/pdf?id=ZR2mdBrhJX" target="_blank" rel="noopener noreferrer"><papertitle>PointMapPolicy: Structured Point Cloud Processing for Multi-Modal Imitation Learning</papertitle></a>
+                      <div class="authors">Xiaogang Jia, Qian Wang, Anrui Wang, Han A. Wang, Balázs Gyenes, Emiliyan Gospodinov, Xinkai Jiang, Ge Li, Hongyi Zhou, Weiran Liao, Xi Huang, Maximilian Beck, <strong>Moritz Reuss</strong>, <a href="http://rudolf.intuitive-robots.net/" target="_blank" rel="noopener noreferrer">Rudolf Lioutikov</a>, Gerhard Neumann</div>
+                      <div class="meta">
+                        <span class="venue">NeurIPS 2025</span>
+                        <a href="https://point-map.github.io/Point-Map/" target="_blank" rel="noopener noreferrer">Project Page</a> /
+                        <a href="https://openreview.net/pdf?id=ZR2mdBrhJX" target="_blank" rel="noopener noreferrer">Paper</a> /
+                        <details><summary>Abstract</summary>
+                          <p>We present PointMapPolicy, a multi-modal imitation learning method that conditions diffusion policies on structured grids of points
+                          without downsampling. Our approach fuses point maps with RGB using an xLSTM backbone, enabling direct application of computer vision
+                          techniques to 3D data while preserving fine-grained geometric details. On RoboCasa and CALVIN, plus real-robot evaluations, we achieve
+                          state-of-the-art performance across diverse manipulation tasks.</p>
+                        </details>
+                      </div>
+                    </div>
+
+                    <div class="pub">
+                      <a href="https://openreview.net/pdf?id=nDmwloEl3N" target="_blank" rel="noopener noreferrer"><papertitle>Efficient Diffusion Transformer Policies with Mixture of Expert Denoisers for Multitask Learning</papertitle></a>
+                      <div class="authors"><strong>Moritz Reuss*</strong>, Jyothish Pari*, <a href="https://people.csail.mit.edu/pulkitag/" target="_blank" rel="noopener noreferrer">Pulkit Agrawal</a>, <a href="http://rudolf.intuitive-robots.net/" target="_blank" rel="noopener noreferrer">Rudolf Lioutikov</a></div>
+                      <div class="meta">
+                        <span class="venue">ICLR 2025</span>
+                        <a href="https://mbreuss.github.io/MoDE_Diffusion_Policy/" target="_blank" rel="noopener noreferrer">Project Page</a> /
+                        <a href="https://github.com/intuitive-robots/MoDE_Diffusion_Policy" target="_blank" rel="noopener noreferrer">Code</a> /
+                        <a href="https://arxiv.org/pdf/2412.12953" target="_blank" rel="noopener noreferrer">arXiv</a> /
+                        <details><summary>Abstract</summary>
+                          <p>We propose Mixture-of-Denoising Experts (MoDE), a generalist policy for guided behavior generation that outperforms dense transformer-based
+                          diffusion policies in accuracy, parameter count, and efficiency. Our routing strategy conditions expert selection on the current noise level
+                          of the diffusion process. On four imitation learning benchmarks (including CALVIN and LIBERO), MoDE consistently exceeds dense transformer
+                          baselines. We pretrain MoDE on a subset of OXE for just 3 days on 6 GPUs and surpass OpenVLA and Octo on SIMPLER. MoDE achieves higher average
+                          performance with ~90% fewer FLOPs, ~20% faster inference, and ~40% fewer parameters compared to dense transformer diffusion policies.</p>
+                        </details>
+                      </div>
+                    </div>
+
+                    <div class="pub" id="pub-mdt">
+                      <a href="https://intuitive-robots.github.io/mdt_policy/" target="_blank" rel="noopener noreferrer"><papertitle>Multimodal Diffusion Transformer: Learning Versatile Behavior from Multimodal Goals</papertitle></a>
+                      <div class="authors"><strong>Moritz Reuss</strong>, Ömer Erdinç Yağmurlu, Fabian Wenzel, <a href="http://rudolf.intuitive-robots.net/" target="_blank" rel="noopener noreferrer">Rudolf Lioutikov</a></div>
+                      <div class="meta">
+                        <span class="venue">RSS 2024</span>
+                        <span class="award">Oral @ LangRob Workshop, CoRL 2023</span> ·
+                        <a href="https://intuitive-robots.github.io/mdt_policy/" target="_blank" rel="noopener noreferrer">Project Page</a> /
+                        <a href="https://github.com/intuitive-robots/mdt_policy" target="_blank" rel="noopener noreferrer">Code</a> /
+                        <a href="https://arxiv.org/pdf/2407.05996" target="_blank" rel="noopener noreferrer">arXiv</a> /
+                        <details><summary>Abstract</summary>
+                          <p>We present a diffusion policy for learning from uncurated, reward-free offline data with sparse language labels.
+                          Multimodal Diffusion Transformer (MDT) learns complex, long-horizon behaviors and sets a new state of the art on CALVIN.
+                          MDT leverages pre-trained vision and language foundation models and aligns multimodal goal specifications in the transformer encoder’s latent space,
+                          using two self-supervised auxiliary objectives to better follow goals specified in language and images.</p>
+                        </details>
+                      </div>
+                    </div>
+
+                    <div class="pub">
+                      <a href="https://intuitive-robots.github.io/beso-website" target="_blank" rel="noopener noreferrer"><papertitle>Goal-Conditioned Imitation Learning using Score-based Diffusion Policies</papertitle></a>
+                      <div class="authors"><strong>Moritz Reuss</strong>, Maximilian Li, Xiaogang Jia, <a href="http://rudolf.intuitive-robots.net/" target="_blank" rel="noopener noreferrer">Rudolf Lioutikov</a></div>
+                      <div class="meta">
+                        <span class="venue">RSS 2023</span>
+                        <span class="award">Best Paper Award @ L-DOD Workshop, ICRA 2023</span> ·
+                        <a href="https://intuitive-robots.github.io/beso-website" target="_blank" rel="noopener noreferrer">Project Page</a> /
+                        <a href="https://github.com/intuitive-robots/beso" target="_blank" rel="noopener noreferrer">Code</a> /
+                        <a href="https://arxiv.org/pdf/2304.02532" target="_blank" rel="noopener noreferrer">arXiv</a> /
+                        <details><summary>Abstract</summary>
+                          <p>We present BESO, a policy representation for goal-conditioned imitation learning using score-based diffusion models.
+                          BESO effectively learns goal-directed, multimodal behavior from uncurated, reward-free offline data and achieves state of the art
+                          with as few as three denoising steps.</p>
+                        </details>
+                      </div>
+                    </div>
+
+                    <div class="pub">
+                      <a href="https://arxiv.org/pdf/2303.15349" target="_blank" rel="noopener noreferrer"><papertitle>Information Maximizing Curriculum: A Curriculum-Based Approach for Learning Versatile Skills</papertitle></a>
+                      <div class="authors">Denis Blessing, Onur Celik, Xiaogang Jia, <strong>Moritz Reuss</strong>, Maximilian Xiling Li, <a href="http://rudolf.intuitive-robots.net/" target="_blank" rel="noopener noreferrer">Rudolf Lioutikov</a>, Gerhard Neumann</div>
+                      <div class="meta">
+                        <span class="venue">NeurIPS 2023</span>
+                        <a href="https://arxiv.org/pdf/2303.15349" target="_blank" rel="noopener noreferrer">arXiv</a> /
+                        <details><summary>Abstract</summary>
+                          <p>We introduce the Information Maximizing Curriculum to address mode-averaging in imitation learning by enabling specialization
+                          on representable data. A mixture-of-experts policy focuses on different data subsets, with a maximum-entropy objective for full dataset coverage.</p>
+                        </details>
+                      </div>
                     </div>
                   </div>
-                </td>
-              </tr>
 
-              <!-- PointMapPolicy -->
-              <tr>
-                <td style="padding:20px;width:100%;vertical-align:middle">
-                  <div style="display:flex;">
-                    <div style="flex:0 0 25%;max-width:25%;">
-                      <img src="images/Point_map.png" alt="PointMapPolicy: structured point cloud grid for diffusion policy" style="width:100%;max-width:100%;" loading="lazy" />
+                  <!-- ================= World models ================= -->
+                  <div class="pub-category" id="world-models">
+                    <h3>World Models &amp; Latent Planning</h3>
+                    <p class="cat-desc">Predicting how the world changes under robot actions, and planning with those predictions.</p>
+
+                    <div class="pub">
+                      <a href="https://arxiv.org/abs/2609.10506" target="_blank" rel="noopener noreferrer"><papertitle>DUET-DINO: Simultaneous Cross-View World Modeling for Latent Planning in Robot Manipulation</papertitle></a><span class="badge-new">NEW</span>
+                      <div class="authors">Nisarga Nilavadi, Ralf Römer, <strong>Moritz Reuss</strong>, Michael Krawez, Tobias Jülg, Angela P. Schoellig, <a href="http://rudolf.intuitive-robots.net/" target="_blank" rel="noopener noreferrer">Rudolf Lioutikov</a>, Wolfram Burgard</div>
+                      <div class="meta">
+                        <span class="venue preprint">arXiv 2026</span>
+                        <a href="https://utn-air.github.io/DUET-DINO" target="_blank" rel="noopener noreferrer">Project Page</a> /
+                        <a href="https://arxiv.org/abs/2609.10506" target="_blank" rel="noopener noreferrer">arXiv</a> /
+                        <details><summary>Abstract</summary>
+                          <p>DUET-DINO is a latent world model that jointly predicts future side- and wrist-camera representations through cross-view
+                          conditioning, enabling latent planning over the full 7-DoF end-effector action space. Trained from scratch on DROID and RoboArena,
+                          it outperforms single-view and independent dual-view baselines on reach, angled-reach, and grasp-and-lift tasks. We also find that
+                          DINOv3 features capture fine-grained action effects in the wrist view better than V-JEPA 2.</p>
+                        </details>
+                      </div>
                     </div>
-                    <div style="flex:0 0 75%;max-width:75%;padding-left:20px;">
-                      <a href="https://openreview.net/pdf?id=ZR2mdBrhJX" target="_blank" rel="noopener noreferrer">
-                        <papertitle>PointMapPolicy: Structured Point Cloud Processing for Multi-Modal Imitation Learning</papertitle>
-                      </a>
-                      <br />
-                      <a href="https://irl.anthropomatik.kit.edu/21_78.php" target="_blank" rel="noopener noreferrer">Xiaogang Jia</a>,
-                      Qian Wang,
-                      Anrui Wang,
-                      Han A. Wang,
-                      Balázs Gyenes,
-                      Emiliyan Gospodinov,
-                      Xinkai Jiang,
-                      Ge Li,
-                      Hongyi Zhou,
-                      Weiran Liao,
-                      Xi Huang,
-                      Maximilian Beck,
-                      <strong>Moritz Reuss</strong>,
-                      <a href="http://rudolf.intuitive-robots.net/" target="_blank" rel="noopener noreferrer">Rudolf Lioutikov</a>,
-                      Gerhard Neumann
-                      <br /><br />
-                      <em>NeurIPS</em>, 2025
-                      <br />
-                      <a href="https://point-map.github.io/Point-Map/" target="_blank" rel="noopener noreferrer">Project Page</a> /
-                      <a href="https://openreview.net/pdf?id=ZR2mdBrhJX" target="_blank" rel="noopener noreferrer">Paper</a>
-                      <p></p>
-                      <p>
-                        We present PointMapPolicy, a multi-modal imitation learning method that conditions diffusion policies on structured grids of points
-                        without downsampling. Our approach fuses point maps with RGB using an xLSTM backbone, enabling direct application of computer vision
-                        techniques to 3D data while preserving fine-grained geometric details. On RoboCasa and CALVIN, plus real-robot evaluations, we achieve
-                        state-of-the-art performance across diverse manipulation tasks.
-                      </p>
+
+                    <p class="cat-desc" style="margin-top:8px;">
+                      Also related:
+                      <a href="#pub-arc">ARC</a> (reasoning recipe for both VLAs and WAMs) ·
+                      <a href="#pub-mdt">MDT</a> (an early WAM-style policy that learns to predict future visual states alongside actions)
+                    </p>
+                  </div>
+
+                  <!-- ================= Data & benchmarks ================= -->
+                  <div class="pub-category" id="data">
+                    <h3>Data, Annotation &amp; Benchmarks</h3>
+                    <p class="cat-desc">Scaling and labeling robot data automatically, and measuring what policies and VLMs can actually do.</p>
+
+                    <div class="pub">
+                      <a href="https://arxiv.org/abs/2606.13497" target="_blank" rel="noopener noreferrer"><papertitle>SPARC: Reliable Spatial Annotations from Robot Demonstrations at Scale</papertitle></a><span class="badge-new">NEW</span>
+                      <div class="authors">Nils Blank, Paul Mattes, Maximilian Xiling Li, Jakub Suliga, Thomas Roth, <strong>Moritz Reuss</strong>, Pankhuri Vanjani, <a href="http://rudolf.intuitive-robots.net/" target="_blank" rel="noopener noreferrer">Rudolf Lioutikov</a></div>
+                      <div class="meta">
+                        <span class="venue">CoRL 2026</span>
+                        <a href="https://intuitive-robots.github.io/sparc-labeling" target="_blank" rel="noopener noreferrer">Project Page</a> /
+                        <a href="https://arxiv.org/abs/2606.13497" target="_blank" rel="noopener noreferrer">arXiv</a> /
+                        <details><summary>Abstract</summary>
+                          <p>SPARC automatically labels robot demonstrations with structured spatial annotations (bounding boxes, object trajectories, and
+                          manipulation phases) and attaches a calibrated reliability score to each label by exploiting the spatio-temporal structure of
+                          robot tasks. On our new IA-Bench, SPARC outperforms detection-only baselines while retaining three times more samples at high
+                          precision. Models finetuned on SPARC annotations reach state-of-the-art grounding and pointing results among similarly sized models,
+                          and policies trained on them perform better in cluttered real-world scenes.</p>
+                        </details>
+                      </div>
+                    </div>
+
+                    <div class="pub">
+                      <a href="https://arxiv.org/abs/2510.26909" target="_blank" rel="noopener noreferrer"><papertitle>NaviTrace: Evaluating Embodied Navigation of Vision-Language Models</papertitle></a>
+                      <div class="authors">Tim Windecker, <a href="https://manthan99.github.io/" target="_blank" rel="noopener noreferrer">Manthan Patel</a>, <strong>Moritz Reuss</strong>, Richard Schwarzkopf, Cesar Cadena, <a href="http://rudolf.intuitive-robots.net/" target="_blank" rel="noopener noreferrer">Rudolf Lioutikov</a>, Marco Hutter, <a href="https://jonasfrey96.github.io/" target="_blank" rel="noopener noreferrer">Jonas Frey</a></div>
+                      <div class="meta">
+                        <span class="venue preprint">arXiv 2025</span>
+                        <a href="https://leggedrobotics.github.io/navitrace_webpage/" target="_blank" rel="noopener noreferrer">Project Page</a> /
+                        <a href="https://github.com/leggedrobotics/navitrace_evaluation" target="_blank" rel="noopener noreferrer">Code</a> /
+                        <a href="https://huggingface.co/datasets/leggedrobotics/navitrace" target="_blank" rel="noopener noreferrer">Dataset</a> /
+                        <a href="https://huggingface.co/spaces/leggedrobotics/navitrace_leaderboard" target="_blank" rel="noopener noreferrer">Leaderboard</a> /
+                        <a href="https://arxiv.org/abs/2510.26909" target="_blank" rel="noopener noreferrer">arXiv</a> /
+                        <details><summary>Abstract</summary>
+                          <p>We introduce NaviTrace, a comprehensive benchmark for evaluating embodied navigation capabilities of Vision-Language Models.
+                          NaviTrace provides a standardized evaluation framework across diverse navigation tasks, enabling systematic assessment of VLMs'
+                          spatial reasoning and instruction-following abilities in diverse real-world robotic navigation scenarios.</p>
+                        </details>
+                      </div>
+                    </div>
+
+                    <div class="pub">
+                      <a href="https://robottasklabeling.github.io/" target="_blank" rel="noopener noreferrer"><papertitle>Scaling Robot Policy Learning via Zero-Shot Labeling with Foundation Models</papertitle></a>
+                      <div class="authors">Nils Blank, <strong>Moritz Reuss</strong>, Marcel Rühle, Ömer Erdinç Yağmurlu, Fabian Wenzel, <a href="https://www.oiermees.com/" target="_blank" rel="noopener noreferrer">Oier Mees</a>, <a href="http://rudolf.intuitive-robots.net/" target="_blank" rel="noopener noreferrer">Rudolf Lioutikov</a></div>
+                      <div class="meta">
+                        <span class="venue">CoRL 2024</span>
+                        <span class="award">Oral @ MoMa Workshop, ICRA 2024</span> ·
+                        <a href="https://openreview.net/pdf?id=EdVNB2kHv1" target="_blank" rel="noopener noreferrer">Paper</a> /
+                        <details><summary>Abstract</summary>
+                          <p>We introduce a method to automatically label uncurated, long-horizon robot teleoperation data at scale in a zero-shot manner without human intervention.
+                          We combine pre-trained vision-language foundation models to detect objects, propose tasks, segment tasks in large unlabeled interaction datasets,
+                          and train language-conditioned policies on the relabeled data. Initial experiments show that our method enables policies that match those trained
+                          with oracle human annotations.</p>
+                        </details>
+                      </div>
+                    </div>
+
+                    <div class="pub">
+                      <a href="https://openreview.net/pdf?id=6pPYRXKPpw" target="_blank" rel="noopener noreferrer"><papertitle>Towards Diverse Behaviors: A Benchmark for Imitation Learning with Human Demonstrations</papertitle></a>
+                      <div class="authors">Xiaogang Jia, Denis Blessing, Xinkai Jiang, <strong>Moritz Reuss</strong>, Atalay Donat, <a href="http://rudolf.intuitive-robots.net/" target="_blank" rel="noopener noreferrer">Rudolf Lioutikov</a>, Gerhard Neumann</div>
+                      <div class="meta">
+                        <span class="venue">ICLR 2024</span>
+                        <a href="https://openreview.net/pdf?id=6pPYRXKPpw" target="_blank" rel="noopener noreferrer">OpenReview</a> /
+                        <details><summary>Abstract</summary>
+                          <p>D3IL introduces simulation benchmark environments and datasets tailored for imitation learning, designed to evaluate a model’s ability to learn
+                          and replicate diverse, multimodal human behaviors. Environments encompass multiple sub-tasks and object manipulations, providing rich diversity
+                          often lacking in other datasets. We also propose practical metrics to quantify behavioral diversity and benchmark state-of-the-art methods.</p>
+                        </details>
+                      </div>
                     </div>
                   </div>
-                </td>
-              </tr>
 
-              <!-- MoDE (highlighted) -->
-              <tr>
-                <td style="padding:20px;width:100%;vertical-align:middle">
-                  <div style="display:flex;">
-                    <div style="flex:0 0 25%;max-width:25%;">
-                      <img src="images/MoDE_X.png" alt="MoDE: mixture-of-denoising experts diffusion transformer policy" style="width:100%;max-width:100%;" loading="lazy" />
-                    </div>
-                    <div style="flex:0 0 75%;max-width:75%;padding-left:20px;">
-                      <a href="https://openreview.net/pdf?id=nDmwloEl3N" target="_blank" rel="noopener noreferrer">
-                        <papertitle>Efficient Diffusion Transformer Policies with Mixture of Expert Denoisers for Multitask Learning</papertitle>
-                      </a>
-                      <br />
-                      <strong>Moritz Reuss*</strong>,
-                      Jyothish Pari*,
-                      <a href="https://people.csail.mit.edu/pulkitag/" target="_blank" rel="noopener noreferrer">Pulkit Agrawal</a>,
-                      <a href="http://rudolf.intuitive-robots.net/" target="_blank" rel="noopener noreferrer">Rudolf Lioutikov</a>
-                      <br /><br />
-                      <em>ICLR</em>, 2025
-                      <br />
-                      <a href="https://mbreuss.github.io/MoDE_Diffusion_Policy/" target="_blank" rel="noopener noreferrer">Project Page</a> /
-                      <a href="https://github.com/intuitive-robots/MoDE_Diffusion_Policy" target="_blank" rel="noopener noreferrer">Code</a> /
-                      <a href="https://arxiv.org/pdf/2412.12953" target="_blank" rel="noopener noreferrer">arXiv</a>
-                      <p></p>
-                      <p>
-                        We propose Mixture-of-Denoising Experts (MoDE), a generalist policy for guided behavior generation that outperforms dense transformer-based
-                        diffusion policies in accuracy, parameter count, and efficiency. Our routing strategy conditions expert selection on the current noise level
-                        of the diffusion process. On four imitation learning benchmarks (including CALVIN and LIBERO), MoDE consistently exceeds dense transformer
-                        baselines. We pretrain MoDE on a subset of OXE for just 3 days on 6 GPUs and surpass OpenVLA and Octo on SIMPLER. MoDE achieves higher average
-                        performance with ~90% fewer FLOPs, ~20% faster inference, and ~40% fewer parameters compared to dense transformer diffusion policies.
-                      </p>
+                  <!-- ================= Control ================= -->
+                  <div class="pub-category" id="control">
+                    <h3>Robot Control</h3>
+                    <p class="cat-desc">Learned dynamics models for precise, compliant low-level control.</p>
+
+                    <div class="pub">
+                      <a href="https://arxiv.org/pdf/2205.13804" target="_blank" rel="noopener noreferrer"><papertitle>End-to-End Learning of Hybrid Inverse Dynamics Models for Precise and Compliant Impedance Control</papertitle></a>
+                      <div class="authors"><strong>Moritz Reuss</strong>, Niels van Duijkeren, Robert Krug, Philipp Becker, Vaisakh Shaj, Gerhard Neumann</div>
+                      <div class="meta">
+                        <span class="venue">RSS 2022</span>
+                        <a href="https://arxiv.org/pdf/2205.13804" target="_blank" rel="noopener noreferrer">arXiv</a> /
+                        <details><summary>Abstract</summary>
+                          <p>We present a hybrid model combining a differentiable rigid-body model with a recurrent LSTM to accurately model the inverse dynamics
+                          of a robot manipulator. A differentiable formulation of barycentric parameters enables end-to-end training jointly with the residual network
+                          while preserving physical consistency. On a Franka Emika Panda, the model enables precise and compliant motion tracking.</p>
+                        </details>
+                      </div>
                     </div>
                   </div>
+
                 </td>
               </tr>
-
-              <!-- LUPUS -->
-              <tr>
-                <td style="padding:20px;width:100%;vertical-align:middle">
-                  <div style="display:flex;">
-                    <div style="flex:0 0 25%;max-width:25%;">
-                      <img src="images/LUPUS_Overview_Figure.png" alt="Zero-shot relabeling pipeline with foundation models (LUPUS)" style="width:100%;max-width:100%;" loading="lazy" />
-                    </div>
-                    <div style="flex:0 0 75%;max-width:75%;padding-left:20px;">
-                      <a href="https://robottasklabeling.github.io/" target="_blank" rel="noopener noreferrer">
-                        <papertitle>Scaling Robot Policy Learning via Zero-Shot Labeling with Foundation Models</papertitle>
-                      </a>
-                      <br />
-                      Nils Blank,
-                      <strong>Moritz Reuss</strong>,
-                      Marcel Rühle,
-                      Ömer Erdinç Yağmurlu,
-                      Fabian Wenzel,
-                      <a href="https://www.oiermees.com/" target="_blank" rel="noopener noreferrer">Oier Mees</a>,
-                      <a href="http://rudolf.intuitive-robots.net/" target="_blank" rel="noopener noreferrer">Rudolf Lioutikov</a>
-                      <br /><br />
-                      Conference on Robot Learning (<em>CoRL</em>), 2024 — Oral @ 2nd Workshop on Mobile Manipulation and Embodied Intelligence, <em>ICRA 2024</em>
-                      <br />
-                      <a href="https://openreview.net/pdf?id=EdVNB2kHv1" target="_blank" rel="noopener noreferrer">Paper</a>
-                      <p></p>
-                      <p>
-                        We introduce a method to automatically label uncurated, long-horizon robot teleoperation data at scale in a zero-shot manner without human intervention.
-                        We combine pre-trained vision-language foundation models to detect objects, propose tasks, segment tasks in large unlabeled interaction datasets,
-                        and train language-conditioned policies on the relabeled data. Initial experiments show that our method enables policies that match those trained
-                        with oracle human annotations.
-                      </p>
-                    </div>
-                  </div>
-                </td>
-              </tr>
-
-              <!-- MDT (highlighted) -->
-              <tr>
-                <td style="padding:20px;width:100%;vertical-align:middle">
-                  <div style="display:flex;">
-                    <div style="flex:0 0 25%;max-width:25%;">
-                      <img src="images/calvin_mdt.gif" alt="MDT: multimodal diffusion transformer on CALVIN" style="width:100%;max-width:100%;" loading="lazy" />
-                    </div>
-                    <div style="flex:0 0 75%;max-width:75%;padding-left:20px;">
-                      <a href="https://intuitive-robots.github.io/mdt_policy/" target="_blank" rel="noopener noreferrer">
-                        <papertitle>Multimodal Diffusion Transformer: Learning Versatile Behavior from Multimodal Goals</papertitle>
-                      </a>
-                      <br />
-                      <strong>Moritz Reuss</strong>,
-                      Ömer Erdinç Yağmurlu,
-                      Fabian Wenzel,
-                      <a href="http://rudolf.intuitive-robots.net/" target="_blank" rel="noopener noreferrer">Rudolf Lioutikov</a>
-                      <br /><br />
-                      <em>Robotics: Science and Systems (RSS)</em>, 2024 — <em><span style="color:red;">Oral</span></em> @ Workshop on Language and Robot Learning (LangRob), <em>CoRL 2023</em>
-                      <br />
-                      <a href="https://intuitive-robots.github.io/mdt_policy/" target="_blank" rel="noopener noreferrer">Project Page</a> /
-                      <a href="https://github.com/intuitive-robots/mdt_policy" target="_blank" rel="noopener noreferrer">Code</a> /
-                      <a href="https://arxiv.org/pdf/2407.05996" target="_blank" rel="noopener noreferrer">arXiv</a>
-                      <p></p>
-                      <p>
-                        We present a diffusion policy for learning from uncurated, reward-free offline data with sparse language labels.
-                        Multimodal Diffusion Transformer (MDT) learns complex, long-horizon behaviors and sets a new state of the art on CALVIN.
-                        MDT leverages pre-trained vision and language foundation models and aligns multimodal goal specifications in the transformer encoder’s latent space,
-                        using two self-supervised auxiliary objectives to better follow goals specified in language and images.
-                      </p>
-                    </div>
-                  </div>
-                </td>
-              </tr>
-
-              <!-- D3IL -->
-              <tr>
-                <td style="padding:20px;width:100%;vertical-align:middle">
-                  <div style="display:flex;">
-                    <div style="flex:0 0 25%;max-width:25%;">
-                      <img src="images/d3il_compressed.gif" alt="D3IL benchmark environments for imitation learning" style="width:100%;max-width:100%;" loading="lazy" />
-                    </div>
-                    <div style="flex:0 0 75%;max-width:75%;padding-left:20px;">
-                      <a href="https://openreview.net/pdf?id=6pPYRXKPpw" target="_blank" rel="noopener noreferrer">
-                        <papertitle>Towards Diverse Behaviors: A Benchmark for Imitation Learning with Human Demonstrations</papertitle>
-                      </a>
-                      <br />
-                      <a href="https://irl.anthropomatik.kit.edu/21_78.php" target="_blank" rel="noopener noreferrer">Xiaogang Jia</a>,
-                      <a href="https://alr.anthropomatik.kit.edu/21_495.php" target="_blank" rel="noopener noreferrer">Denis Blessing</a>,
-                      <a href="https://alr.iar.kit.edu/21_500.php" target="_blank" rel="noopener noreferrer">Xinkai Jiang</a>,
-                      <strong>Moritz Reuss</strong>,
-                      Atalay Donat,
-                      <a href="http://rudolf.intuitive-robots.net/" target="_blank" rel="noopener noreferrer">Rudolf Lioutikov</a>,
-                      <a href="https://alr.anthropomatik.kit.edu/21_65.php" target="_blank" rel="noopener noreferrer">Gerhard Neumann</a>
-                      <br /><br />
-                      <em>ICLR</em>, 2024
-                      <br />
-                      <a href="https://openreview.net/pdf?id=6pPYRXKPpw" target="_blank" rel="noopener noreferrer">OpenReview</a>
-                      <p></p>
-                      <p>
-                        D3IL introduces simulation benchmark environments and datasets tailored for imitation learning, designed to evaluate a model’s ability to learn
-                        and replicate diverse, multimodal human behaviors. Environments encompass multiple sub-tasks and object manipulations, providing rich diversity
-                        often lacking in other datasets. We also propose practical metrics to quantify behavioral diversity and benchmark state-of-the-art methods.
-                      </p>
-                    </div>
-                  </div>
-                </td>
-              </tr>
-
-              <!-- BESO (highlighted) -->
-              <tr>
-                <td style="padding:20px;width:100%;vertical-align:middle">
-                  <div style="display:flex;">
-                    <div style="flex:0 0 25%;max-width:25%;">
-                      <img src="images/beso_kitchen.gif" alt="BESO: goal-conditioned diffusion policy" style="width:100%;max-width:100%;" loading="lazy" />
-                    </div>
-                    <div style="flex:0 0 75%;max-width:75%;padding-left:20px;">
-                      <a href="https://intuitive-robots.github.io/beso-website" target="_blank" rel="noopener noreferrer">
-                        <papertitle>Goal-Conditioned Imitation Learning using Score-based Diffusion Policies</papertitle>
-                      </a>
-                      <br />
-                      <strong>Moritz Reuss</strong>,
-                      <a href="https://irl.anthropomatik.kit.edu/21_67.php" target="_blank" rel="noopener noreferrer">Maximilian Li</a>,
-                      <a href="https://irl.anthropomatik.kit.edu/21_78.php" target="_blank" rel="noopener noreferrer">Xiaogang Jia</a>,
-                      <a href="http://rudolf.intuitive-robots.net/" target="_blank" rel="noopener noreferrer">Rudolf Lioutikov</a>
-                      <br /><br />
-                      <em><span style="color:red; font-weight:bold;">Best Paper Award</span> @ Workshop on Learning from Diverse, Offline Data (L-DOD), <em>ICRA 2023</em>; <em>RSS</em>, 2023</em>
-                      <br />
-                      <a href="https://intuitive-robots.github.io/beso-website" target="_blank" rel="noopener noreferrer">Project Page</a> /
-                      <a href="https://github.com/intuitive-robots/beso" target="_blank" rel="noopener noreferrer">Code</a> /
-                      <a href="https://arxiv.org/pdf/2304.02532" target="_blank" rel="noopener noreferrer">arXiv</a>
-                      <p></p>
-                      <p>
-                        We present BESO, a policy representation for goal-conditioned imitation learning using score-based diffusion models.
-                        BESO effectively learns goal-directed, multimodal behavior from uncurated, reward-free offline data and achieves state of the art
-                        with as few as three denoising steps.
-                      </p>
-                    </div>
-                  </div>
-                </td>
-              </tr>
-
-              <!-- IMC -->
-              <tr>
-                <td style="padding:20px;width:100%;vertical-align:middle">
-                  <div style="display:flex;">
-                    <div style="flex:0 0 25%;max-width:25%;">
-                      <img src="images/IMC_obstacle_avoidance.png" alt="Information Maximizing Curriculum: obstacle avoidance result" style="width:100%;max-width:100%;" loading="lazy" />
-                    </div>
-                    <div style="flex:0 0 75%;max-width:75%;padding-left:20px;">
-                      <a href="https://arxiv.org/pdf/2303.15349" target="_blank" rel="noopener noreferrer">
-                        <papertitle>Information Maximizing Curriculum: A Curriculum-Based Approach for Learning Versatile Skills</papertitle>
-                      </a>
-                      <br />
-                      <a href="https://alr.anthropomatik.kit.edu/21_495.php" target="_blank" rel="noopener noreferrer">Denis Blessing</a>,
-                      <a href="https://alr.anthropomatik.kit.edu/21_69.php" target="_blank" rel="noopener noreferrer">Onur Celik</a>,
-                      <a href="https://irl.anthropomatik.kit.edu/21_78.php" target="_blank" rel="noopener noreferrer">Xiaogang Jia</a>,
-                      <strong>Moritz Reuss</strong>,
-                      <a href="https://alr.anthropomatik.kit.edu/21_67.php" target="_blank" rel="noopener noreferrer">Maximilian Xiling</a>,
-                      <a href="http://rudolf.intuitive-robots.net/" target="_blank" rel="noopener noreferrer">Rudolf Lioutikov</a>,
-                      <a href="https://alr.anthropomatik.kit.edu/21_65.php" target="_blank" rel="noopener noreferrer">Gerhard Neumann</a>
-                      <br /><br />
-                      <em>NeurIPS</em>, 2023
-                      <br />
-                      <a href="https://arxiv.org/pdf/2303.15349" target="_blank" rel="noopener noreferrer">arXiv</a>
-                      <p></p>
-                      <p>
-                        We introduce the Information Maximizing Curriculum to address mode-averaging in imitation learning by enabling specialization
-                        on representable data. A mixture-of-experts policy focuses on different data subsets, with a maximum-entropy objective for full dataset coverage.
-                      </p>
-                    </div>
-                  </div>
-                </td>
-              </tr>
-
-              <!-- Hybrid Inverse Dynamics (highlighted) -->
-              <tr>
-                <td style="padding:20px;width:100%;vertical-align:middle">
-                  <div style="display:flex;">
-                    <div style="flex:0 0 25%;max-width:25%;">
-                      <img src="images/panda_dance_scene.gif" alt="Hybrid inverse dynamics model on Franka Emika Panda" style="width:100%;max-width:100%;" loading="lazy" />
-                    </div>
-                    <div style="flex:0 0 75%;max-width:75%;padding-left:20px;">
-                      <a href="https://arxiv.org/pdf/2205.13804" target="_blank" rel="noopener noreferrer">
-                        <papertitle>End-to-End Learning of Hybrid Inverse Dynamics Models for Precise and Compliant Impedance Control</papertitle>
-                      </a>
-                      <br />
-                      <strong>Moritz Reuss</strong>,
-                      <a href="https://scholar.google.be/citations?user=OD-ysAcAAAAJ&hl=nl" target="_blank" rel="noopener noreferrer">Niels van Duijkeren</a>,
-                      <a href="https://scholar.google.be/citations?user=OZNzz9gAAAAJ&hl=nl" target="_blank" rel="noopener noreferrer">Robert Krug</a>,
-                      <a href="https://alr.anthropomatik.kit.edu/21_72.php" target="_blank" rel="noopener noreferrer">Philipp Becker</a>,
-                      <a href="https://alr.anthropomatik.kit.edu/21_224.php" target="_blank" rel="noopener noreferrer">Vaisakh Shaj</a>,
-                      <a href="https://alr.anthropomatik.kit.edu/21_65.php" target="_blank" rel="noopener noreferrer">Gerhard Neumann</a>
-                      <br /><br />
-                      <em>Robotics: Science and Systems (RSS)</em>, 2022
-                      <br />
-                      <a href="https://arxiv.org/pdf/2205.13804" target="_blank" rel="noopener noreferrer">arXiv</a>
-                      <p></p>
-                      <p>
-                        We present a hybrid model combining a differentiable rigid-body model with a recurrent LSTM to accurately model the inverse dynamics
-                        of a robot manipulator. A differentiable formulation of barycentric parameters enables end-to-end training jointly with the residual network
-                        while preserving physical consistency. On a Franka Emika Panda, the model enables precise and compliant motion tracking.
-                      </p>
-                    </div>
-                  </div>
-                </td>
-              </tr>
-
             </tbody>
           </table>
 
@@ -639,65 +615,254 @@
       </tr>
     </tbody>
   </table>
+  <!-- ===== Background A3: goal-conditioned reaching =====
+       A column-mounted 2-link arm reaches for the cursor. Motion runs in action chunks
+       (receding horizon): while one chunk executes, the next chunk is denoised from
+       Gaussian noise toward the current cursor position (coral = noisy, blue = clean).
+       The next chunk follows the cursor during the first part of its denoising, then
+       commits, so the arm never jerks. Chunks join with matching position and velocity.
+       Without a cursor (mouse away, touch devices) the arm reaches for idle goals. -->
   <script>
     (() => {
       const canvas = document.getElementById('trajectory-scene');
-      const context = canvas.getContext('2d');
+      const ctx = canvas.getContext('2d');
       const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
-      const colors = ['#5f8fc4', '#78a993', '#df8a73', '#cf7790', '#d7b45d'];
-      const paths = [
-        { x: 0.72, y: 0.12, dx: 0.23, dy: 0.11, color: colors[1], phase: 0.0 },
-        { x: 0.70, y: 0.44, dx: 0.27, dy: -0.10, color: colors[0], phase: 0.9 },
-        { x: 0.73, y: 0.74, dx: 0.22, dy: 0.09, color: colors[2], phase: 1.8 }
-      ];
-      let width = 0;
-      let height = 0;
-      let frame = null;
 
-      const resize = () => {
-        const scale = Math.min(window.devicePixelRatio || 1, 2);
-        width = window.innerWidth;
-        height = window.innerHeight;
-        canvas.width = Math.round(width * scale);
-        canvas.height = Math.round(height * scale);
-        context.setTransform(scale, 0, 0, scale, 0, 0);
+      const C_NOISE = [223, 138, 115], C_CLEAN = [95, 143, 196];
+      const C_EXEC = '#78a993', C_ARM = '#8b94a3', C_TABLE = '#c3c7ce', C_GOAL = '#6b7280';
+      const CHUNK_T = 2.2;            // seconds per action chunk
+      const PER_CHUNK = 18;           // particles per chunk
+      const MIN_WIDTH = 1200;         // the scene needs a wide right margin
+      const V_MAX = 0.8;              // U/s, cruising speed toward the goal
+      const STEP_MAX = 1.4;           // U, farthest a single chunk travels
+      const BEND = 0.18;              // U, sample-specific curvature of each generated chunk
+      const HOVER = 0.28;             // U, radius of the idle hover around a reached goal
+      const LIVE = 0.45;              // fraction of a chunk during which the NEXT chunk still follows the cursor
+
+      // Geometry in units of U: x relative to scene center, y relative to the table (negative = up)
+      const BASE_X = 1.55, SHOULDER_Y = -2.6, LINK = 1.85;
+      const GOAL_BOX = { x0: -1.35, x1: 1.0, y0: -2.2, y1: -0.35 };   // all reachable, elbow stays clear
+
+      let W = 0, H = 0, frame = null, G = {}, mouse = null;
+
+      const clamp01 = (v) => Math.max(0, Math.min(1, v));
+      const smooth = (a, b, v) => { const t = clamp01((v - a) / (b - a)); return t * t * (3 - 2 * t); };
+      const easeInOut = (t) => (t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2);
+      const mix = (a, b, t) => `rgb(${a.map((v, i) => Math.round(v + (b[i] - v) * t)).join(',')})`;
+      const rng = (seed) => {
+        let a = seed >>> 0;
+        return () => { a = (a + 0x6D2B79F5) | 0; let t = Math.imul(a ^ (a >>> 15), 1 | a); t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t; return ((t ^ (t >>> 14)) >>> 0) / 4294967296; };
       };
+      const gaussFrom = (r) => { let u = 0; while (!u) u = r(); return Math.sqrt(-2 * Math.log(u)) * Math.cos(2 * Math.PI * r()); };
+      const M_IN = 0.2;                  // goals sit inside the safety box, so curves rarely touch its edge
+      const clampGoal = (g) => ({ x: Math.max(GOAL_BOX.x0 + M_IN, Math.min(GOAL_BOX.x1 - M_IN, g.x)), y: Math.max(GOAL_BOX.y0 + M_IN, Math.min(GOAL_BOX.y1 - M_IN, g.y)) });
 
-      const position = (path, progress) => {
-        const x = path.x * width + path.dx * width * progress;
-        const y = path.y * height + Math.sin(progress * Math.PI) * path.dy * height;
+      // ---------- Goals: cursor snapshots per chunk, idle goals otherwise ----------
+      const snaps = new Map();            // chunk index -> clamped cursor goal (task units) or null
+      const idleGoal = (j) => {
+        const r = rng(Math.floor(j / 3) * 31 + 7);
+        return { x: -1.15 + r() * 2.0, y: -2.0 + r() * 1.5 };
+      };
+      const goalFor = (j) => snaps.get(j) || idleGoal(j);
+
+      // ---------- Chunks: cubic Hermite segments, C1-continuous across chunk boundaries ----------
+      const chunks = new Map();           // chunk index -> { p0, v0, p1, v1, n, bend, g }
+      const HOME = { x: 0.2, y: -1.4 };
+      const chunk = (j) => {
+        if (chunks.has(j)) return chunks.get(j);
+        const prev = j <= 0 ? null : chunk(j - 1);
+        const p0 = prev ? prev.p1 : HOME, v0 = prev ? prev.v1 : { x: 0, y: 0 };
+        const g = goalFor(j);
+        const dx = g.x - p0.x, dy = g.y - p0.y, dist = Math.hypot(dx, dy);
+        let p1, v1;
+        if (dist <= STEP_MAX) {                  // arrived: hover around the goal, like a stochastic policy would
+          const rh = rng(j * 7727 + 11), ang = rh() * Math.PI * 2, rad = HOVER * (0.5 + 0.5 * rh());
+          p1 = clampGoal({ x: g.x + Math.cos(ang) * rad, y: g.y + Math.sin(ang) * rad });
+          v1 = { x: 0, y: 0 };
+        }
+        else {
+          const ux = dx / dist, uy = dy / dist;
+          p1 = { x: p0.x + ux * STEP_MAX, y: p0.y + uy * STEP_MAX };
+          v1 = { x: ux * V_MAX, y: uy * V_MAX };                                          // keep cruising
+        }
+        const span = Math.hypot(p1.x - p0.x, p1.y - p0.y);
+        const r = rng(j * 104729 + 3);
+        const n = span > 1e-6 ? { x: -(p1.y - p0.y) / span, y: (p1.x - p0.x) / span } : { x: 0, y: 0 };
+        const c = { p0, v0, p1, v1, n, bend: (r() * 2 - 1) * BEND * Math.min(1, span), g };
+        chunks.set(j, c);
+        return c;
+      };
+      const invalidateFrom = (j) => { for (const key of [...chunks.keys()]) if (key >= j) chunks.delete(key); };
+
+      const eeAt = (t) => {                       // gripper center, task units
+        t = Math.max(0, t);
+        const j = Math.floor(t / CHUNK_T), s = t / CHUNK_T - j, c = chunk(j), T = CHUNK_T;
+        const s2 = s * s, s3 = s2 * s;
+        const h00 = 2 * s3 - 3 * s2 + 1, h10 = s3 - 2 * s2 + s, h01 = -2 * s3 + 3 * s2, h11 = s3 - s2;
+        const bump = 16 * s2 * (1 - s) * (1 - s);                 // zero value and slope at both ends: keeps C1
+        let x = h00 * c.p0.x + h10 * T * c.v0.x + h01 * c.p1.x + h11 * T * c.v1.x + bump * c.bend * c.n.x;
+        let y = h00 * c.p0.y + h10 * T * c.v0.y + h01 * c.p1.y + h11 * T * c.v1.y + bump * c.bend * c.n.y;
+        // continuous safety bounds: above the table, below the shoulder region, off the column
+        x = Math.max(GOAL_BOX.x0 - 0.1, Math.min(GOAL_BOX.x1 + 0.05, x));
+        y = Math.max(GOAL_BOX.y0 - 0.05, Math.min(GOAL_BOX.y1 + 0.05, y));
         return { x, y };
       };
 
-      const draw = (time) => {
-        context.clearRect(0, 0, width, height);
-        paths.forEach((path) => {
-          const points = Array.from({ length: 3 }, (_, index) => position(path, index / 2));
-          points.forEach((point, index) => {
-            context.beginPath();
-            context.arc(point.x, point.y, index === 1 ? 3 : 2.25, 0, Math.PI * 2);
-            context.fillStyle = colors[(index + Math.floor(path.phase * 2)) % colors.length];
-            context.globalAlpha = 0.34;
-            context.fill();
-          });
+      const px = (p) => ({ x: G.cx + p.x * G.U, y: G.ty + p.y * G.U });
+      const toTask = (q) => ({ x: (q.x - G.cx) / G.U, y: (q.y - G.ty) / G.U });
 
-          const progress = (Math.sin(time * 0.00035 + path.phase) + 1) / 2;
-          const moving = position(path, progress);
-          context.beginPath();
-          context.arc(moving.x, moving.y, 3.5, 0, Math.PI * 2);
-          context.fillStyle = path.color;
-          context.globalAlpha = 0.62;
-          context.fill();
+      const resize = () => {
+        const scale = Math.min(window.devicePixelRatio || 1, 2);
+        W = window.innerWidth; H = window.innerHeight;
+        canvas.width = Math.round(W * scale); canvas.height = Math.round(H * scale);
+        ctx.setTransform(scale, 0, 0, scale, 0, 0);
+        const U = Math.min(0.072 * W, 0.14 * H);
+        const cx = W - (BASE_X + 0.45) * U - 16, ty = 0.62 * H;
+        G = { U, cx, ty, bx: cx + BASE_X * U, sy: ty + SHOULDER_Y * U, L: LINK * U };
+      };
+
+      // 2-link IK to the wrist on one fixed elbow branch (continuous everywhere inside the reach)
+      const elbowFor = (wx, wy) => {
+        const dx = wx - G.bx, dy = wy - G.sy, L = G.L;
+        const d = Math.max(1e-6, Math.min(Math.hypot(dx, dy), 2 * L * 0.999));
+        const q2 = Math.acos(Math.max(-1, Math.min(1, (d * d - 2 * L * L) / (2 * L * L))));
+        const a = Math.atan2(dy, dx) + Math.atan2(L * Math.sin(q2), L + L * Math.cos(q2));
+        return { x: G.bx + L * Math.cos(a), y: G.sy + L * Math.sin(a) };
+      };
+
+      const strokePath = (t0, t1, n) => {
+        ctx.beginPath();
+        for (let j = 0; j <= n; j++) {
+          const q = px(eeAt(t0 + (t1 - t0) * (j / n)));
+          if (j === 0) ctx.moveTo(q.x, q.y); else ctx.lineTo(q.x, q.y);
+        }
+      };
+
+      const drawArm = (ee) => {
+        const U = G.U;
+        const wrist = { x: ee.x, y: ee.y - 0.42 * U }, palmY = ee.y - 0.3 * U, h = 0.32 * U;
+        const el = elbowFor(wrist.x, wrist.y);
+        ctx.lineCap = 'round';
+        ctx.fillStyle = C_ARM; ctx.globalAlpha = 0.16;
+        ctx.fillRect(G.bx - 0.09 * U, G.sy, 0.18 * U, G.ty - G.sy);
+        ctx.globalAlpha = 0.25;
+        ctx.fillRect(G.bx - 0.22 * U, G.ty - 0.1 * U, 0.44 * U, 0.1 * U);
+        ctx.strokeStyle = C_ARM; ctx.lineWidth = 5; ctx.globalAlpha = 0.2;
+        ctx.beginPath(); ctx.moveTo(G.bx, G.sy); ctx.lineTo(el.x, el.y); ctx.lineTo(wrist.x, wrist.y); ctx.stroke();
+        ctx.lineWidth = 3; ctx.globalAlpha = 0.3;
+        ctx.beginPath(); ctx.moveTo(wrist.x, wrist.y); ctx.lineTo(wrist.x, palmY); ctx.stroke();
+        ctx.lineWidth = 2.4; ctx.globalAlpha = 0.55;
+        ctx.beginPath();
+        ctx.moveTo(ee.x - h, palmY); ctx.lineTo(ee.x + h, palmY);
+        ctx.moveTo(ee.x - h, palmY); ctx.lineTo(ee.x - h, ee.y + 0.1 * U);
+        ctx.moveTo(ee.x + h, palmY); ctx.lineTo(ee.x + h, ee.y + 0.1 * U);
+        ctx.stroke();
+        ctx.lineWidth = 1.5;
+        [{ x: G.bx, y: G.sy, r: 5 }, { x: el.x, y: el.y, r: 5 }, { x: wrist.x, y: wrist.y, r: 3.5 }].forEach((j) => {
+          ctx.beginPath(); ctx.arc(j.x, j.y, j.r, 0, Math.PI * 2);
+          ctx.globalAlpha = 0.9; ctx.fillStyle = '#fffefb'; ctx.fill();
+          ctx.globalAlpha = 0.5; ctx.strokeStyle = C_ARM; ctx.stroke();
         });
-        context.globalAlpha = 1;
+      };
+
+      const drawGoal = (g, alpha) => {            // small crosshair target
+        const q = px(g), r = 0.16 * G.U;
+        ctx.strokeStyle = C_GOAL; ctx.lineWidth = 1.2; ctx.globalAlpha = alpha;
+        ctx.beginPath(); ctx.arc(q.x, q.y, r, 0, Math.PI * 2); ctx.stroke();
+        ctx.beginPath();
+        ctx.moveTo(q.x - r * 1.7, q.y); ctx.lineTo(q.x - r * 0.5, q.y);
+        ctx.moveTo(q.x + r * 0.5, q.y); ctx.lineTo(q.x + r * 1.7, q.y);
+        ctx.moveTo(q.x, q.y - r * 1.7); ctx.lineTo(q.x, q.y - r * 0.5);
+        ctx.moveTo(q.x, q.y + r * 0.5); ctx.lineTo(q.x, q.y + r * 1.7);
+        ctx.stroke();
+      };
+
+      const draw = (time) => {
+        ctx.clearRect(0, 0, W, H);
+        if (W >= MIN_WIDTH) {
+          const t = time / 1000, U = G.U;
+          const k = Math.floor(t / CHUNK_T), phase = t / CHUNK_T - k;
+
+          // goal snapshots: chunk k is executing (committed); chunk k+1 is being denoised and follows
+          // the cursor until LIVE, then commits.
+          const cur = mouse ? clampGoal(toTask(mouse)) : null;
+          if (!snaps.has(k)) snaps.set(k, cur);
+          if (!snaps.has(k + 1) || phase < LIVE) {
+            const old = snaps.get(k + 1);
+            const same = (a, b) => (!a && !b) || (a && b && Math.abs(a.x - b.x) < 1e-4 && Math.abs(a.y - b.y) < 1e-4);
+            if (!snaps.has(k + 1) || !same(old, cur)) { snaps.set(k + 1, cur); invalidateFrom(k + 1); }
+          }
+          for (const key of [...snaps.keys()]) if (key < k - 3) snaps.delete(key);
+          for (const key of [...chunks.keys()]) if (key < k - 3) chunks.delete(key);
+
+          // table
+          ctx.strokeStyle = C_TABLE; ctx.lineWidth = 1.5; ctx.globalAlpha = 0.7;
+          ctx.beginPath(); ctx.moveTo(Math.max(G.cx - 1.5 * U, (W + 800) / 2 + 8), G.ty); ctx.lineTo(G.bx + 0.4 * U, G.ty); ctx.stroke();   // table stops at the 800px content column
+
+          // goal the next chunk is heading for
+          drawGoal(goalFor(k + 1), mouse ? 0.5 : 0.25);
+
+          // executed path (fading tail)
+          const tail = Math.min(3.5, t), pieces = 24;
+          ctx.strokeStyle = C_EXEC; ctx.lineWidth = 2; ctx.lineCap = 'round';
+          for (let j = 0; j < pieces; j++) {
+            strokePath(t - tail + (tail * j) / pieces, t - tail + (tail * (j + 1)) / pieces, 2);
+            ctx.globalAlpha = 0.5 * ((j + 1) / pieces); ctx.stroke();
+          }
+
+          // rest of the current chunk: the committed plan being executed
+          ctx.strokeStyle = mix(C_CLEAN, C_CLEAN, 0); ctx.lineWidth = 1.5;
+          strokePath(t, (k + 1) * CHUNK_T, 20);
+          ctx.globalAlpha = 0.4; ctx.stroke();
+
+          // next chunk: denoised from noise toward the goal while the current chunk executes
+          const level = 1 - easeInOut(clamp01((phase - 0.06) / 0.62));
+          const appear = smooth(0, 0.1, phase), vanish = 1 - smooth(0.82, 1.0, phase);
+          const lineIn = smooth(0.64, 0.8, phase);
+          if (lineIn > 0) {
+            strokePath((k + 1) * CHUNK_T, (k + 2) * CHUNK_T, 20);
+            ctx.strokeStyle = mix(C_CLEAN, C_CLEAN, 0); ctx.lineWidth = 1.5;
+            ctx.globalAlpha = 0.4 * lineIn; ctx.stroke();
+          }
+          const r = rng((k + 1) * 7919 + 13), sigma = 0.32 * U;
+          const moving = level > 0.001 && level < 0.999;
+          for (let j = 0; j < PER_CHUNK; j++) {
+            const nx = gaussFrom(r), ny = gaussFrom(r), phi = (r() * 2 - 1) * 1.8;
+            const tgt = px(eeAt((k + 1) * CHUNK_T + (CHUNK_T * j) / (PER_CHUNK - 1)));
+            const at = (lv) => {
+              const th = phi * (1 - lv), c = Math.cos(th), sn = Math.sin(th);
+              return { x: tgt.x + lv * sigma * (nx * c - ny * sn), y: tgt.y + lv * sigma * (nx * sn + ny * c) };
+            };
+            const col = mix(C_NOISE, C_CLEAN, 1 - level);
+            if (moving) {
+              ctx.beginPath();
+              for (let m = 0; m <= 5; m++) {
+                const q = at(Math.min(1, level + m * 0.025));
+                if (m === 0) ctx.moveTo(q.x, q.y); else ctx.lineTo(q.x, q.y);
+              }
+              ctx.strokeStyle = col; ctx.lineWidth = 0.8; ctx.globalAlpha = 0.25 * appear; ctx.stroke();
+            }
+            const q = at(level);
+            ctx.beginPath(); ctx.arc(q.x, q.y, 1.4 + (1 - level) * 0.5, 0, Math.PI * 2);
+            ctx.fillStyle = col; ctx.globalAlpha = (0.42 + 0.33 * (1 - level)) * appear * vanish; ctx.fill();
+          }
+
+          drawArm(px(eeAt(t)));
+        }
+        ctx.globalAlpha = 1;
         frame = window.requestAnimationFrame(draw);
       };
+
+      if (window.matchMedia('(hover: hover)').matches) {
+        window.addEventListener('mousemove', (e) => { mouse = { x: e.clientX, y: e.clientY }; });
+        document.addEventListener('mouseleave', () => { mouse = null; });
+      }
 
       resize();
       window.addEventListener('resize', resize);
       if (!reducedMotion.matches) frame = window.requestAnimationFrame(draw);
       reducedMotion.addEventListener('change', (event) => {
-        if (event.matches && frame) window.cancelAnimationFrame(frame);
+        if (event.matches && frame) { window.cancelAnimationFrame(frame); frame = null; }
         if (!event.matches && !frame) frame = window.requestAnimationFrame(draw);
       });
     })();
